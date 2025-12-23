@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FiUploadCloud, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import API_URL from '../apiConfig';
 import '../styles/dashboard.css';
 
 export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
@@ -14,18 +15,10 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
   useEffect(() => {
     const check = async () => {
       try {
-        await axios.get('/api/health', { timeout: 5000 });
-        setBaseUrl('');
+        await axios.get(`${API_URL}/api/health`, { timeout: 5000 });
         setHealthStatus('online');
       } catch {
-        try {
-          await axios.get('http://localhost:5000/api/health', { timeout: 5000 });
-          setBaseUrl('http://localhost:5000');
-          setHealthStatus('direct');
-        } catch {
-          setBaseUrl('');
-          setHealthStatus('offline');
-        }
+        setHealthStatus('offline');
       }
     };
     check();
@@ -66,23 +59,16 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
 
       let response;
       try {
-        response = await axios.post((baseUrl || '') + '/api/validate-csv', formData, {
+        response = await axios.post(`${API_URL}/api/validate-csv`, formData, {
           timeout: 30000
         });
       } catch (primaryErr) {
-        // Fallback to direct backend URL if proxy fails (network error)
-        if (primaryErr.request && !primaryErr.response) {
-          response = await axios.post('http://localhost:5000/api/validate-csv', formData, {
-            timeout: 30000
-          });
-        } else {
-          throw primaryErr;
-        }
+        throw primaryErr;
       }
 
       if (response.data.success) {
         setFileInfo(response.data);
-        try { localStorage.setItem('ffx_fileInfo', JSON.stringify(response.data)); } catch {}
+        try { localStorage.setItem('ffx_fileInfo', JSON.stringify(response.data)); } catch { }
         setMessage({
           type: 'success',
           text: `✅ File validated! ${response.data.rows} rows, ${response.data.columns?.length || 0} columns`
@@ -116,16 +102,11 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
     try {
       let response;
       try {
-        response = await axios.get((baseUrl || '') + '/api/sample-data', { timeout: 30000 });
+        response = await axios.get(`${API_URL}/api/sample-data`, { timeout: 30000 });
       } catch (primaryErr) {
-        // Fallback to direct backend URL if proxy fails
-        if (primaryErr.request && !primaryErr.response) {
-          response = await axios.get('http://localhost:5000/api/sample-data', { timeout: 30000 });
-        } else {
-          throw primaryErr;
-        }
+        throw primaryErr;
       }
-      
+
       if (response.data.success) {
         setMessage({
           type: 'success',
@@ -135,7 +116,7 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
           ...response.data,
           sample: response.data.sample || []
         };
-        try { localStorage.setItem('ffx_fileInfo', JSON.stringify(sampleData)); } catch {}
+        try { localStorage.setItem('ffx_fileInfo', JSON.stringify(sampleData)); } catch { }
         onGenerateSample(sampleData);
       } else {
         setMessage({ type: 'error', text: `❌ ${response.data.error || 'Failed to generate sample data'}` });
@@ -153,20 +134,16 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
       setLoading(true);
       let resp;
       try {
-        resp = await axios.get((baseUrl || '') + '/api/sample-data', { timeout: 30000 });
+        resp = await axios.get(`${API_URL}/api/sample-data`, { timeout: 30000 });
       } catch (primaryErr) {
-        if (primaryErr.request && !primaryErr.response) {
-          resp = await axios.get('http://localhost:5000/api/sample-data', { timeout: 30000 });
-        } else {
-          throw primaryErr;
-        }
+        throw primaryErr;
       }
-      
+
       if (resp.data && resp.data.success) {
         const filepath = resp.data.filepath || 'uploads/sample_data.csv';
         const filename = filepath.split(/[/\\]/).pop();
         const a = document.createElement('a');
-        const downloadUrl = baseUrl === 'http://localhost:5000' ? `http://localhost:5000/api/download-results/${filename}` : `/api/download-results/${filename}`;
+        const downloadUrl = `${API_URL}/api/download-results/${filename}`;
         a.href = downloadUrl;
         a.download = filename;
         document.body.appendChild(a);
@@ -197,9 +174,9 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
   return (
     <div className="upload-section">
       <div style={{ position: 'absolute', top: 20, right: 20, display: 'flex', alignItems: 'center', gap: 8, background: 'white', padding: '8px 16px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-        <div style={{ width: 10, height: 10, borderRadius: '50%', background: healthStatus === 'online' ? '#2ed573' : healthStatus === 'direct' ? '#ffa502' : '#ff4757' }} />
+        <div style={{ width: 10, height: 10, borderRadius: '50%', background: healthStatus === 'online' ? '#2ed573' : '#ff4757' }} />
         <span style={{ fontSize: '0.85em', fontWeight: 600, color: 'var(--dark)' }}>
-          {healthStatus === 'online' ? 'Online' : healthStatus === 'direct' ? 'Direct' : 'Offline'}
+          {healthStatus === 'online' ? 'Online' : 'Offline'}
         </span>
       </div>
       <div className="upload-card">
@@ -208,9 +185,9 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
         <p style={{ marginBottom: '20px', color: 'var(--gray)' }}>
           Select a CSV file containing transaction data for fraud detection analysis
         </p>
-        
-        <div style={{ 
-          position: 'relative', 
+
+        <div style={{
+          position: 'relative',
           margin: '20px 0',
           padding: '10px',
           border: '2px dashed rgba(106, 17, 203, 0.3)',
@@ -245,8 +222,8 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
           </div>
         </div>
 
-        <div style={{ 
-          position: 'relative', 
+        <div style={{
+          position: 'relative',
           margin: '30px 0 20px 0',
           padding: '10px',
           border: '2px dashed rgba(37, 117, 252, 0.3)',

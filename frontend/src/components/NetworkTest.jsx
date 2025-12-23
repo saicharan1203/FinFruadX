@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../apiConfig';
 
 const NetworkTest = () => {
   const [status, setStatus] = useState('Testing...');
@@ -8,20 +9,12 @@ const NetworkTest = () => {
   useEffect(() => {
     const testConnection = async () => {
       try {
-        // Test direct backend connection
-        const backendResponse = await axios.get('http://localhost:5000/api/health');
+        const backendResponse = await axios.get(`${API_URL}/api/health`);
         setStatus('Backend Connection: ✅ Success');
         setDetails(`Backend response: ${JSON.stringify(backendResponse.data)}`);
       } catch (backendError) {
-        try {
-          // Test proxy connection
-          const proxyResponse = await axios.get('/api/health');
-          setStatus('Proxy Connection: ✅ Success');
-          setDetails(`Proxy response: ${JSON.stringify(proxyResponse.data)}`);
-        } catch (proxyError) {
-          setStatus('❌ Connection Failed');
-          setDetails(`Backend error: ${backendError.message}\nProxy error: ${proxyError.message}`);
-        }
+        setStatus('❌ Connection Failed');
+        setDetails(`Backend error: ${backendError.message}`);
       }
     };
 
