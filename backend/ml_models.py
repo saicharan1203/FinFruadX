@@ -126,10 +126,10 @@ class FraudDetectionModel:
     
     def train(self, df, fraud_label_col='is_fraud'):
         """Train fraud detection models"""
-        print("🚀 Preparing features...")
+        print("Preparing features...")
         df_processed = self.prepare_features(df)
         
-        print("🔍 Extracting features...")
+        print("Extracting features...")
         X = self.extract_feature_matrix(df_processed)
         
         if fraud_label_col in df_processed.columns:
@@ -137,7 +137,7 @@ class FraudDetectionModel:
         else:
             y = np.zeros(len(df))
         
-        print("📊 Scaling features...")
+        print("Scaling features...")
         X_scaled = self.scaler.fit_transform(X)
         
         # Store training data statistics for later use
@@ -160,7 +160,7 @@ class FraudDetectionModel:
             X_train, X_test = X_scaled, X_scaled
             y_train, y_test = y, y
         
-        print("🤖 Training Random Forest...")
+        print("Training Random Forest...")
         self.rf_model = RandomForestClassifier(
             n_estimators=150,  # Increased for better performance
             max_depth=12,      # Increased depth
@@ -173,7 +173,7 @@ class FraudDetectionModel:
         rf_score = self.rf_model.score(X_test, y_test) if len(set(y)) > 1 else 0
         print(f"   Random Forest Score: {rf_score:.4f}")
         
-        print("🚀 Training XGBoost...")
+        print("Training XGBoost...")
         # Calculate base_score as the mean of target variable, clamped between 0.01 and 0.99
         base_score = max(0.01, min(0.99, float(y.mean()))) if len(set(y)) > 1 else 0.5
         self.xgb_model = xgb.XGBClassifier(
@@ -191,7 +191,7 @@ class FraudDetectionModel:
         xgb_score = self.xgb_model.score(X_test, y_test) if len(set(y)) > 1 else 0
         print(f"   XGBoost Score: {xgb_score:.4f}")
         
-        print("🔮 Training Isolation Forest (Anomaly Detection)...")
+        print("Training Isolation Forest (Anomaly Detection)...")
         self.isolation_forest = IsolationForest(
             contamination=max(0.05, min(0.3, float(y.mean()) * 2)) if len(set(y)) > 1 else 0.1,  # Adaptive contamination
             random_state=42,
@@ -277,25 +277,56 @@ class FraudDetectionModel:
             print(f"Anomaly detection error: {str(e)}")
             anomaly_pred = np.ones(len(X_scaled))
             anomaly_score = np.zeros(len(X_scaled))
-        
+
         # Ensemble voting with weighted average based on model performance
         ensemble_proba = (rf_proba + xgb_proba) / 2
         ensemble_pred = (ensemble_proba > 0.5).astype(int)
-        
+        iso_vote = (anomaly_pred == -1).astype(int)
+
+        # Normalize anomaly score to 0-1 range for display
+        if len(anomaly_score) > 0:
+            iso_min = anomaly_score.min()
+            iso_range = anomaly_score.max() - iso_min
+            if iso_range == 0:
+                iso_norm = np.zeros_like(anomaly_score)
+            else:
+                iso_norm = (anomaly_score - iso_min) / iso_range
+        else:
+            iso_norm = np.zeros_like(anomaly_score)
+
         results_df = df.copy()
         results_df['rf_fraud_probability'] = rf_proba
         results_df['xgb_fraud_probability'] = xgb_proba
         results_df['ensemble_fraud_probability'] = ensemble_proba
         results_df['is_fraud_predicted'] = ensemble_pred
         results_df['anomaly_score'] = anomaly_score
-        results_df['is_anomaly'] = (anomaly_pred == -1).astype(int)
+        results_df['is_anomaly'] = iso_vote
+        results_df['iso_fraud_probability'] = iso_norm
         results_df['risk_level'] = results_df['ensemble_fraud_probability'].apply(
             lambda x: 'Critical' if x > 0.7 else ('High' if x > 0.5 else ('Medium' if x > 0.3 else 'Low'))
         )
-        
+
         # Add confidence score
         results_df['confidence_score'] = np.abs(ensemble_proba - 0.5) * 2
-        
+
+        # Store per-model decision labels for frontend explainability
+        results_df['rf_prediction'] = np.where(rf_pred == 1, 'Fraud', 'Normal')
+        results_df['xgb_prediction'] = np.where(xgb_pred == 1, 'Fraud', 'Normal')
+        results_df['iso_prediction'] = np.where(iso_vote == 1, 'Fraud', 'Normal')
+        results_df['final_decision_label'] = np.where(ensemble_pred == 1, 'Fraud', 'Normal')
+
+        agreement_state = []
+        for rf_vote, xgb_vote, iso_result in zip(rf_pred, xgb_pred, iso_vote):
+            unique_votes = len({int(rf_vote), int(xgb_vote), int(iso_result)})
+            if unique_votes == 1:
+                agreement_state.append('unanimous')
+            elif unique_votes == 2:
+                agreement_state.append('majority')
+            else:
+                agreement_state.append('split')
+
+        results_df['agreement_state'] = agreement_state
+
         return results_df
     
     def save(self, path='models'):
@@ -307,7 +338,7 @@ class FraudDetectionModel:
         joblib.dump(self.scaler, f'{path}/scaler.pkl')
         joblib.dump(self.label_encoders, f'{path}/encoders.pkl')
         joblib.dump(self.feature_names, f'{path}/features.pkl')
-        print(f"✅ Models saved to {path}")
+        print(f"Models saved to {path}")
     
     def load(self, path='models'):
         """Load trained models"""
@@ -318,7 +349,6 @@ class FraudDetectionModel:
             self.scaler = joblib.load(f'{path}/scaler.pkl')
             self.label_encoders = joblib.load(f'{path}/encoders.pkl')
             self.feature_names = joblib.load(f'{path}/features.pkl')
-            print(f"✅ Models loaded from {path}")
+            print(f"Models loaded from {path}")
         except Exception as e:
-            print(f"⚠️ Could not load models: {str(e)}")
-            print(f"⚠️ Could not load models: {str(e)}")
+            print(f"Could not load models: {str(e)}")

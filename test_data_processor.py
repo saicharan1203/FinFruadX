@@ -33,7 +33,7 @@ def test_sample_data_generation():
     fraud_count = df['is_fraud'].sum()
     assert fraud_count > 0, "Should have some fraud cases"
     
-    print("✅ Sample data generation test passed!")
+    print("Sample data generation test passed!")
     print(f"   - Generated {len(df)} rows")
     print(f"   - Found {fraud_count} fraud cases ({fraud_count/len(df)*100:.1f}%)")
     print(f"   - Columns: {list(df.columns)}")
@@ -63,7 +63,7 @@ def test_statistics_calculation(df):
     for key in expected_keys:
         assert key in stats, f"Missing key in statistics: {key}"
     
-    print("✅ Statistics calculation test passed!")
+    print("Statistics calculation test passed!")
     print(f"   - Total transactions: {stats['total_transactions']}")
     print(f"   - Fraud detected: {stats['fraudulent_detected']}")
     print(f"   - Fraud percentage: {stats['fraud_percentage']}%")
@@ -78,9 +78,9 @@ if __name__ == "__main__":
         # Test statistics calculation
         stats = test_statistics_calculation(df)
         
-        print("\n🎉 All tests passed successfully!")
+        print("\nAll tests passed successfully!")
         
     except Exception as e:
-        print(f"\n❌ Test failed with error: {str(e)}")
+        print(f"\nTest failed with error: {str(e)}")
         import traceback
         traceback.print_exc()

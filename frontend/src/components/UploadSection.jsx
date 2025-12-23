@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FiUploadCloud, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import '../styles/dashboard.css';
@@ -8,6 +8,42 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [fileInfo, setFileInfo] = useState(null);
+  const [baseUrl, setBaseUrl] = useState('');
+  const [healthStatus, setHealthStatus] = useState('checking');
+
+  useEffect(() => {
+    const check = async () => {
+      try {
+        await axios.get('/api/health', { timeout: 5000 });
+        setBaseUrl('');
+        setHealthStatus('online');
+      } catch {
+        try {
+          await axios.get('http://localhost:5000/api/health', { timeout: 5000 });
+          setBaseUrl('http://localhost:5000');
+          setHealthStatus('direct');
+        } catch {
+          setBaseUrl('');
+          setHealthStatus('offline');
+        }
+      }
+    };
+    check();
+    const interval = setInterval(check, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const [dragActive, setDragActive] = useState(false);
+  const handleDragOver = (e) => { e.preventDefault(); setDragActive(true); };
+  const handleDragLeave = (e) => { e.preventDefault(); setDragActive(false); };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setFile(e.dataTransfer.files[0]);
+      setMessage(null);
+    }
+  };
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -28,13 +64,25 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await axios.post('/api/validate-csv', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 30000 // 30 second timeout
-      });
+      let response;
+      try {
+        response = await axios.post((baseUrl || '') + '/api/validate-csv', formData, {
+          timeout: 30000
+        });
+      } catch (primaryErr) {
+        // Fallback to direct backend URL if proxy fails (network error)
+        if (primaryErr.request && !primaryErr.response) {
+          response = await axios.post('http://localhost:5000/api/validate-csv', formData, {
+            timeout: 30000
+          });
+        } else {
+          throw primaryErr;
+        }
+      }
 
       if (response.data.success) {
         setFileInfo(response.data);
+        try { localStorage.setItem('ffx_fileInfo', JSON.stringify(response.data)); } catch {}
         setMessage({
           type: 'success',
           text: `✅ File validated! ${response.data.rows} rows, ${response.data.columns?.length || 0} columns`
@@ -66,17 +114,28 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
     setLoading(true);
     setMessage(null);
     try {
-      const response = await axios.get('/api/sample-data');
+      let response;
+      try {
+        response = await axios.get((baseUrl || '') + '/api/sample-data', { timeout: 30000 });
+      } catch (primaryErr) {
+        // Fallback to direct backend URL if proxy fails
+        if (primaryErr.request && !primaryErr.response) {
+          response = await axios.get('http://localhost:5000/api/sample-data', { timeout: 30000 });
+        } else {
+          throw primaryErr;
+        }
+      }
+      
       if (response.data.success) {
         setMessage({
           type: 'success',
           text: '✅ Sample data generated successfully!'
         });
-        // Add sample data to the response for the UI
         const sampleData = {
           ...response.data,
           sample: response.data.sample || []
         };
+        try { localStorage.setItem('ffx_fileInfo', JSON.stringify(sampleData)); } catch {}
         onGenerateSample(sampleData);
       } else {
         setMessage({ type: 'error', text: `❌ ${response.data.error || 'Failed to generate sample data'}` });
@@ -89,8 +148,60 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
     }
   };
 
+  const downloadSample = async () => {
+    try {
+      setLoading(true);
+      let resp;
+      try {
+        resp = await axios.get((baseUrl || '') + '/api/sample-data', { timeout: 30000 });
+      } catch (primaryErr) {
+        if (primaryErr.request && !primaryErr.response) {
+          resp = await axios.get('http://localhost:5000/api/sample-data', { timeout: 30000 });
+        } else {
+          throw primaryErr;
+        }
+      }
+      
+      if (resp.data && resp.data.success) {
+        const filepath = resp.data.filepath || 'uploads/sample_data.csv';
+        const filename = filepath.split(/[/\\]/).pop();
+        const a = document.createElement('a');
+        const downloadUrl = baseUrl === 'http://localhost:5000' ? `http://localhost:5000/api/download-results/${filename}` : `/api/download-results/${filename}`;
+        a.href = downloadUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setMessage({ type: 'success', text: '✅ Sample CSV downloaded' });
+      } else {
+        setMessage({ type: 'error', text: `❌ ${resp.data?.error || 'Failed to generate sample'}` });
+      }
+    } catch (err) {
+      setMessage({ type: 'error', text: `❌ Download failed: ${err.response?.data?.error || err.message}` });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const resumeLast = () => {
+    try {
+      const s = localStorage.getItem('ffx_fileInfo');
+      if (!s) { setMessage({ type: 'error', text: 'No previous dataset found' }); return; }
+      const data = JSON.parse(s);
+      setFileInfo(data);
+      onUploadSuccess(data);
+      setMessage({ type: 'success', text: '✅ Resumed last dataset' });
+    } catch (e) {
+      setMessage({ type: 'error', text: `Failed to resume: ${e.message}` });
+    }
+  };
   return (
     <div className="upload-section">
+      <div style={{ position: 'absolute', top: 20, right: 20, display: 'flex', alignItems: 'center', gap: 8, background: 'white', padding: '8px 16px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+        <div style={{ width: 10, height: 10, borderRadius: '50%', background: healthStatus === 'online' ? '#2ed573' : healthStatus === 'direct' ? '#ffa502' : '#ff4757' }} />
+        <span style={{ fontSize: '0.85em', fontWeight: 600, color: 'var(--dark)' }}>
+          {healthStatus === 'online' ? 'Online' : healthStatus === 'direct' ? 'Direct' : 'Offline'}
+        </span>
+      </div>
       <div className="upload-card">
         <FiUploadCloud className="upload-icon" />
         <h2>📤 Upload Transaction Data</h2>
@@ -119,7 +230,7 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
           }}>
             STEP 1
           </div>
-          <div className="file-input-wrapper">
+          <div className={`file-input-wrapper ${dragActive ? 'drag-active' : ''}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
             <input
               type="file"
               accept=".csv,text/csv"
@@ -169,6 +280,20 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
               className={`btn btn-secondary ${loading ? 'btn-loading' : ''}`}
             >
               {loading ? '⏳ Generating...' : '🎲 Generate Sample Data'}
+            </button>
+            <button
+              onClick={downloadSample}
+              disabled={loading}
+              className={`btn btn-secondary ${loading ? 'btn-loading' : ''}`}
+            >
+              ⬇️ Download Sample CSV
+            </button>
+            <button
+              onClick={resumeLast}
+              disabled={loading}
+              className={`btn btn-secondary ${loading ? 'btn-loading' : ''}`}
+            >
+              ♻️ Resume Last Dataset
             </button>
           </div>
         </div>

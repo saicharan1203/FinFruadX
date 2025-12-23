@@ -29,7 +29,7 @@ def test_model_training():
         for key in expected_keys:
             assert key in training_stats, f"Missing key in training stats: {key}"
         
-        print("✅ Model training test passed!")
+        print("Model training test passed!")
         print(f"   - Samples trained: {training_stats['samples_trained']}")
         print(f"   - Fraud ratio: {training_stats['fraud_ratio']:.3f}")
         print(f"   - Random Forest score: {training_stats['rf_score']:.3f}")
@@ -46,14 +46,14 @@ def test_model_training():
         for col in expected_prediction_columns:
             assert col in predictions.columns, f"Missing prediction column: {col}"
         
-        print("✅ Model prediction test passed!")
+        print("Model prediction test passed!")
         print(f"   - Generated predictions for {len(predictions)} samples")
         print(f"   - Columns: {list(predictions.columns)}")
         
         return fraud_model, training_stats
         
     except Exception as e:
-        print(f"❌ Model training failed with error: {str(e)}")
+        print(f"Model training failed with error: {str(e)}")
         import traceback
         traceback.print_exc()
         raise
@@ -63,8 +63,8 @@ if __name__ == "__main__":
         # Test model training and prediction
         model, stats = test_model_training()
         
-        print("\n🎉 All training tests passed successfully!")
+        print("\nAll training tests passed successfully!")
         
     except Exception as e:
-        print(f"\n❌ Training test failed with error: {str(e)}")
+        print(f"\nTraining test failed with error: {str(e)}")
         sys.exit(1)

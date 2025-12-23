@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from io import StringIO
 import json
+import uuid
 
 class DataProcessor:
     @staticmethod
@@ -20,11 +21,13 @@ class DataProcessor:
             return {'success': False, 'error': str(e)}
     
     @staticmethod
-    def generate_sample_data(n_samples=1000):
+    def generate_sample_data(n_samples=1000, random_state=None):
         """Generate sample transaction data for testing"""
-        np.random.seed(42)
+        if random_state is not None:
+            np.random.seed(random_state)
         
         # Generate data as lists to avoid ndarray issues
+        transaction_ids = [f"TXN-{uuid.uuid4().hex[:8].upper()}" for _ in range(n_samples)]
         customer_ids = np.random.randint(1000, 2000, n_samples).tolist()
         merchant_ids = np.random.randint(100, 500, n_samples).tolist()
         amounts = (np.random.exponential(50, n_samples) + 10).tolist()
@@ -33,10 +36,11 @@ class DataProcessor:
             ['groceries', 'gas', 'restaurant', 'online', 'entertainment', 'travel'],
             n_samples
         ).tolist()
-        timestamps = pd.date_range('2024-01-01', periods=n_samples, freq='H').tolist()
+        timestamps = pd.date_range('2024-01-01', periods=n_samples, freq='h').tolist()
         locations = np.random.choice(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami'], n_samples).tolist()
         
         data = {
+            'transaction_id': transaction_ids,
             'customer_id': customer_ids,
             'merchant_id': merchant_ids,
             'amount': amounts,
@@ -100,6 +104,31 @@ class DataProcessor:
             category_stats = df_copy.groupby('merchant_category')['is_fraud_predicted'].agg(['count', 'sum']).reset_index()
             category_stats['fraud_rate'] = category_stats['sum'] / category_stats['count'] * 100
             category_fraud = category_stats.set_index('merchant_category')['fraud_rate'].to_dict()
+
+        # Amount band analysis
+        amount_band_stats = []
+        if 'amount' in df.columns:
+            df_amount = df.copy()
+            df_amount['amount'] = pd.to_numeric(df_amount['amount'], errors='coerce').fillna(0)
+            df_amount['is_fraud_predicted'] = pd.to_numeric(df_amount['is_fraud_predicted'], errors='coerce').fillna(0)
+
+            bins = [-1, 500, 2000, 5000, 10000, float('inf')]
+            labels = [
+                'Micro (<₹500)',
+                'Small (₹500-2k)',
+                'Medium (₹2k-5k)',
+                'Large (₹5k-10k)',
+                'Ultra (₹10k+)' 
+            ]
+            df_amount['amount_band'] = pd.cut(df_amount['amount'], bins=bins, labels=labels)
+
+            band_group = df_amount.groupby('amount_band')['is_fraud_predicted'].agg(['count', 'sum']).reset_index()
+            band_group['fraud_rate'] = band_group.apply(
+                lambda row: round((row['sum'] / row['count']) * 100, 2) if row['count'] > 0 else 0,
+                axis=1
+            )
+            band_group.rename(columns={'count': 'transactions', 'sum': 'fraud_count'}, inplace=True)
+            amount_band_stats = band_group.to_dict(orient='records')
         
         return {
             'total_transactions': int(total),
@@ -113,5 +142,6 @@ class DataProcessor:
             'high_confidence_frauds': high_confidence_frauds,
             'by_risk_level': risk_distribution,
             'by_category': df['merchant_category'].value_counts().head(5).to_dict() if 'merchant_category' in df.columns else {},
-            'category_fraud_rates': category_fraud
+            'category_fraud_rates': category_fraud,
+            'amount_band_stats': amount_band_stats
         }

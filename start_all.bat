@@ -3,7 +3,7 @@ echo Starting FinFraudX Application...
 
 echo Starting Backend Server...
 cd backend
-start "Backend" /min python app.py
+start "Backend" /min python backend_app.py
 
 timeout /t 5 /nobreak >nul
 

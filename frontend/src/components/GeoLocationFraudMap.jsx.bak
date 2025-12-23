@@ -1,0 +1,119 @@
+
+            {/* Stats Bar */}
+            <div className="map-stats-bar">
+                {statCards.map((card) => (
+                    <div key={card.id} className={`stat-item ${card.tone}`}>
+                        <span className="stat-value">{card.value}</span>
+                        <span className="stat-label">{card.label}</span>
+                    </div>
+                ))}
+                <div className="top-city-card">
+                    <span className="city-label">Top Fraud City</span>
+                    <span className="city-name">{topCity?.city || 'Awaiting data'}</span>
+                    <span className="city-meta">
+                        {topCity ? `${topCity.country} · ${topCity.fraudCount} cases` : 'Run detection to populate'}
+                    </span>
+                </div>
+            </div>
+
+            {/* World Map with Image */}
+            <div className="world-map-container">
+                {/* Use world map image as background */}
+                <div
+                    className="world-map-image"
+                    style={{
+                        backgroundImage: `url(${STATIC_MAP_PATH})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                />
+                <div className="map-halo"></div>
+                <div className="map-vignette"></div>
+
+                {/* Markers */}
+                <div className="markers-layer">
+                    {displayLocations.map((location) => {
+                        const color = getRiskColor(location.riskLevel);
+                        const isHighRisk = location.riskLevel === 'Critical' || location.riskLevel === 'High';
+                        const size = location.riskLevel === 'Critical' ? 14 : location.riskLevel === 'High' ? 12 : 10;
+
+                        return (
+                            <div
+                                key={location.id}
+                                className={`map-marker ${location.riskLevel.toLowerCase()}`}
+                                style={{
+                                    left: `${location.x}%`,
+                                    top: `${location.y}%`,
+                                    width: size,
+                                    height: size,
+                                    backgroundColor: color,
+                                    boxShadow: `0 0 ${isHighRisk ? 15 : 8}px ${color}, 0 0 ${isHighRisk ? 25 : 15}px ${color}80`,
+                                }}
+                                onMouseEnter={() => setHoveredLocation(location)}
+                                onMouseLeave={() => setHoveredLocation(null)}
+                            >
+                                {isHighRisk && <span className="marker-pulse" style={{ borderColor: color }}></span>}
+                            </div>
+                        );
+                    })}
+
+                    {hoveredLocation && (
+                        <div className="marker-tooltip" style={{ left: `${Math.min(hoveredLocation.x + 3, 75)}%`, top: `${Math.max(hoveredLocation.y - 12, 5)}%` }}>
+                            <div className="tooltip-title"> {hoveredLocation.city}</div>
+                            <div className="tooltip-subtitle">{hoveredLocation.country}</div>
+                            <div className="tooltip-info">
+                                <span> {hoveredLocation.fraudCount} cases</span>
+                                <span style={{ color: getRiskColor(hoveredLocation.riskLevel) }}>{hoveredLocation.riskLevel} Risk</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Legend */}
+                <div className="risk-legend">
+                    <div className="legend-title"> RISK LEVELS</div>
+                    <div className="legend-row"><span className="legend-marker critical"></span><span>Critical ({'>'}30 cases)</span></div>
+                    <div className="legend-row"><span className="legend-marker high"></span><span>High (21-30)</span></div>
+                    <div className="legend-row"><span className="legend-marker medium"></span><span>Medium (11-20)</span></div>
+                    <div className="legend-row"><span className="legend-marker low"></span><span>Low ({'<'}10)</span></div>
+                </div>
+
+                <button
+                    type="button"
+                    className="map-region-link"
+                    onClick={() => {
+                        const target = document?.getElementById('regional-breakdown');
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }}
+                >
+                    <span>Regional Breakdown</span>
+                    <FiChevronRight />
+                </button>
+            </div>
+
+            {/* Regional breakdown */}
+            <div className="regional-breakdown" id="regional-breakdown">
+                <h4> Regional Breakdown</h4>
+                <div className="region-cards">
+                    {Object.entries(REGION_COLORS).map(([region, color]) => {
+                        const stats = regionalStats[region] || { count: 0, cities: 0 };
+                        return (
+                            <div key={region} className={`region-card ${selectedRegion === region ? 'selected' : ''}`}
+                                onClick={() => setSelectedRegion(selectedRegion === region ? null : region)} style={{ borderLeftColor: color }}>
+                                <div className="region-header">
+                                    <strong>{region}</strong>
+                                    <span className="region-badge" style={{ background: color }}>{stats.cities}</span>
+                                </div>
+                                <span className="region-count">{stats.count.toLocaleString()} fraud cases</span>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default GeoLocationFraudMap;

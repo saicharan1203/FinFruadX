@@ -6,11 +6,23 @@ export const ResultsTable = ({ predictions }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  const [filterLevel, setFilterLevel] = useState('All');
+  const [search, setSearch] = useState('');
+  const [threshold, setThreshold] = useState(0.5);
+
   const results = predictions.results || [];
-  const totalPages = Math.ceil(results.length / itemsPerPage);
+  const filteredResults = results.filter((r) => {
+    const level = (r.risk_level || 'Low').toLowerCase();
+    const levelOk = filterLevel === 'All' || level === filterLevel.toLowerCase();
+    const text = `${r.customer_id || ''} ${r.merchant_category || ''} ${r.amount || ''}`.toString().toLowerCase();
+    const searchOk = search.trim() === '' || text.includes(search.trim().toLowerCase());
+    return levelOk && searchOk;
+  });
+
+  const totalPages = Math.ceil(filteredResults.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
   const endIdx = startIdx + itemsPerPage;
-  const currentResults = results.slice(startIdx, endIdx);
+  const currentResults = filteredResults.slice(startIdx, endIdx);
 
   const downloadResults = () => {
     const csv = convertToCSV(results);
@@ -43,9 +55,58 @@ export const ResultsTable = ({ predictions }) => {
     <div className="results-table-section">
       <div className="table-header">
         <h2>📋 Detailed Predictions</h2>
-        <button onClick={downloadResults} className="btn btn-secondary btn-sm">
-          <FiDownload /> Download CSV
-        </button>
+        <div className="button-group" style={{ justifyContent: 'flex-end' }}>
+          <select
+            value={filterLevel}
+            onChange={(e) => { setCurrentPage(1); setFilterLevel(e.target.value); }}
+            className="btn btn-sm"
+            style={{ background: 'white', color: 'var(--dark)' }}
+          >
+            <option>All</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Critical</option>
+          </select>
+          <input
+            value={search}
+            onChange={(e) => { setCurrentPage(1); setSearch(e.target.value); }}
+            placeholder="Search customer, category, amount"
+            className="btn btn-sm"
+            style={{ background: 'white', color: 'var(--dark)', minWidth: 240 }}
+          />
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={threshold}
+            onChange={(e) => setThreshold(parseFloat(e.target.value))}
+            className="btn btn-sm"
+            style={{ background: 'white', color: 'var(--dark)', width: 150 }}
+          />
+          <span style={{ fontWeight: 600, color: 'var(--dark)' }}>Threshold: {(threshold * 100).toFixed(0)}%</span>
+          <button onClick={downloadResults} className="btn btn-secondary btn-sm">
+            <FiDownload /> Download CSV
+          </button>
+          {predictions.results_file && (
+            <button
+              onClick={() => {
+                const filename = (predictions.results_file || '').split(/[/\\]/).pop();
+                if (!filename) return;
+                const a = document.createElement('a');
+                a.href = `/api/download-results/${filename}`;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+              }}
+              className="btn btn-secondary btn-sm"
+            >
+              <FiDownload /> Server CSV
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="table-wrapper">
@@ -63,7 +124,7 @@ export const ResultsTable = ({ predictions }) => {
           </thead>
           <tbody>
             {currentResults.map((tx, idx) => (
-              <tr key={idx} className={tx.is_fraud_predicted ? 'fraud-row' : ''}>
+              <tr key={idx} className={( (tx.ensemble_fraud_probability || 0) >= threshold ? 'fraud-row' : '' )}>
                 <td>{tx.customer_id || 'N/A'}</td>
                 <td>${(tx.amount || 0)?.toFixed(2)}</td>
                 <td>{tx.merchant_category || 'N/A'}</td>
