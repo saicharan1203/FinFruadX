@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from '../apiConfig';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { FiActivity, FiAlertTriangle, FiTrendingUp, FiDownload, FiWifi } from 'react-icons/fi';
 import 'react-circular-progressbar/dist/styles.css';
@@ -63,7 +64,7 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
       timestamp: new Date().toISOString()
     });
     try {
-      const response = await axios.post('/api/train', {
+      const response = await axios.post(`${API_URL}/api/train`, {
         filepath: fileInfo.filepath,
         fraud_column: fraudLabel
       });
@@ -92,7 +93,7 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
   const loadModel = async () => {
     setModelLoading(true);
     try {
-      const response = await axios.post('/api/load-model');
+      const response = await axios.post(`${API_URL}/api/load-model`);
       if (response.data && response.data.success) {
         setModelLoaded(response.data);
         setModelStatus({
@@ -126,7 +127,7 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post('/api/predict', {
+      const response = await axios.post(`${API_URL}/api/predict`, {
         filepath: fileInfo.filepath
       });
 
@@ -206,7 +207,7 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
                 const name = prompt('Enter model version name to save:');
                 if (!name) return;
                 try {
-                  const resp = await axios.post('/api/save-model', { name });
+                  const resp = await axios.post(`${API_URL}/api/save-model`, { name });
                   alert(resp.data?.message || 'Saved');
                 } catch (e) {
                   alert(`❌ Save failed: ${e.response?.data?.error || e.message}`);
@@ -355,7 +356,7 @@ const PredictionResults = ({ predictions }) => {
           </div>
           <h3>Avg. Risk Score</h3>
         </div>
-        
+
         {stats.avg_confidence && (
           <div className="metric-card metric-card-large">
             <div style={{ width: 100, height: 100, margin: '0 auto' }}>
@@ -425,7 +426,7 @@ const PredictionResults = ({ predictions }) => {
           ))}
         </ul>
       </div>
-      
+
       {stats.category_fraud_rates && Object.keys(stats.category_fraud_rates).length > 0 && (
         <div className="category-stats">
           <h3>⚠️ Fraud Rates by Category</h3>
