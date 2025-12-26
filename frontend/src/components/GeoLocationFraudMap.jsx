@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { FiGlobe, FiZoomIn, FiZoomOut, FiRefreshCw, FiChevronRight } from 'react-icons/fi';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Region colors for breakdown
 const REGION_COLORS = {
@@ -53,6 +54,7 @@ const getRiskLevel = (count) => {
 };
 
 export const GeoLocationFraudMap = ({ predictions }) => {
+    const { isDarkMode } = useTheme();
     const [hoveredLocation, setHoveredLocation] = useState(null);
     const [selectedRegion, setSelectedRegion] = useState(null);
     const [zoomLevel, setZoomLevel] = useState(1);
@@ -106,28 +108,59 @@ export const GeoLocationFraudMap = ({ predictions }) => {
     const getCityById = (id) => displayLocations.find(c => c.id === id);
 
     return (
-        <div className="geo-fraud-map-container">
+        <div
+            className="geo-fraud-map-container"
+            style={{
+                background: isDarkMode
+                    ? 'rgba(15, 20, 35, 0.95)'
+                    : 'rgba(255, 255, 255, 0.98)',
+                border: isDarkMode
+                    ? '1px solid rgba(255, 255, 255, 0.1)'
+                    : '1px solid rgba(0, 0, 0, 0.08)'
+            }}
+        >
             <div className="component-header">
                 <div className="header-left">
-                    <div className="header-icon"><FiGlobe /></div>
+                    <div className="header-icon" style={{ color: isDarkMode ? '#00d4ff' : '#6a11cb' }}><FiGlobe /></div>
                     <div>
-                        <h3>🌍 Geolocation Fraud Map</h3>
-                        <p>Global distribution of detected fraud activities</p>
+                        <h3 style={{ color: isDarkMode ? '#ffffff' : '#1f2430' }}>🌍 Geolocation Fraud Map</h3>
+                        <p style={{ color: isDarkMode ? 'rgba(255,255,255,0.6)' : '#7a869a' }}>Global distribution of detected fraud activities</p>
                     </div>
                 </div>
                 <div className="map-controls">
                     <button type="button" className="control-btn" onClick={() => setZoomLevel(Math.max(0.5, zoomLevel - 0.25))}><FiZoomOut /></button>
-                    <span className="zoom-level">{Math.round(zoomLevel * 100)}%</span>
+                    <span className="zoom-level" style={{ color: isDarkMode ? '#ffffff' : '#1f2430' }}>{Math.round(zoomLevel * 100)}%</span>
                     <button type="button" className="control-btn" onClick={() => setZoomLevel(Math.min(2, zoomLevel + 0.25))}><FiZoomIn /></button>
                     <button type="button" className="control-btn" onClick={() => setZoomLevel(1)}><FiRefreshCw /></button>
                 </div>
             </div>
 
-            <div className="map-stats-bar">
+            <div
+                className="map-stats-bar"
+                style={{
+                    background: isDarkMode
+                        ? 'rgba(15, 20, 35, 0.95)'
+                        : 'rgba(248, 250, 255, 0.98)',
+                    border: isDarkMode
+                        ? '1px solid rgba(255, 255, 255, 0.1)'
+                        : '1px solid rgba(0, 0, 0, 0.08)'
+                }}
+            >
                 {statCards.map((card) => (
-                    <div key={card.id} className={`stat-item ${card.tone}`}>
-                        <span className="stat-value">{card.value}</span>
-                        <span className="stat-label">{card.label}</span>
+                    <div
+                        key={card.id}
+                        className={`stat-item ${card.tone}`}
+                        style={{
+                            background: isDarkMode
+                                ? 'rgba(255, 255, 255, 0.08)'
+                                : 'rgba(255, 255, 255, 0.95)',
+                            border: isDarkMode
+                                ? '1px solid rgba(255, 255, 255, 0.1)'
+                                : '1px solid rgba(0, 0, 0, 0.06)'
+                        }}
+                    >
+                        <span className="stat-value" style={{ color: isDarkMode ? '#ffffff' : '#1f2430' }}>{card.value}</span>
+                        <span className="stat-label" style={{ color: isDarkMode ? 'rgba(255,255,255,0.6)' : '#7a869a' }}>{card.label}</span>
                     </div>
                 ))}
                 <div className="top-city-card">
@@ -138,12 +171,24 @@ export const GeoLocationFraudMap = ({ predictions }) => {
             </div>
 
             {/* World Map with Image Background */}
-            <div className="world-map-container" style={{ transform: `scale(${zoomLevel})` }}>
+            <div
+                className="world-map-container"
+                style={{
+                    transform: `scale(${zoomLevel})`,
+                    background: isDarkMode
+                        ? 'linear-gradient(135deg, #1a1f2e, #0f1419)'
+                        : 'linear-gradient(135deg, #e8ecf5, #d0d8e8)'
+                }}
+            >
                 {/* World Map Image */}
                 <img
                     src="/world-map-dark.png"
                     alt="World Map"
                     className="world-map-image"
+                    style={{
+                        opacity: isDarkMode ? 1 : 0.7,
+                        filter: isDarkMode ? 'none' : 'invert(0.85) hue-rotate(180deg)'
+                    }}
                 />
 
                 {/* SVG Overlay for Lines and Markers */}
@@ -204,35 +249,76 @@ export const GeoLocationFraudMap = ({ predictions }) => {
                     )}
                 </div>
 
-                <div className="risk-legend">
-                    <div className="legend-title">NETWORK NODES</div>
-                    <div className="legend-row"><span className="legend-marker active"></span><span>Active Connection</span></div>
-                    <div className="legend-row"><span className="legend-marker node"></span><span>Fraud Hotspot</span></div>
+                <div
+                    className="risk-legend"
+                    style={{
+                        background: isDarkMode
+                            ? 'rgba(0, 0, 0, 0.7)'
+                            : 'rgba(255, 255, 255, 0.95)',
+                        border: isDarkMode
+                            ? '1px solid rgba(255, 255, 255, 0.1)'
+                            : '1px solid rgba(0, 0, 0, 0.08)'
+                    }}
+                >
+                    <div className="legend-title" style={{ color: isDarkMode ? 'rgba(255,255,255,0.8)' : '#1f2430' }}>NETWORK NODES</div>
+                    <div className="legend-row"><span className="legend-marker active"></span><span style={{ color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#4b5164' }}>Active Connection</span></div>
+                    <div className="legend-row"><span className="legend-marker node"></span><span style={{ color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#4b5164' }}>Fraud Hotspot</span></div>
                 </div>
 
-                <button type="button" className="map-region-link" onClick={() => {
-                    const target = document?.getElementById('regional-breakdown');
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}>
-                    <span>Regional Breakdown</span>
-                    <FiChevronRight />
+                <button
+                    type="button"
+                    className="map-region-link"
+                    onClick={() => {
+                        const target = document?.getElementById('regional-breakdown');
+                        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    style={{
+                        color: isDarkMode ? '#ffffff' : '#6a11cb',
+                        background: isDarkMode ? 'rgba(106, 17, 203, 0.9)' : 'rgba(106, 17, 203, 0.1)',
+                        border: isDarkMode ? 'none' : '1px solid rgba(106, 17, 203, 0.3)'
+                    }}
+                >
+                    <span style={{ color: isDarkMode ? '#ffffff' : '#6a11cb' }}>Regional Breakdown</span>
+                    <FiChevronRight style={{ color: isDarkMode ? '#ffffff' : '#6a11cb' }} />
                 </button>
             </div>
 
-            <div className="regional-breakdown" id="regional-breakdown">
-                <h4>Regional Breakdown</h4>
+            <div
+                className="regional-breakdown"
+                id="regional-breakdown"
+                style={{
+                    background: isDarkMode
+                        ? 'rgba(15, 20, 35, 0.95)'
+                        : 'rgba(255, 255, 255, 0.98)',
+                    border: isDarkMode
+                        ? '1px solid rgba(255, 255, 255, 0.1)'
+                        : '1px solid rgba(0, 0, 0, 0.08)'
+                }}
+            >
+                <h4 style={{ color: isDarkMode ? '#ffffff' : '#1f2430' }}>Regional Breakdown</h4>
                 <div className="region-cards">
                     {Object.entries(REGION_COLORS).map(([region, color]) => {
                         const stats = regionalStats[region] || { count: 0, cities: 0 };
                         return (
-                            <div key={region} className={`region-card ${selectedRegion === region ? 'selected' : ''}`}
+                            <div
+                                key={region}
+                                className={`region-card ${selectedRegion === region ? 'selected' : ''}`}
                                 onClick={() => setSelectedRegion(selectedRegion === region ? null : region)}
-                                style={{ borderLeftColor: color }}>
+                                style={{
+                                    borderLeftColor: color,
+                                    background: isDarkMode
+                                        ? 'rgba(255, 255, 255, 0.05)'
+                                        : 'rgba(255, 255, 255, 0.98)',
+                                    border: isDarkMode
+                                        ? '1px solid rgba(255, 255, 255, 0.1)'
+                                        : '1px solid rgba(0, 0, 0, 0.06)'
+                                }}
+                            >
                                 <div className="region-header">
-                                    <strong>{region}</strong>
+                                    <strong style={{ color: isDarkMode ? '#ffffff' : '#1f2430' }}>{region}</strong>
                                     <span className="region-badge" style={{ background: color }}>{stats.cities}</span>
                                 </div>
-                                <span className="region-count">{stats.count.toLocaleString()} fraud cases</span>
+                                <span className="region-count" style={{ color: isDarkMode ? 'rgba(255,255,255,0.6)' : '#7a869a' }}>{stats.count.toLocaleString()} fraud cases</span>
                             </div>
                         );
                     })}

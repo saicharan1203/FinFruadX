@@ -16911,3 +16911,2628 @@ body.dark-theme .insight-content p {
 /* ============================================ */
 /* END TREND FORECASTING STYLES                */
 /* ============================================ */
+
+/* ============================================ */
+/* LIGHT MODE STAT CARD FIX                    */
+/* ============================================ */
+/* Override white text from glassmorphism for light mode stat cards */
+body:not(.dark-theme) .stat-card-live {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 247, 252, 0.9)) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+body:not(.dark-theme) .stat-content-live h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .stat-label {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .stat-trend {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .stat-trend span {
+  color: inherit !important;
+}
+
+body:not(.dark-theme) .stat-trend.primary {
+  color: #6a11cb !important;
+  background: rgba(106, 17, 203, 0.08) !important;
+}
+
+body:not(.dark-theme) .stat-trend.danger {
+  color: #ff4757 !important;
+  background: rgba(255, 71, 87, 0.12) !important;
+}
+
+body:not(.dark-theme) .stat-trend.success {
+  color: #20bf6b !important;
+  background: rgba(46, 213, 115, 0.12) !important;
+}
+
+body:not(.dark-theme) .stat-trend.warning {
+  color: #f39c12 !important;
+  background: rgba(255, 193, 7, 0.15) !important;
+}
+
+body:not(.dark-theme) .stat-icon-wrapper {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+body:not(.dark-theme) .stat-card-live.primary .stat-icon-wrapper {
+  background: rgba(106, 17, 203, 0.1) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .stat-card-live.danger .stat-icon-wrapper {
+  background: rgba(255, 71, 87, 0.08) !important;
+  color: #ff4757 !important;
+}
+
+body:not(.dark-theme) .stat-card-live.success .stat-icon-wrapper {
+  background: rgba(46, 213, 115, 0.1) !important;
+  color: #20bf6b !important;
+}
+
+body:not(.dark-theme) .stat-card-live.warning .stat-icon-wrapper {
+  background: rgba(255, 193, 7, 0.12) !important;
+  color: #f39c12 !important;
+}
+
+/* ============================================ */
+/* LIGHT MODE METRIC CARDS & BARS FIX          */
+/* ============================================ */
+
+/* Dashboard metrics container */
+body:not(.dark-theme) .dashboard-metrics {
+  display: grid;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+/* Metric card light mode */
+body:not(.dark-theme) .metric-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 247, 252, 0.9)) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
+  padding: 20px 25px;
+  border-radius: 16px;
+}
+
+body:not(.dark-theme) .metric-card h3 {
+  color: #1f2430 !important;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Metric bar container - the background track */
+body:not(.dark-theme) .metric-bar-container {
+  background: rgba(0, 0, 0, 0.08) !important;
+  border-radius: 999px;
+  height: 24px;
+  overflow: hidden;
+}
+
+/* Metric bar - the filled portion */
+body:not(.dark-theme) .metric-bar {
+  height: 100%;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  min-width: fit-content;
+}
+
+body:not(.dark-theme) .metric-bar.fraud-rate {
+  background: linear-gradient(90deg, #ff4757, #ff6b7a) !important;
+}
+
+body:not(.dark-theme) .metric-bar.avg-prob {
+  background: linear-gradient(90deg, #f39c12, #ffc107) !important;
+}
+
+body:not(.dark-theme) .metric-bar.fraud-amount {
+  background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+}
+
+body:not(.dark-theme) .metric-bar span {
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Live dashboard container */
+body:not(.dark-theme) .live-dashboard-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .live-dashboard-container .section-header h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .live-dashboard-container .section-header p {
+  color: #7a869a !important;
+}
+
+/* Recent alerts section */
+body:not(.dark-theme) .recent-alerts-section h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .alert-compact-item {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .alert-compact-details strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .alert-compact-details span {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .alert-time {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .prob-badge {
+  background: linear-gradient(135deg, #ff4757, #ff6b7a) !important;
+  color: #ffffff !important;
+}
+
+/* ============================================ */
+/* COMPREHENSIVE LIGHT MODE TEXT VISIBILITY    */
+/* ============================================ */
+
+/* Override the global glassmorphism white text for light mode */
+body:not(.dark-theme) .dashboard h1,
+body:not(.dark-theme) .dashboard h2,
+body:not(.dark-theme) .dashboard h3,
+body:not(.dark-theme) .dashboard h4,
+body:not(.dark-theme) .page-container h1,
+body:not(.dark-theme) .page-container h2,
+body:not(.dark-theme) .page-container h3,
+body:not(.dark-theme) .page-container h4,
+body:not(.dark-theme) .section-header h2,
+body:not(.dark-theme) .insights-header h2,
+body:not(.dark-theme) .dashboard-header h1 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .section-header p,
+body:not(.dark-theme) .insights-header p,
+body:not(.dark-theme) .dashboard-header p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .dashboard p,
+body:not(.dark-theme) .dashboard span,
+body:not(.dark-theme) .dashboard label,
+body:not(.dark-theme) .page-container p,
+body:not(.dark-theme) .page-container span,
+body:not(.dark-theme) .page-container label {
+  color: #4b5164 !important;
+}
+
+/* Page header styling */
+body:not(.dark-theme) .page-header h1 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .page-header p {
+  color: #7a869a !important;
+}
+
+/* Detection page */
+body:not(.dark-theme) .detection-container,
+body:not(.dark-theme) .detection-section {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .detection-container h2,
+body:not(.dark-theme) .detection-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .detection-container p,
+body:not(.dark-theme) .detection-container span {
+  color: #4b5164 !important;
+}
+
+/* Analytics page */
+body:not(.dark-theme) .analytics-panel,
+body:not(.dark-theme) .analytics-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .analytics-panel h2,
+body:not(.dark-theme) .analytics-panel h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .analytics-panel p,
+body:not(.dark-theme) .analytics-panel span {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .glance-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 252, 0.95)) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .glance-card span {
+  color: #7b8196 !important;
+}
+
+body:not(.dark-theme) .glance-card strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .glance-card small {
+  color: #5b6176 !important;
+}
+
+/* Insights panel */
+body:not(.dark-theme) .insights-panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .insight-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 252, 0.95)) !important;
+  border: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+body:not(.dark-theme) .insight-card strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .insight-card p {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .insight-label {
+  color: #7a8096 !important;
+}
+
+body:not(.dark-theme) .insight-table {
+  background: #fafaff !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .insight-table-header h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .insight-table th {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .insight-table td {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .insight-list li {
+  color: #1f2430 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Fraud patterns page */
+body:not(.dark-theme) .fraud-patterns-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .fraud-patterns-container h2,
+body:not(.dark-theme) .fraud-patterns-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .fraud-patterns-container p,
+body:not(.dark-theme) .fraud-patterns-container span {
+  color: #4b5164 !important;
+}
+
+/* Timeline styles */
+body:not(.dark-theme) .timeline-container,
+body:not(.dark-theme) .timeline-body {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .timeline-item h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .timeline-item p,
+body:not(.dark-theme) .timeline-item span {
+  color: #4b5164 !important;
+}
+
+/* Data explorer */
+body:not(.dark-theme) .data-explorer-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .data-explorer-container h2,
+body:not(.dark-theme) .data-explorer-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .data-explorer-container p,
+body:not(.dark-theme) .data-explorer-container span {
+  color: #4b5164 !important;
+}
+
+/* Model performance */
+body:not(.dark-theme) .model-performance-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .model-performance-container h2,
+body:not(.dark-theme) .model-performance-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .model-performance-container p,
+body:not(.dark-theme) .model-performance-container span {
+  color: #4b5164 !important;
+}
+
+/* Simulator */
+body:not(.dark-theme) .simulator-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .simulator-container h2,
+body:not(.dark-theme) .simulator-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .simulator-container p,
+body:not(.dark-theme) .simulator-container span,
+body:not(.dark-theme) .simulator-container label {
+  color: #4b5164 !important;
+}
+
+/* Activity log */
+body:not(.dark-theme) .activity-log-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .activity-log-container h2,
+body:not(.dark-theme) .activity-log-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .activity-log-container p,
+body:not(.dark-theme) .activity-log-container span {
+  color: #4b5164 !important;
+}
+
+/* Monitoring page */
+body:not(.dark-theme) .monitoring-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .monitoring-container h2,
+body:not(.dark-theme) .monitoring-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .monitoring-container p,
+body:not(.dark-theme) .monitoring-container span {
+  color: #4b5164 !important;
+}
+
+/* Reports page */
+body:not(.dark-theme) .reports-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .reports-container h2,
+body:not(.dark-theme) .reports-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .reports-container p,
+body:not(.dark-theme) .reports-container span,
+body:not(.dark-theme) .reports-container label {
+  color: #4b5164 !important;
+}
+
+/* Settings page */
+body:not(.dark-theme) .settings-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .settings-container h2,
+body:not(.dark-theme) .settings-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .settings-container p,
+body:not(.dark-theme) .settings-container span,
+body:not(.dark-theme) .settings-container label {
+  color: #4b5164 !important;
+}
+
+/* Cards and panels - generic */
+body:not(.dark-theme) .card,
+body:not(.dark-theme) .panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .card h3,
+body:not(.dark-theme) .panel h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .card p,
+body:not(.dark-theme) .card span,
+body:not(.dark-theme) .panel p,
+body:not(.dark-theme) .panel span {
+  color: #4b5164 !important;
+}
+
+/* Tables */
+body:not(.dark-theme) table {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) table th {
+  color: #7a869a !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+body:not(.dark-theme) table td {
+  color: #1f2430 !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Form elements */
+body:not(.dark-theme) input,
+body:not(.dark-theme) select,
+body:not(.dark-theme) textarea {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #1f2430 !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+body:not(.dark-theme) input::placeholder,
+body:not(.dark-theme) textarea::placeholder {
+  color: #7a869a !important;
+}
+
+/* Upload section */
+body:not(.dark-theme) .upload-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .upload-card h2,
+body:not(.dark-theme) .upload-card h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .upload-card p,
+body:not(.dark-theme) .upload-card span {
+  color: #4b5164 !important;
+}
+
+/* Risk calculator */
+body:not(.dark-theme) .risk-calculator-container {
+  background: #ffffff !important;
+}
+
+body:not(.dark-theme) .risk-calculator-container h2,
+body:not(.dark-theme) .risk-calculator-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .risk-calculator-container p,
+body:not(.dark-theme) .risk-calculator-container span,
+body:not(.dark-theme) .risk-calculator-container label {
+  color: #4b5164 !important;
+}
+
+/* Network graph, storyline, fairness containers */
+body:not(.dark-theme) .network-graph-container,
+body:not(.dark-theme) .storyline-container,
+body:not(.dark-theme) .fairness-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .network-graph-container h2,
+body:not(.dark-theme) .network-graph-container h3,
+body:not(.dark-theme) .storyline-container h2,
+body:not(.dark-theme) .storyline-container h3,
+body:not(.dark-theme) .fairness-container h2,
+body:not(.dark-theme) .fairness-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .network-graph-container p,
+body:not(.dark-theme) .network-graph-container span,
+body:not(.dark-theme) .storyline-container p,
+body:not(.dark-theme) .storyline-container span,
+body:not(.dark-theme) .fairness-container p,
+body:not(.dark-theme) .fairness-container span {
+  color: #4b5164 !important;
+}
+
+/* Fraud radar, heatmap calendar */
+body:not(.dark-theme) .radar-container,
+body:not(.dark-theme) .heatmap-calendar-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .radar-container h2,
+body:not(.dark-theme) .radar-container h3,
+body:not(.dark-theme) .heatmap-calendar-container h2,
+body:not(.dark-theme) .heatmap-calendar-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .radar-container p,
+body:not(.dark-theme) .radar-container span,
+body:not(.dark-theme) .heatmap-calendar-container p,
+body:not(.dark-theme) .heatmap-calendar-container span {
+  color: #4b5164 !important;
+}
+
+/* Transaction chain analysis */
+body:not(.dark-theme) .transaction-chain-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .transaction-chain-container h2,
+body:not(.dark-theme) .transaction-chain-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .transaction-chain-container p,
+body:not(.dark-theme) .transaction-chain-container span {
+  color: #4b5164 !important;
+}
+
+/* Model comparison */
+body:not(.dark-theme) .model-comparison-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .model-comparison-container h2,
+body:not(.dark-theme) .model-comparison-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .model-comparison-container p,
+body:not(.dark-theme) .model-comparison-container span {
+  color: #4b5164 !important;
+}
+
+/* Real-time fraud monitor */
+body:not(.dark-theme) .fraud-monitor-container,
+body:not(.dark-theme) .monitor-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .fraud-monitor-container h2,
+body:not(.dark-theme) .fraud-monitor-container h3,
+body:not(.dark-theme) .monitor-container h2,
+body:not(.dark-theme) .monitor-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .fraud-monitor-container p,
+body:not(.dark-theme) .fraud-monitor-container span,
+body:not(.dark-theme) .monitor-container p,
+body:not(.dark-theme) .monitor-container span {
+  color: #4b5164 !important;
+}
+
+/* Geo location map */
+body:not(.dark-theme) .geo-map-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .geo-map-container h2,
+body:not(.dark-theme) .geo-map-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .geo-map-container p,
+body:not(.dark-theme) .geo-map-container span {
+  color: #4b5164 !important;
+}
+
+/* Case builder */
+body:not(.dark-theme) .case-builder-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .case-builder-container h2,
+body:not(.dark-theme) .case-builder-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .case-builder-container p,
+body:not(.dark-theme) .case-builder-container span {
+  color: #4b5164 !important;
+}
+
+/* Alert system */
+body:not(.dark-theme) .alert-system-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .alert-system-container h2,
+body:not(.dark-theme) .alert-system-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .alert-system-container p,
+body:not(.dark-theme) .alert-system-container span {
+  color: #4b5164 !important;
+}
+
+/* Trend forecasting */
+body:not(.dark-theme) .trend-forecasting-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .trend-forecasting-container h2,
+body:not(.dark-theme) .trend-forecasting-container h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .trend-forecasting-container p,
+body:not(.dark-theme) .trend-forecasting-container span {
+  color: #4b5164 !important;
+}
+
+/* Training health card */
+body:not(.dark-theme) .training-health-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(244, 247, 255, 0.95)) !important;
+}
+
+body:not(.dark-theme) .training-health-title h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .training-health-title p {
+  color: #7a869a !important;
+}
+
+/* Risk bar cards */
+body:not(.dark-theme) .risk-bar-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .risk-bar-card h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .risk-bar-card p,
+body:not(.dark-theme) .risk-bar-card span {
+  color: #4b5164 !important;
+}
+
+/* Visualization sections */
+body:not(.dark-theme) .visualization-section {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .visualization-section h2,
+body:not(.dark-theme) .visualization-section h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .visualization-section p,
+body:not(.dark-theme) .visualization-section span {
+  color: #4b5164 !important;
+}
+
+/* Anomaly section */
+body:not(.dark-theme) .anomaly-section {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .anomaly-section h2,
+body:not(.dark-theme) .anomaly-section h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .anomaly-section p,
+body:not(.dark-theme) .anomaly-section span {
+  color: #4b5164 !important;
+}
+
+/* Results table section */
+body:not(.dark-theme) .results-table-section {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .results-table-section h2,
+body:not(.dark-theme) .results-table-section h3 {
+  color: #1f2430 !important;
+}
+
+/* Quick stats */
+body:not(.dark-theme) .quick-stat {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .quick-stat h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .quick-stat p,
+body:not(.dark-theme) .quick-stat span {
+  color: #4b5164 !important;
+}
+
+/* Stat pills */
+body:not(.dark-theme) .stat-pill {
+  background: #fff !important;
+}
+
+body:not(.dark-theme) .stat-pill strong {
+  color: #5c3af5 !important;
+}
+
+body:not(.dark-theme) .stat-pill span {
+  color: #7a87a6 !important;
+}
+
+/* Watchlist banner */
+body:not(.dark-theme) .watchlist-banner {
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.12), rgba(255, 165, 2, 0.12)) !important;
+}
+
+body:not(.dark-theme) .watchlist-banner strong {
+  color: #ff4757 !important;
+}
+
+body:not(.dark-theme) .watchlist-banner span {
+  color: #7a869a !important;
+}
+
+/* Alert chips */
+body:not(.dark-theme) .alert-chip {
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1)) !important;
+  color: #1f2430 !important;
+}
+
+/* Pill badges */
+body:not(.dark-theme) .pill-badge {
+  background: #f4f4ff !important;
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .pill-badge small {
+  color: #7a869a !important;
+}
+
+/* Report sections */
+body:not(.dark-theme) .report-section {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .report-section h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .report-section p,
+body:not(.dark-theme) .report-section span {
+  color: #4b5164 !important;
+}
+
+/* Filter and search boxes */
+body:not(.dark-theme) .search-box,
+body:not(.dark-theme) .filter-group {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .search-box input,
+body:not(.dark-theme) .filter-group select {
+  color: #1f2430 !important;
+}
+
+/* Chain cards */
+body:not(.dark-theme) .chain-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .chain-card h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .chain-card p,
+body:not(.dark-theme) .chain-card span {
+  color: #4b5164 !important;
+}
+
+/* Chain stats bar */
+body:not(.dark-theme) .chain-stats-bar {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+body:not(.dark-theme) .chain-stats-bar .stat-item {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .chain-stats-bar .stat-value {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .chain-stats-bar .stat-label {
+  color: #7a869a !important;
+}
+
+/* Risk filter select */
+body:not(.dark-theme) .risk-filter-select {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #1f2430 !important;
+}
+
+/* Forecast insights */
+body:not(.dark-theme) .forecast-insights .insight-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .insight-content strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .insight-content p {
+  color: #4b5164 !important;
+}
+
+/* Recharts/Chart text colors for light mode */
+body:not(.dark-theme) .recharts-text,
+body:not(.dark-theme) .recharts-cartesian-axis-tick-value {
+  fill: #1f2430 !important;
+}
+
+body:not(.dark-theme) .recharts-legend-item-text {
+  color: #4b5164 !important;
+}
+
+/* Tooltip styles */
+body:not(.dark-theme) .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .recharts-tooltip-label {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .recharts-tooltip-item {
+  color: #4b5164 !important;
+}
+
+/* ============================================ */
+/* LIGHT MODE MAIN LAYOUT                      */
+/* ============================================ */
+
+/* Main app background for light mode - softer gradient */
+body:not(.dark-theme) .app-layout {
+  background: linear-gradient(180deg,
+      #f8f9fc 0%,
+      #eef1f8 25%,
+      #e8ecf5 50%,
+      #e3e8f2 75%,
+      #dde3ef 100%) !important;
+}
+
+/* Remove stars effect in light mode */
+body:not(.dark-theme) .app-layout::before {
+  display: none !important;
+}
+
+/* Main content area */
+body:not(.dark-theme) .main-content {
+  background: transparent !important;
+}
+
+/* Page container light mode */
+body:not(.dark-theme) .page-container {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Page transition wrapper */
+body:not(.dark-theme) .page-transition {
+  background: transparent !important;
+}
+
+/* Dashboard container */
+body:not(.dark-theme) .dashboard {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Sidebar navigation light mode */
+body:not(.dark-theme) .sidebar,
+body:not(.dark-theme) .navigation-sidebar {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(248, 250, 255, 0.95) 100%) !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .sidebar-header h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .sidebar-header p,
+body:not(.dark-theme) .sidebar-header span {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .nav-item,
+body:not(.dark-theme) .sidebar-link {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .nav-item:hover,
+body:not(.dark-theme) .sidebar-link:hover {
+  background: rgba(106, 17, 203, 0.08) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .nav-item.active,
+body:not(.dark-theme) .sidebar-link.active {
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.15), rgba(37, 117, 252, 0.15)) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .nav-item svg,
+body:not(.dark-theme) .sidebar-link svg {
+  color: inherit !important;
+}
+
+/* Notification center */
+body:not(.dark-theme) .notification-center {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .notification-item {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .notification-item h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .notification-item p {
+  color: #4b5164 !important;
+}
+
+/* Theme toggle button */
+body:not(.dark-theme) .theme-toggle {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #1f2430 !important;
+}
+
+/* Scrollbar for light mode */
+body:not(.dark-theme) ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body:not(.dark-theme) ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+body:not(.dark-theme) ::-webkit-scrollbar-thumb {
+  background: rgba(106, 17, 203, 0.25);
+  border-radius: 4px;
+}
+
+body:not(.dark-theme) ::-webkit-scrollbar-thumb:hover {
+  background: rgba(106, 17, 203, 0.4);
+}
+
+/* Text selection for light mode */
+body:not(.dark-theme) ::selection {
+  background: rgba(106, 17, 203, 0.2);
+  color: #1f2430;
+}
+
+/* Buttons in light mode */
+body:not(.dark-theme) .btn-secondary,
+body:not(.dark-theme) .btn-outline {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #1f2430 !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+body:not(.dark-theme) .btn-secondary:hover,
+body:not(.dark-theme) .btn-outline:hover {
+  background: rgba(106, 17, 203, 0.08) !important;
+  border-color: rgba(106, 17, 203, 0.3) !important;
+}
+
+/* Dropdown menus */
+body:not(.dark-theme) .dropdown-menu {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+body:not(.dark-theme) .dropdown-item {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .dropdown-item:hover {
+  background: rgba(106, 17, 203, 0.08) !important;
+}
+
+/* Modals */
+body:not(.dark-theme) .modal-content {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .modal-header h2,
+body:not(.dark-theme) .modal-header h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .modal-body p,
+body:not(.dark-theme) .modal-body span {
+  color: #4b5164 !important;
+}
+
+/* Badges */
+body:not(.dark-theme) .badge {
+  background: rgba(106, 17, 203, 0.1) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .badge.success {
+  background: rgba(46, 213, 115, 0.15) !important;
+  color: #0a8341 !important;
+}
+
+body:not(.dark-theme) .badge.warning {
+  background: rgba(255, 165, 2, 0.15) !important;
+  color: #b15c00 !important;
+}
+
+body:not(.dark-theme) .badge.danger {
+  background: rgba(255, 71, 87, 0.15) !important;
+  color: #dc2626 !important;
+}
+
+/* Progress bars */
+body:not(.dark-theme) .progress-bar-container {
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Dividers and borders */
+body:not(.dark-theme) hr {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Date and time pickers */
+body:not(.dark-theme) .date-picker,
+body:not(.dark-theme) .time-picker {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #1f2430 !important;
+}
+
+/* Tab navigation */
+body:not(.dark-theme) .tab-nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .tab-item {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .tab-item:hover {
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .tab-item.active {
+  color: #6a11cb !important;
+  border-bottom-color: #6a11cb !important;
+}
+
+/* Accordion/Collapsible sections */
+body:not(.dark-theme) .accordion-header {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #1f2430 !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .accordion-content {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #4b5164 !important;
+}
+
+/* ============================================ */
+/* LIGHT MODE NAVIGATION SIDEBAR               */
+/* ============================================ */
+
+body:not(.dark-theme) .main-navigation {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(248, 250, 255, 0.98) 100%) !important;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.08) !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .nav-brand {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: rgba(106, 17, 203, 0.03) !important;
+}
+
+body:not(.dark-theme) .nav-collapse-toggle {
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  background: rgba(106, 17, 203, 0.08) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .nav-collapse-toggle:hover {
+  background: rgba(106, 17, 203, 0.15) !important;
+  box-shadow: 0 8px 20px rgba(106, 17, 203, 0.15) !important;
+}
+
+body:not(.dark-theme) .brand-text h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .brand-text p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .nav-item.glass {
+  color: #4b5164 !important;
+  background: rgba(106, 17, 203, 0.04) !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04) !important;
+}
+
+body:not(.dark-theme) .nav-item.glass:hover {
+  background: rgba(106, 17, 203, 0.12) !important;
+  color: #6a11cb !important;
+  box-shadow: 0 8px 25px rgba(106, 17, 203, 0.12) !important;
+}
+
+body:not(.dark-theme) .nav-item.glass.active {
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.15), rgba(37, 117, 252, 0.12)) !important;
+  color: #6a11cb !important;
+  border-left-color: #6a11cb !important;
+  box-shadow: 0 8px 25px rgba(106, 17, 203, 0.15) !important;
+}
+
+body:not(.dark-theme) .nav-icon {
+  color: inherit !important;
+}
+
+body:not(.dark-theme) .nav-label {
+  color: inherit !important;
+}
+
+body:not(.dark-theme) .nav-liquid-core {
+  color: inherit !important;
+}
+
+/* Nav footer section */
+body:not(.dark-theme) .nav-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: rgba(106, 17, 203, 0.03) !important;
+}
+
+body:not(.dark-theme) .user-info {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .user-avatar {
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1)) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .user-details strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .user-details span {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .logout-button {
+  color: #ff4757 !important;
+  background: rgba(255, 71, 87, 0.08) !important;
+  border: 1px solid rgba(255, 71, 87, 0.15) !important;
+}
+
+body:not(.dark-theme) .logout-button:hover {
+  background: rgba(255, 71, 87, 0.15) !important;
+  box-shadow: 0 8px 20px rgba(255, 71, 87, 0.15) !important;
+}
+
+body:not(.dark-theme) .theme-toggle {
+  background: rgba(106, 17, 203, 0.08) !important;
+  border: 1px solid rgba(106, 17, 203, 0.15) !important;
+}
+
+body:not(.dark-theme) .toggle-switch {
+  background: rgba(106, 17, 203, 0.15) !important;
+}
+
+body:not(.dark-theme) .toggle-slider {
+  background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+  color: #ffffff !important;
+}
+
+/* Additional light mode fixes for common elements */
+body:not(.dark-theme) .section-title {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .section-subtitle {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .empty-state {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .loading-spinner {
+  border-color: rgba(106, 17, 203, 0.2) !important;
+  border-top-color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .tooltip {
+  background: rgba(31, 36, 48, 0.95) !important;
+  color: #ffffff !important;
+}
+
+body:not(.dark-theme) .status-badge {
+  background: rgba(106, 17, 203, 0.1) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .status-badge.success {
+  background: rgba(46, 213, 115, 0.15) !important;
+  color: #0a8341 !important;
+}
+
+body:not(.dark-theme) .status-badge.warning {
+  background: rgba(255, 165, 2, 0.15) !important;
+  color: #b15c00 !important;
+}
+
+body:not(.dark-theme) .status-badge.danger,
+body:not(.dark-theme) .status-badge.error {
+  background: rgba(255, 71, 87, 0.15) !important;
+  color: #dc2626 !important;
+}
+
+body:not(.dark-theme) .status-badge.info {
+  background: rgba(37, 117, 252, 0.15) !important;
+  color: #2575fc !important;
+}
+
+/* Code blocks in light mode */
+body:not(.dark-theme) pre,
+body:not(.dark-theme) code {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #1f2430 !important;
+}
+
+/* Blockquotes */
+body:not(.dark-theme) blockquote {
+  border-left: 4px solid #6a11cb !important;
+  background: rgba(106, 17, 203, 0.05) !important;
+  color: #4b5164 !important;
+}
+
+/* Links */
+body:not(.dark-theme) a {
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) a:hover {
+  color: #2575fc !important;
+}
+
+/* Ensure icons have proper colors */
+body:not(.dark-theme) .icon,
+body:not(.dark-theme) svg {
+  color: inherit;
+}
+
+/* ============================================ */
+/* LIGHT MODE UPLOAD SECTION                   */
+/* ============================================ */
+
+body:not(.dark-theme) .upload-section {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .upload-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 15px 45px rgba(106, 17, 203, 0.08) !important;
+}
+
+body:not(.dark-theme) .upload-card h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .upload-card p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .file-label {
+  background: rgba(106, 17, 203, 0.06) !important;
+  border: 3px dashed rgba(106, 17, 203, 0.4) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .file-label:hover {
+  background: rgba(106, 17, 203, 0.12) !important;
+  border-color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .file-label span {
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .supported-formats {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .upload-icon {
+  color: #6a11cb !important;
+}
+
+/* Dashboard component container */
+body:not(.dark-theme) .dashboard-component {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .dashboard-component h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .dashboard-component p,
+body:not(.dark-theme) .dashboard-component span {
+  color: #4b5164 !important;
+}
+
+/* Feature highlights */
+body:not(.dark-theme) .feature-box {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .feature-box h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .feature-box p,
+body:not(.dark-theme) .feature-box span {
+  color: #4b5164 !important;
+}
+
+/* Step indicators */
+body:not(.dark-theme) .step-indicator {
+  background: rgba(106, 17, 203, 0.08) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .step-indicator.active {
+  background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+  color: #fff !important;
+}
+
+/* Generate sample button */
+body:not(.dark-theme) .generate-sample-btn {
+  background: rgba(46, 213, 115, 0.1) !important;
+  color: #20bf6b !important;
+  border: 1px solid rgba(46, 213, 115, 0.3) !important;
+}
+
+body:not(.dark-theme) .generate-sample-btn:hover {
+  background: rgba(46, 213, 115, 0.2) !important;
+}
+
+/* Prediction results */
+body:not(.dark-theme) .prediction-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .prediction-card h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .prediction-value {
+  color: #1f2430 !important;
+}
+
+/* Training progress */
+body:not(.dark-theme) .training-progress {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+body:not(.dark-theme) .training-progress-bar {
+  background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+}
+
+body:not(.dark-theme) .training-status {
+  color: #4b5164 !important;
+}
+
+/* Model info cards */
+body:not(.dark-theme) .model-info-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .model-info-card h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .model-info-card p,
+body:not(.dark-theme) .model-info-card span {
+  color: #4b5164 !important;
+}
+
+/* Confusion matrix */
+body:not(.dark-theme) .confusion-matrix {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .confusion-matrix-cell {
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .confusion-matrix-label {
+  color: #7a869a !important;
+}
+
+/* ROC curve container */
+body:not(.dark-theme) .roc-curve-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Feature importance */
+body:not(.dark-theme) .feature-importance-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .feature-bar {
+  background: linear-gradient(90deg, rgba(106, 17, 203, 0.15), rgba(37, 117, 252, 0.1)) !important;
+}
+
+body:not(.dark-theme) .feature-name {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .feature-value {
+  color: #6a11cb !important;
+}
+
+/* ============================================ */
+/* CRITICAL: OVERRIDE GLASSMORPHISM FOR LIGHT  */
+/* These override the global dark glassmorphism styles at the top of this file */
+/* ============================================ */
+
+/* Override the main glassmorphism containers (lines 76-102) */
+body:not(.dark-theme) .dashboard,
+body:not(.dark-theme) .page-container,
+body:not(.dark-theme) .risk-calculator-container,
+body:not(.dark-theme) .insights-panel,
+body:not(.dark-theme) .training-health-card,
+body:not(.dark-theme) .analytics-panel,
+body:not(.dark-theme) .upload-card,
+body:not(.dark-theme) .visualization-section,
+body:not(.dark-theme) .anomaly-section,
+body:not(.dark-theme) .results-table-section,
+body:not(.dark-theme) .settings-container,
+body:not(.dark-theme) .reports-container,
+body:not(.dark-theme) .detection-container,
+body:not(.dark-theme) .activity-log-container,
+body:not(.dark-theme) .monitoring-container,
+body:not(.dark-theme) .simulator-container,
+body:not(.dark-theme) .model-performance-container,
+body:not(.dark-theme) .fraud-patterns-container,
+body:not(.dark-theme) .data-explorer-container {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Override the inner glassmorphism cards (lines 104-124) */
+body:not(.dark-theme) .insight-card,
+body:not(.dark-theme) .glance-card,
+body:not(.dark-theme) .timeline-body,
+body:not(.dark-theme) .risk-score-details,
+body:not(.dark-theme) .calculator-results,
+body:not(.dark-theme) .calculator-inputs,
+body:not(.dark-theme) .insight-table,
+body:not(.dark-theme) .metric-card,
+body:not(.dark-theme) .action-card,
+body:not(.dark-theme) .chart-container,
+body:not(.dark-theme) .stat-card,
+body:not(.dark-theme) .quick-stat,
+body:not(.dark-theme) .panel,
+body:not(.dark-theme) .card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Additional container overrides */
+body:not(.dark-theme) .live-dashboard-container,
+body:not(.dark-theme) .advanced-analytics-container,
+body:not(.dark-theme) .pattern-visualization-container,
+body:not(.dark-theme) .network-graph-container,
+body:not(.dark-theme) .storyline-container,
+body:not(.dark-theme) .fairness-container,
+body:not(.dark-theme) .model-comparison-container,
+body:not(.dark-theme) .geo-map-container,
+body:not(.dark-theme) .case-builder-container,
+body:not(.dark-theme) .alert-system-container,
+body:not(.dark-theme) .trend-forecasting-container,
+body:not(.dark-theme) .transaction-chain-container,
+body:not(.dark-theme) .radar-container,
+body:not(.dark-theme) .heatmap-calendar-container,
+body:not(.dark-theme) .fraud-monitor-container,
+body:not(.dark-theme) .monitor-container {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Risk bars and progress sections */
+body:not(.dark-theme) .risk-bar-card,
+body:not(.dark-theme) .risk-distribution,
+body:not(.dark-theme) .risk-breakdown,
+body:not(.dark-theme) .risk-stat {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Dashboard metrics grid */
+body:not(.dark-theme) .dashboard-metrics {
+  background: transparent !important;
+}
+
+/* Stats grids */
+body:not(.dark-theme) .stats-grid,
+body:not(.dark-theme) .stats-grid-live,
+body:not(.dark-theme) .analytics-glance {
+  background: transparent !important;
+}
+
+/* Hero sections */
+body:not(.dark-theme) .hero-section,
+body:not(.dark-theme) .dashboard-hero {
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.08), rgba(37, 117, 252, 0.05)) !important;
+  border: 1px solid rgba(106, 17, 203, 0.12) !important;
+}
+
+body:not(.dark-theme) .hero-section h1,
+body:not(.dark-theme) .hero-section h2,
+body:not(.dark-theme) .dashboard-hero h1,
+body:not(.dark-theme) .dashboard-hero h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .hero-section p,
+body:not(.dark-theme) .hero-section span,
+body:not(.dark-theme) .dashboard-hero p,
+body:not(.dark-theme) .dashboard-hero span {
+  color: #4b5164 !important;
+}
+
+/* Training and model sections */
+body:not(.dark-theme) .training-section,
+body:not(.dark-theme) .model-section,
+body:not(.dark-theme) .feature-section {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Action cards */
+body:not(.dark-theme) .action-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+}
+
+body:not(.dark-theme) .action-card h3,
+body:not(.dark-theme) .action-card h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .action-card p {
+  color: #4b5164 !important;
+}
+
+/* Results and data tables */
+body:not(.dark-theme) .results-container,
+body:not(.dark-theme) .data-table-container,
+body:not(.dark-theme) .table-container {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Chart wrappers */
+body:not(.dark-theme) .chart-wrapper,
+body:not(.dark-theme) .graph-wrapper,
+body:not(.dark-theme) .visualization-wrapper {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Tab panels */
+body:not(.dark-theme) .tab-panel,
+body:not(.dark-theme) .tab-content {
+  background: rgba(255, 255, 255, 0.98) !important;
+}
+
+/* Collapsible sections */
+body:not(.dark-theme) .collapsible-section,
+body:not(.dark-theme) .expandable-section {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Filter sections */
+body:not(.dark-theme) .filter-section,
+body:not(.dark-theme) .filter-panel {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Summary boxes */
+body:not(.dark-theme) .summary-box,
+body:not(.dark-theme) .info-box,
+body:not(.dark-theme) .detail-box {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .summary-box h3,
+body:not(.dark-theme) .info-box h3,
+body:not(.dark-theme) .detail-box h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .summary-box p,
+body:not(.dark-theme) .info-box p,
+body:not(.dark-theme) .detail-box p {
+  color: #4b5164 !important;
+}
+
+/* List containers */
+body:not(.dark-theme) .list-container,
+body:not(.dark-theme) .item-list {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .list-item {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+body:not(.dark-theme) .list-item:hover {
+  background: rgba(106, 17, 203, 0.04) !important;
+}
+
+/* Ensure all section headers are visible */
+body:not(.dark-theme) .section-header,
+body:not(.dark-theme) .card-header,
+body:not(.dark-theme) .panel-header {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .section-header h2,
+body:not(.dark-theme) .section-header h3,
+body:not(.dark-theme) .card-header h2,
+body:not(.dark-theme) .card-header h3,
+body:not(.dark-theme) .panel-header h2,
+body:not(.dark-theme) .panel-header h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .section-header p,
+body:not(.dark-theme) .card-header p,
+body:not(.dark-theme) .panel-header p {
+  color: #7a869a !important;
+}
+
+/* Ensure all inner containers inherit light theme */
+body:not(.dark-theme) [class*="container"],
+body:not(.dark-theme) [class*="wrapper"],
+body:not(.dark-theme) [class*="section"],
+body:not(.dark-theme) [class*="panel"],
+body:not(.dark-theme) [class*="card"],
+body:not(.dark-theme) [class*="box"] {
+  color: #1f2430;
+}
+
+/* Fix any remaining dark text backgrounds */
+body:not(.dark-theme) [style*="background: rgba(255, 255, 255, 0.08)"],
+body:not(.dark-theme) [style*="background: rgba(255, 255, 255, 0.12)"] {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* ============================================ */
+/* DASHBOARD COMPONENT SPECIFIC LIGHT MODE     */
+/* ============================================ */
+
+/* Dashboard header */
+body:not(.dark-theme) .dashboard-header {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .dashboard-header h1,
+body:not(.dark-theme) .dashboard-header .highlight-title {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .dashboard-header p,
+body:not(.dark-theme) .dashboard-header .highlight-label {
+  color: #7a869a !important;
+}
+
+/* Status banner and pills */
+body:not(.dark-theme) .status-banner {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .status-pill {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .status-pill .status-label {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .status-pill .status-subtext {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .status-pill .status-timestamp {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .status-pill.status-success {
+  border-color: rgba(46, 213, 115, 0.3) !important;
+  background: rgba(46, 213, 115, 0.08) !important;
+}
+
+body:not(.dark-theme) .status-pill.status-warning {
+  border-color: rgba(255, 165, 2, 0.3) !important;
+  background: rgba(255, 165, 2, 0.08) !important;
+}
+
+body:not(.dark-theme) .status-pill.status-danger {
+  border-color: rgba(255, 71, 87, 0.3) !important;
+  background: rgba(255, 71, 87, 0.08) !important;
+}
+
+body:not(.dark-theme) .status-pill.status-muted {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Dataset banner and pills */
+body:not(.dark-theme) .dataset-banner {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .dataset-pill {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .dataset-pill span {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .dataset-pill strong {
+  color: #1f2430 !important;
+}
+
+/* Metrics grid */
+body:not(.dark-theme) .metrics-grid {
+  background: transparent !important;
+}
+
+/* Results container */
+body:not(.dark-theme) .results-container {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+body:not(.dark-theme) .results-container h2 {
+  color: #1f2430 !important;
+}
+
+/* Risk distribution */
+body:not(.dark-theme) .risk-distribution {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+body:not(.dark-theme) .risk-distribution h3 {
+  color: #1f2430 !important;
+}
+
+/* Risk bars */
+body:not(.dark-theme) .risk-bars {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .risk-bar-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+body:not(.dark-theme) .risk-bar-header {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .risk-level-label {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .risk-level-chip {
+  background: rgba(106, 17, 203, 0.1) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .risk-level-count {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .risk-bar-track {
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .risk-bar-fill {
+  background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+}
+
+body:not(.dark-theme) .risk-bar-percent {
+  color: #ffffff !important;
+}
+
+/* Category stats */
+body:not(.dark-theme) .category-stats {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+body:not(.dark-theme) .category-stats h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .category-stats ul {
+  list-style: none;
+  padding: 0;
+}
+
+body:not(.dark-theme) .category-stats li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body:not(.dark-theme) .category-stats li span {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .category-stats li strong {
+  color: #6a11cb !important;
+}
+
+/* Button group */
+body:not(.dark-theme) .button-group {
+  background: transparent !important;
+}
+
+/* Highlight titles and labels */
+body:not(.dark-theme) .highlight-title {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .highlight-label {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .highlight-action {
+  color: inherit !important;
+}
+
+/* Action cards */
+body:not(.dark-theme) .action-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 15px 0;
+}
+
+body:not(.dark-theme) .action-card h2,
+body:not(.dark-theme) .action-card h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .action-card p {
+  color: #7a869a !important;
+}
+
+/* Insights panel - explicit fix */
+body:not(.dark-theme) .insights-panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+body:not(.dark-theme) .insights-header h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .insights-header p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .insights-grid {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .insights-columns {
+  background: transparent !important;
+}
+
+/* Fix circular progress bar text */
+body:not(.dark-theme) .CircularProgressbar-text {
+  fill: #1f2430 !important;
+}
+
+/* ============================================ */
+/* UNIVERSAL LIGHT MODE FIX - CATCH ALL        */
+/* ============================================ */
+
+/* Force all elements with dark-looking backgrounds to be light */
+body:not(.dark-theme) div,
+body:not(.dark-theme) section,
+body:not(.dark-theme) article,
+body:not(.dark-theme) aside,
+body:not(.dark-theme) main {
+  color: #1f2430;
+}
+
+/* Force all paragraph and span text to be visible */
+body:not(.dark-theme) p,
+body:not(.dark-theme) span,
+body:not(.dark-theme) label,
+body:not(.dark-theme) li,
+body:not(.dark-theme) td,
+body:not(.dark-theme) th {
+  color: inherit;
+}
+
+/* Force all headings to be dark */
+body:not(.dark-theme) h1,
+body:not(.dark-theme) h2,
+body:not(.dark-theme) h3,
+body:not(.dark-theme) h4,
+body:not(.dark-theme) h5,
+body:not(.dark-theme) h6 {
+  color: #1f2430;
+}
+
+/* Strong and bold text */
+body:not(.dark-theme) strong,
+body:not(.dark-theme) b {
+  color: inherit;
+}
+
+/* Fix any remaining very transparent white backgrounds */
+body:not(.dark-theme) [class] {
+  --text-primary: #1f2430;
+  --text-secondary: #4b5164;
+  --text-muted: #7a869a;
+}
+
+/* ============================================ */
+/* PAGE HEADER LIGHT MODE - CRITICAL FIX       */
+/* ============================================ */
+
+/* Override the dark gradient background */
+body:not(.dark-theme) .page-header {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.98) 100%) !important;
+  border: 1px solid rgba(106, 17, 203, 0.12) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .page-header::before {
+  background: linear-gradient(90deg, #6a11cb, #2575fc, #00d4ff, #6a11cb) !important;
+}
+
+body:not(.dark-theme) .page-header h1 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .page-header p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .page-header-with-logo {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .page-header-with-logo h1 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .page-header-with-logo p {
+  color: #7a869a !important;
+}
+
+/* Page logo */
+body:not(.dark-theme) .page-logo {
+  filter: none !important;
+}
+
+/* Empty state page */
+body:not(.dark-theme) .empty-state-page {
+  background: rgba(255, 255, 255, 0.98) !important;
+}
+
+body:not(.dark-theme) .empty-state-page h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .empty-state-page p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .empty-icon {
+  color: #6a11cb !important;
+}
+
+/* ============================================ */
+/* FRAUD RADAR LIGHT MODE                      */
+/* ============================================ */
+
+body:not(.dark-theme) .radar-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+body:not(.dark-theme) .radar-container .section-header h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .radar-container .section-header p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .radar-display {
+  background: rgba(248, 250, 255, 0.95) !important;
+  border: 1px solid rgba(106, 17, 203, 0.1) !important;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* Note: The radar canvas itself uses hardcoded dark colors - this provides a light border */
+body:not(.dark-theme) .radar-canvas {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+body:not(.dark-theme) .radar-stats {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .radar-stat {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .stat-content-radar strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .stat-content-radar span {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .radar-legend {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body:not(.dark-theme) .legend-item-radar span {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .radar-info-box {
+  background: rgba(106, 17, 203, 0.05) !important;
+  border: 1px solid rgba(106, 17, 203, 0.12) !important;
+}
+
+body:not(.dark-theme) .radar-info-box p {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .radar-info-box strong {
+  color: #1f2430 !important;
+}
+
+/* ============================================ */
+/* GEO LOCATION MAP LIGHT MODE                 */
+/* ============================================ */
+
+body:not(.dark-theme) .geo-fraud-map-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+body:not(.dark-theme) .component-header {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .component-header h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .component-header p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .map-controls {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .control-btn {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #6a11cb !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .zoom-level {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .map-stats-bar {
+  background: rgba(106, 17, 203, 0.05) !important;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+body:not(.dark-theme) .stat-item {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .stat-item .stat-value {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .stat-item .stat-label {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .top-city-card {
+  background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+}
+
+body:not(.dark-theme) .top-city-card .city-label,
+body:not(.dark-theme) .top-city-card .city-name,
+body:not(.dark-theme) .top-city-card .city-meta {
+  color: #ffffff !important;
+}
+
+/* World map container - Note: map image is dark by design for visual effect */
+body:not(.dark-theme) .world-map-container {
+  background: linear-gradient(135deg, #1a1f2e, #0f1419) !important;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+body:not(.dark-theme) .risk-legend {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+body:not(.dark-theme) .map-region-link {
+  background: rgba(106, 17, 203, 0.9) !important;
+  color: #ffffff !important;
+}
+
+body:not(.dark-theme) .regional-breakdown {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+body:not(.dark-theme) .regional-breakdown h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .region-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .region-card strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .region-count {
+  color: #7a869a !important;
+}
+
+/* ============================================ */
+/* CASE BUILDER LIGHT MODE                     */
+/* ============================================ */
+
+body:not(.dark-theme) .case-builder {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+body:not(.dark-theme) .case-header h2 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .case-header p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .case-form {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 16px;
+  padding: 25px;
+}
+
+body:not(.dark-theme) .case-form h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .sample-case-card {
+  background: rgba(106, 17, 203, 0.04) !important;
+  border: 1px solid rgba(106, 17, 203, 0.12) !important;
+}
+
+body:not(.dark-theme) .sample-case-card h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .sample-case-card p {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .sample-eyebrow {
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .sample-meta-chip {
+  background: rgba(106, 17, 203, 0.08) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .case-list {
+  background: rgba(31, 36, 48, 0.95) !important;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+body:not(.dark-theme) .case-list-header h3 {
+  color: #ffffff !important;
+}
+
+body:not(.dark-theme) .case-save-shortcut {
+  background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+  color: #ffffff !important;
+}
+
+body:not(.dark-theme) .empty-state-activity {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+body:not(.dark-theme) .empty-state-activity h3 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body:not(.dark-theme) .empty-state-activity p {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+body:not(.dark-theme) .case-card {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body:not(.dark-theme) .case-transaction-label {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body:not(.dark-theme) .case-meta-grid .meta-label {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+body:not(.dark-theme) .case-meta-grid .meta-value {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body:not(.dark-theme) .case-description {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body:not(.dark-theme) .input-group label {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .quick-add h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .quick-add p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .quick-add-heading h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .quick-add-heading p {
+  color: #7a869a !important;
+}
+
+/* ============================================ */
+/* CASE LIST EXPLICIT LIGHT MODE FIX           */
+/* ============================================ */
+
+body:not(.dark-theme) .case-builder {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .case-layout {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .case-list {
+  background: rgba(248, 250, 255, 0.98) !important;
+  border: 1px solid rgba(106, 17, 203, 0.12) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .case-list-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .case-list-header h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .case-save-shortcut {
+  background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+  color: #ffffff !important;
+}
+
+body:not(.dark-theme) .empty-state-activity {
+  background: rgba(106, 17, 203, 0.04) !important;
+  border: 1px dashed rgba(106, 17, 203, 0.2) !important;
+}
+
+body:not(.dark-theme) .empty-state-activity h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .empty-state-activity p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .case-grid {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .case-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+body:not(.dark-theme) .case-card.active {
+  border-color: rgba(106, 17, 203, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.1) !important;
+}
+
+body:not(.dark-theme) .case-card-header {
+  background: transparent !important;
+}
+
+body:not(.dark-theme) .case-transaction-label {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .case-transaction-label strong {
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .case-meta-grid .meta-label {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .case-meta-grid .meta-value {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .case-description {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .case-tags {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .case-tag-chips span {
+  background: rgba(106, 17, 203, 0.08) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .case-card-footer {
+  background: transparent !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ============================================ */
+/* GEO FRAUD MAP EXPLICIT LIGHT MODE           */
+/* ============================================ */
+
+body:not(.dark-theme) .geo-fraud-map-container {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .component-header h3 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .component-header p {
+  color: #7a869a !important;
+}
+
+body:not(.dark-theme) .map-stats-bar {
+  background: rgba(248, 250, 255, 0.98) !important;
+}
+
+body:not(.dark-theme) .stat-item {
+  background: rgba(255, 255, 255, 0.98) !important;
+}
+
+body:not(.dark-theme) .stat-item .stat-value {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .stat-item .stat-label {
+  color: #7a869a !important;
+}
+
+/* Risk legend inside the map */
+body:not(.dark-theme) .risk-legend {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .risk-legend .legend-title {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .risk-legend .legend-row span {
+  color: #4b5164 !important;
+}
+
+body:not(.dark-theme) .legend-row span {
+  color: #4b5164 !important;
+}
+
+/* Regional breakdown */
+body:not(.dark-theme) .regional-breakdown {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body:not(.dark-theme) .regional-breakdown h4 {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .region-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+body:not(.dark-theme) .region-card strong {
+  color: #1f2430 !important;
+}
+
+body:not(.dark-theme) .region-count {
+  color: #7a869a !important;
+}
+
+/* Map region link button */
+body:not(.dark-theme) .map-region-link {
+  background: rgba(106, 17, 203, 0.1) !important;
+  border: 1px solid rgba(106, 17, 203, 0.3) !important;
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .map-region-link span {
+  color: #6a11cb !important;
+}
+
+body:not(.dark-theme) .map-region-link svg {
+  color: #6a11cb !important;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { FiFolderPlus, FiRefreshCcw, FiTrash2, FiTag, FiEdit2, FiZap } from 'react-icons/fi';
+import { useTheme } from '../contexts/ThemeContext';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -87,6 +88,7 @@ const formatCaseForForm = (caseData) => ({
 });
 
 export const CaseBuilder = ({ predictions }) => {
+  const { isDarkMode } = useTheme();
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -450,18 +452,35 @@ export const CaseBuilder = ({ predictions }) => {
           </button>
         </form>
 
-        <div className="case-list">
+        <div
+          className="case-list"
+          style={{
+            background: isDarkMode
+              ? 'rgba(31, 36, 48, 0.95)'
+              : 'rgba(248, 250, 255, 0.98)',
+            border: isDarkMode
+              ? '1px solid rgba(255, 255, 255, 0.1)'
+              : '1px solid rgba(0, 0, 0, 0.08)'
+          }}
+        >
           <div className="case-list-header">
-            <h3>Active Cases ({cases.length})</h3>
+            <h3 style={{ color: isDarkMode ? '#ffffff' : '#1f2430' }}>Active Cases ({cases.length})</h3>
             <button type="button" className="case-save-shortcut" onClick={handleScrollToForm}>
               Save Case
             </button>
           </div>
           {cases.length === 0 ? (
-            <div className="empty-state-activity">
+            <div
+              className="empty-state-activity"
+              style={{
+                background: isDarkMode
+                  ? 'rgba(255, 255, 255, 0.05)'
+                  : 'rgba(106, 17, 203, 0.04)'
+              }}
+            >
               <div className="empty-icon">🗃️</div>
-              <h3>No cases logged</h3>
-              <p>Select a suspicious transaction to start an investigation.</p>
+              <h3 style={{ color: isDarkMode ? 'rgba(255,255,255,0.9)' : '#1f2430' }}>No cases logged</h3>
+              <p style={{ color: isDarkMode ? 'rgba(255,255,255,0.6)' : '#7a869a' }}>Select a suspicious transaction to start an investigation.</p>
             </div>
           ) : (
             <div className="case-grid">
