@@ -172,10 +172,10 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
     }
   };
   return (
-    <div className="upload-section">
-      <div style={{ position: 'absolute', top: 20, right: 20, display: 'flex', alignItems: 'center', gap: 8, background: 'white', padding: '8px 16px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-        <div style={{ width: 10, height: 10, borderRadius: '50%', background: healthStatus === 'online' ? '#2ed573' : '#ff4757' }} />
-        <span style={{ fontSize: '0.85em', fontWeight: 600, color: 'var(--dark)' }}>
+    <div className="upload-section" style={{ position: 'relative' }}>
+      <div className="health-status-badge" style={{ position: 'absolute', top: 10, right: 10, display: 'flex', alignItems: 'center', gap: 6, background: 'white', padding: '6px 12px', borderRadius: 16, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', zIndex: 10 }}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: healthStatus === 'online' ? '#2ed573' : '#ff4757' }} />
+        <span style={{ fontSize: '0.8em', fontWeight: 600, color: 'var(--dark)' }}>
           {healthStatus === 'online' ? 'Online' : 'Offline'}
         </span>
       </div>
