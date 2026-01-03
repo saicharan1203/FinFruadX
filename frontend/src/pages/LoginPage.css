@@ -1839,10 +1839,86 @@ body.dark-theme .submit-button,
   letter-spacing: 0.5px;
 }
 
+@media (max-width: 1024px) {
+  .login-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 20px;
+    width: min(600px, 95vw);
+    text-align: center;
+  }
+
+  .login-hero {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .login-card {
+    margin: 0 auto;
+  }
+
+  .hero-ctas {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 60px 15px 40px;
+    overflow-y: auto;
+    align-items: flex-start;
+  }
+
+  .login-hero h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .login-hero p {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .login-card {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+
+  .login-header h1 {
+    font-size: 24px;
+  }
+
+  .tab {
+    padding: 12px 15px;
+    font-size: 12px;
+  }
+
+  .submit-button {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-hero h1 {
+    font-size: 28px;
+  }
+
+  .hero-pill {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .hero-badge {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .usecases-modal {
-    max-height: 95vh;
+    width: 95vw;
+    max-height: 90vh;
     border-radius: 20px;
   }
 
