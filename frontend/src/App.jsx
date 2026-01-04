@@ -94,7 +94,8 @@ function AppContent() {
 
   return (
     <div className="app-layout">
-      <VideoScrollTransition />
+      {/* VideoScrollTransition disabled for performance - was causing 120 particles to animate every frame */}
+      {/* <VideoScrollTransition /> */}
       <Navigation isCollapsed={isNavCollapsed} setIsCollapsed={setIsNavCollapsed} />
       <main className={`main-content ${isNavCollapsed ? 'expanded' : ''}`}>
         <AlertSystem predictions={predictions} />

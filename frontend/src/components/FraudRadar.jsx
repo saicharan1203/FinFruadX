@@ -36,8 +36,8 @@ export const FraudRadar = ({ predictions }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSweepAngle(prev => (prev + 2) % 360);
-    }, 30);
+      setSweepAngle(prev => (prev + 6) % 360); // Faster increment to compensate
+    }, 100); // Slowed from 30ms to 100ms for better performance
     return () => clearInterval(interval);
   }, []);
 

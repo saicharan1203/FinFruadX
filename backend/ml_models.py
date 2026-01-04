@@ -162,8 +162,8 @@ class FraudDetectionModel:
         
         print("Training Random Forest...")
         self.rf_model = RandomForestClassifier(
-            n_estimators=150,  # Increased for better performance
-            max_depth=12,      # Increased depth
+            n_estimators=50,   # Reduced for faster prediction (was 150)
+            max_depth=10,      # Slightly reduced for speed
             min_samples_split=5,
             min_samples_leaf=2,
             random_state=42,
@@ -177,11 +177,11 @@ class FraudDetectionModel:
         # Calculate base_score as the mean of target variable, clamped between 0.01 and 0.99
         base_score = max(0.01, min(0.99, float(y.mean()))) if len(set(y)) > 1 else 0.5
         self.xgb_model = xgb.XGBClassifier(
-            n_estimators=150,    # Increased for better performance
-            max_depth=6,         # Increased depth
-            learning_rate=0.1,
-            subsample=0.8,       # Added subsample for regularization
-            colsample_bytree=0.8, # Added column subsample for regularization
+            n_estimators=50,     # Reduced for faster prediction (was 150)
+            max_depth=5,         # Reduced depth for speed
+            learning_rate=0.15,  # Slightly higher to compensate
+            subsample=0.8,
+            colsample_bytree=0.8,
             random_state=42,
             eval_metric='logloss',
             base_score=base_score,

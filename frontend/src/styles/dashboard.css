@@ -4,6 +4,47 @@
   box-sizing: border-box;
 }
 
+/* ✅ SMOOTH SCROLLING FOR ALL PAGES */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* ✅ PERFORMANCE OPTIMIZATIONS - GPU ACCELERATION */
+*,
+*::before,
+*::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ✅ GPU ACCELERATION FOR SCROLLING CONTAINERS */
+.main-content,
+.dashboard,
+.page-container {
+  contain: layout style;
+}
+
+/* Keep app-layout without contain to allow proper scrolling */
+.app-layout {
+  position: relative;
+}
+
+/* ✅ CONTENT CONTAINMENT FOR CARDS - prevents layout recalculation */
+.insight-card,
+.glance-card,
+.case-card,
+.metric-card,
+.stat-card,
+.chart-container {
+  contain: content;
+}
+
 :root {
   --primary: #6a11cb;
   --secondary: #2575fc;
@@ -14,12 +55,13 @@
   --dark: #1f2430;
   --gray: #7a869a;
 
-  /* ✅ GLASSMORPHISM VARIABLES */
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-light: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  --glass-blur: blur(16px) saturate(180%);
+  /* ✅ GLASSMORPHISM VARIABLES - PERFORMANCE OPTIMIZED */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg-light: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --glass-blur: blur(8px);
+  /* Reduced from 16px for 2x performance */
 }
 
 /* ✅ NIGHT SKY GRADIENT BACKGROUND */
@@ -34,7 +76,7 @@
   position: relative;
 }
 
-/* ✅ TWINKLING STARS */
+/* ✅ STARS - STATIC (animation disabled for performance) */
 .app-layout::before {
   content: '';
   position: fixed;
@@ -45,12 +87,12 @@
   pointer-events: none;
   z-index: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.6) 1px, transparent 1px),
-    radial-gradient(circle, rgba(200, 180, 255, 0.7) 1.5px, transparent 1.5px);
-  background-size: 200px 200px, 150px 150px, 250px 250px;
-  background-position: 0 0, 50px 50px, 100px 30px;
-  animation: twinkle 4s ease-in-out infinite alternate;
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+  background-size: 200px 200px, 150px 150px;
+  background-position: 0 0, 50px 50px;
+  opacity: 0.4;
+  /* animation disabled for performance */
 }
 
 @keyframes twinkle {
@@ -73,7 +115,7 @@
   z-index: 1;
 }
 
-/* ✅ GLOBAL GLASSMORPHISM FOR ALL CARDS AND PANELS */
+/* ✅ CARDS AND PANELS - PERFORMANCE OPTIMIZED (no blur) */
 .dashboard,
 .page-container,
 .risk-calculator-container,
@@ -93,15 +135,14 @@
 .model-performance-container,
 .fraud-patterns-container,
 .data-explorer-container {
-  background: var(--glass-bg) !important;
-  backdrop-filter: var(--glass-blur) !important;
-  -webkit-backdrop-filter: var(--glass-blur) !important;
+  background: rgba(25, 20, 45, 0.9) !important;
+  /* backdrop-filter removed for performance */
   border: 1px solid var(--glass-border) !important;
-  box-shadow: var(--glass-shadow) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
   border-radius: 20px;
 }
 
-/* ✅ GLASSMORPHISM FOR INNER CARDS */
+/* ✅ INNER CARDS - PERFORMANCE OPTIMIZED (no blur) */
 .insight-card,
 .glance-card,
 .timeline-body,
@@ -116,11 +157,10 @@
 .quick-stat,
 .panel,
 .card {
-  background: var(--glass-bg-light) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+  background: rgba(35, 30, 55, 0.85) !important;
+  /* backdrop-filter removed for performance */
   border: 1px solid var(--glass-border) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* ✅ Text colors for glassmorphism */
@@ -2096,28 +2136,46 @@ body.dark-theme .main-navigation {
   position: relative;
 }
 
-/* Navigation Styles */
+/* Navigation Styles - PERFORMANCE OPTIMIZED */
 .main-navigation {
   width: 260px;
-  background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2), transparent 60%),
-    radial-gradient(circle at 80% 0%, rgba(106, 17, 203, 0.15), transparent 45%),
-    rgba(15, 16, 34, 0.65);
-  backdrop-filter: blur(30px) saturate(160%);
-  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  /* Solid background instead of blur for performance */
+  background: linear-gradient(180deg,
+      rgba(20, 15, 40, 0.98) 0%,
+      rgba(15, 12, 35, 0.98) 100%);
+  /* backdrop-filter disabled for performance */
   color: white;
   display: flex;
   flex-direction: column;
-  box-shadow: 12px 0 45px rgba(10, 10, 30, 0.5);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
   position: fixed;
   height: 100vh;
   overflow-y: auto;
   z-index: 1000;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  transition: width 0.3s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  will-change: width;
 }
 
 .main-navigation.collapsed {
   width: 80px;
+}
+
+/* ✅ MAIN CONTENT - INDEPENDENT SCROLL FROM SIDEBAR */
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-content.expanded {
+  margin-left: 80px;
 }
 
 .nav-brand {
