@@ -685,7 +685,8 @@ export const LoginPage = ({ onLoginSuccess }) => {
     return (
         <div className="login-container" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
             <div className="login-background">
-                <canvas ref={canvasRef} className="particle-canvas" />
+                {/* Canvas particle animation disabled for performance */}
+                {/* <canvas ref={canvasRef} className="particle-canvas" /> */}
                 <div
                     className="background-gradient"
                     style={{

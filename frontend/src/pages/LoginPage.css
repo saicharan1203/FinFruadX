@@ -283,39 +283,32 @@
   position: relative;
   z-index: 1;
 
-  /* ✅ TRUE GLASSMORPHISM - Frosted glass panel */
-  /* ✅ rgba transparent - NO solid background */
-  /* ✅ Background visible through card */
-  background: rgba(255, 255, 255, 0.08);
-
-  /* ✅ Backdrop blur - blurred glass UI */
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  /* PERFORMANCE OPTIMIZED - Solid background instead of blur */
+  background: rgba(30, 25, 50, 0.95);
 
   border-radius: 28px;
   padding: 48px;
   width: 100%;
   max-width: 480px;
 
-  /* Glass shadow and light purple tint border */
+  /* Glass shadow */
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 
-  /* Light purple tint glowing border */
-  border: 1px solid rgba(200, 180, 255, 0.25);
+  /* Light purple tint border */
+  border: 1px solid rgba(200, 180, 255, 0.2);
 
-  animation: slideUp 0.6s ease-out, cardGlow 4s ease-in-out infinite alternate;
+  animation: slideUp 0.6s ease-out;
 }
 
-/* ✅ FORCE TRUE GLASSMORPHISM - Override dark-theme */
+/* PERFORMANCE OPTIMIZED - No blur */
 body.dark-theme .login-card,
 .login-card {
-  background: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border: 1px solid rgba(200, 180, 255, 0.25) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+  background: rgba(30, 25, 50, 0.95) !important;
+  /* backdrop-filter removed for performance */
+  border: 1px solid rgba(200, 180, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
 }
 
 body.dark-theme .login-tabs,
