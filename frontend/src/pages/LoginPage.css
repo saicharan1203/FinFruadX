@@ -620,6 +620,21 @@ body.dark-theme .submit-button,
   font-weight: 400;
 }
 
+/* Force dark text on autofill (Chrome, Safari, Edge) */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group input:-webkit-autofill:active,
+.login-form input:-webkit-autofill,
+.login-card input:-webkit-autofill {
+  -webkit-text-fill-color: #1a1a2e !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset !important;
+  box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  color: #1a1a2e !important;
+  caret-color: #1a1a2e !important;
+}
+
 .error-message {
   display: flex;
   align-items: center;
