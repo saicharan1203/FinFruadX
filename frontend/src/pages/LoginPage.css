@@ -317,6 +317,7 @@ body.dark-theme .login-tabs,
 body.dark-theme .form-group input,
 .form-group input {
   background: rgba(255, 255, 255, 0.08) !important;
+  color: #1a1a2e !important;
 }
 
 body.dark-theme .submit-button,
@@ -588,12 +589,24 @@ body.dark-theme .submit-button,
   -webkit-backdrop-filter: blur(8px);
 }
 
+/* Login form specific - highest specificity for dark text */
+.login-form .form-group input,
+.login-card .form-group input,
+.login-container .form-group input,
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="email"] {
+  color: #1a1a2e !important;
+  -webkit-text-fill-color: #1a1a2e !important;
+}
+
 .form-group input:focus {
   outline: none;
   border-color: rgba(180, 150, 255, 0.5);
   box-shadow: 0 0 15px rgba(180, 150, 255, 0.15);
   background: rgba(255, 255, 255, 0.12);
   color: #1a1a2e !important;
+  -webkit-text-fill-color: #1a1a2e !important;
 }
 
 .form-group input:hover {
@@ -603,6 +616,7 @@ body.dark-theme .submit-button,
 
 .form-group input::placeholder {
   color: rgba(100, 100, 120, 0.8) !important;
+  -webkit-text-fill-color: rgba(100, 100, 120, 0.8) !important;
   font-weight: 400;
 }
 
