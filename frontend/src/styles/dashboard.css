@@ -4,15 +4,19 @@
   box-sizing: border-box;
 }
 
-/* ✅ SMOOTH SCROLLING FOR ALL PAGES */
+/* ✅ SMOOTH SCROLLING FOR ALL PAGES - 120FPS OPTIMIZED */
 html {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  /* 120fps optimizations */
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
 }
 
 /* ✅ PERFORMANCE OPTIMIZATIONS - GPU ACCELERATION */
@@ -23,11 +27,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ✅ GPU ACCELERATION FOR SCROLLING CONTAINERS */
+/* ✅ GPU ACCELERATION FOR SCROLLING CONTAINERS - 120FPS */
 .main-content,
 .dashboard,
 .page-container {
   contain: layout style;
+  /* GPU compositing for 120fps */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: scroll-position;
 }
 
 /* Keep app-layout without contain to allow proper scrolling */
@@ -35,14 +44,16 @@ body {
   position: relative;
 }
 
-/* ✅ CONTENT CONTAINMENT FOR CARDS - prevents layout recalculation */
+/* ✅ CONTENT CONTAINMENT FOR CARDS - prevents layout recalculation, 120fps optimized */
 .insight-card,
 .glance-card,
 .case-card,
 .metric-card,
 .stat-card,
 .chart-container {
-  contain: content;
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 150px;
 }
 
 :root {
@@ -1054,7 +1065,8 @@ body.dark-theme ::selection {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: pulseGlow 2.2s ease-in-out infinite;
+  /* animation: pulseGlow 2.2s ease-in-out infinite; DISABLED FOR PERFORMANCE */
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
 }
 
 .trailer-score {
@@ -2071,9 +2083,10 @@ body,
 
 body {
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Static gradient - animation disabled for performance */
   background: linear-gradient(120deg, #667eea, #764ba2, #6a11cb);
-  background-size: 300% 300%;
-  animation: gradientSlide 18s ease infinite;
+  background-size: 100% 100%;
+  /* animation: gradientSlide 18s ease infinite; DISABLED FOR PERFORMANCE */
   color: var(--light);
   min-height: 100vh;
   overflow-x: hidden;
@@ -2128,12 +2141,15 @@ body.dark-theme .main-navigation {
   background: linear-gradient(180deg, #0f1419 0%, #1a1f2e 100%);
 }
 
-/* App Layout */
+/* App Layout - Fixed scroll isolation */
 .app-layout {
   display: flex;
   min-height: 100vh;
   width: 100%;
   position: relative;
+  /* Prevent body scroll - only main-content scrolls */
+  overflow: hidden;
+  height: 100vh;
 }
 
 /* Navigation Styles - PERFORMANCE OPTIMIZED */
@@ -2149,12 +2165,20 @@ body.dark-theme .main-navigation {
   flex-direction: column;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
   position: fixed;
+  top: 0;
+  left: 0;
   height: 100vh;
+  /* Prevent sidebar from scrolling with main content */
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
   z-index: 1000;
   transition: width 0.3s ease;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   will-change: width;
+  /* Isolate scroll from main content */
+  isolation: isolate;
+  contain: layout style;
 }
 
 .main-navigation.collapsed {
@@ -2165,13 +2189,20 @@ body.dark-theme .main-navigation {
 .main-content {
   flex: 1;
   margin-left: 260px;
-  min-height: 100vh;
+  height: 100vh;
+  /* Main content is the ONLY scroll container */
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
   position: relative;
   z-index: 1;
   padding: 20px;
   transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Isolate scroll from sidebar */
+  isolation: isolate;
+  /* GPU acceleration for smooth scroll */
+  transform: translateZ(0);
+  -webkit-overflow-scrolling: touch;
 }
 
 .main-content.expanded {
@@ -2268,7 +2299,7 @@ body.dark-theme .main-navigation {
   background: var(--item-gradient, linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05)));
   opacity: 0.25;
   filter: blur(10px);
-  animation: prismFlow 8s linear infinite;
+  /* animation: prismFlow 8s linear infinite; DISABLED FOR PERFORMANCE */
   z-index: 0;
 }
 
@@ -2321,7 +2352,7 @@ body.dark-theme .main-navigation {
   background: rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 10px 20px rgba(0, 0, 0, 0.25);
   background-image: var(--item-gradient, linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05)));
-  animation: prismHue 10s ease-in-out infinite;
+  /* animation: prismHue 10s ease-in-out infinite; DISABLED FOR PERFORMANCE */
 }
 
 .nav-liquid-overlay {
@@ -2330,7 +2361,8 @@ body.dark-theme .main-navigation {
   height: 80%;
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.7), transparent 60%);
   filter: blur(12px);
-  animation: liquidSweep 4s ease-in-out infinite;
+  /* animation: liquidSweep 4s ease-in-out infinite; DISABLED FOR PERFORMANCE */
+  opacity: 0.3;
 }
 
 .nav-liquid-core {
@@ -2343,7 +2375,7 @@ body.dark-theme .main-navigation {
   justify-content: center;
   font-size: 1.4em;
   color: rgba(255, 255, 255, 0.95);
-  animation: iconPulse 3s ease-in-out infinite;
+  /* animation: iconPulse 3s ease-in-out infinite; DISABLED FOR PERFORMANCE */
 }
 
 @keyframes liquidSweep {
@@ -2605,7 +2637,7 @@ body.has-video-transition {
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 150px 150px;
   opacity: 0.35;
-  animation: gridDrift 18s linear infinite;
+  /* animation: gridDrift 18s linear infinite; DISABLED FOR PERFORMANCE */
 }
 
 @keyframes gridDrift {
@@ -2667,7 +2699,7 @@ body.has-video-transition {
   height: 4px;
   background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
   background-size: 200% 100%;
-  animation: shimmer 3s linear infinite;
+  /* animation: shimmer 3s linear infinite; DISABLED FOR PERFORMANCE */
 }
 
 @keyframes shimmer {
@@ -2740,12 +2772,12 @@ body.has-video-transition {
   .btn-calculate,
   .lockdown-btn) {
   background-image: var(--btn-gradient, linear-gradient(135deg, var(--primary), var(--secondary)));
-  background-size: 220% 220%;
-  animation: glassFlow 10s ease-in-out infinite;
+  background-size: 100% 100%;
+  /* animation: glassFlow 10s ease-in-out infinite; DISABLED FOR PERFORMANCE */
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 0 18px 38px rgba(15, 23, 42, 0.18), 0 0 25px rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px) saturate(130%);
-  -webkit-backdrop-filter: blur(8px) saturate(130%);
+  /* backdrop-filter: blur(8px) saturate(130%); DISABLED FOR PERFORMANCE */
+  /* -webkit-backdrop-filter: blur(8px) saturate(130%); */
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -3669,7 +3701,7 @@ body.has-video-transition {
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
   border: 1px solid rgba(15, 23, 42, 0.04);
   overflow: hidden;
-  animation: floatCard 6s ease-in-out infinite;
+  /* animation: floatCard 6s ease-in-out infinite; DISABLED FOR PERFORMANCE */
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -15383,7 +15415,7 @@ body.dark-theme .fraud-heatmap-calendar .insight-item.info {
   border-radius: 50%;
   border: 1px solid #00d4ff;
   transform: translate(-50%, -50%);
-  animation: markerPulseOuter 2.5s ease-out infinite;
+  /* animation: markerPulseOuter 2.5s ease-out infinite; DISABLED FOR PERFORMANCE */
   opacity: 0.3;
 }
 
@@ -15396,7 +15428,7 @@ body.dark-theme .fraud-heatmap-calendar .insight-item.info {
   border-radius: 50%;
   border: 1.5px solid #00d4ff;
   transform: translate(-50%, -50%);
-  animation: markerPulseInner 2s ease-out infinite;
+  /* animation: markerPulseInner 2s ease-out infinite; DISABLED FOR PERFORMANCE */
   opacity: 0.5;
 }
 
@@ -21456,7 +21488,26 @@ body {
    MOBILE NAVIGATION ENHANCEMENTS
    ============================================= */
 
+/* Hide mobile overlay on larger screens */
+.mobile-nav-overlay {
+  display: none;
+}
+
 @media (max-width: 480px) {
+
+  /* Mobile overlay for closing sidebar when clicking outside */
+  .mobile-nav-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
 
   /* Mobile Navigation - Slide out completely */
   .main-navigation {

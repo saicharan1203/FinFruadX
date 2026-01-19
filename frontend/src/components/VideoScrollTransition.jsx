@@ -15,6 +15,8 @@ export const VideoScrollTransition = () => {
   const pointerRef = useRef({ x: 0.5, y: 0.5 });
   const [isReady, setIsReady] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const isVisibleRef = useRef(true);
+  const lastScrollRef = useRef(0);
   const location = useLocation();
 
   useEffect(() => {
@@ -62,7 +64,8 @@ export const VideoScrollTransition = () => {
     let height = 0;
 
     const createParticles = () => {
-      const count = 120;
+      // Reduced from 120 to 40 for better performance
+      const count = 40;
       particlesRef.current = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -85,6 +88,12 @@ export const VideoScrollTransition = () => {
     };
 
     const render = () => {
+      // Only render if visible and skip frames for performance
+      if (!isVisibleRef.current) {
+        animationRef.current = requestAnimationFrame(render);
+        return;
+      }
+
       animationRef.current = requestAnimationFrame(render);
       ctx.clearRect(0, 0, width, height);
 
@@ -95,21 +104,29 @@ export const VideoScrollTransition = () => {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
+      // Only move particles if scroll changed (reduces CPU when idle)
+      const shouldAnimate = Math.abs(lastScrollRef.current - scrollProgress) > 0.001;
+
       particlesRef.current.forEach((particle, idx) => {
-        const progress = (scrollProgress * 0.8 + idx * 0.001) % 1;
-        particle.x += particle.speed + progress * 1.5;
-        particle.y -= particle.drift + progress;
-        if (particle.x > width + 20) particle.x = -20;
-        if (particle.y < -20) particle.y = height + 20;
-        const glow = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, 30);
-        glow.addColorStop(0, `hsla(${particle.hue}, 90%, 60%, 0.8)`);
+        if (shouldAnimate) {
+          const progress = (scrollProgress * 0.8 + idx * 0.001) % 1;
+          particle.x += particle.speed + progress * 1.5;
+          particle.y -= particle.drift + progress;
+          if (particle.x > width + 20) particle.x = -20;
+          if (particle.y < -20) particle.y = height + 20;
+        }
+        // Reduced glow radius from 30 to 20 for performance
+        const glow = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, 20);
+        glow.addColorStop(0, `hsla(${particle.hue}, 90%, 60%, 0.6)`);
         glow.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size * 18, 0, Math.PI * 2);
+        // Reduced particle size multiplier from 18 to 12
+        ctx.arc(particle.x, particle.y, particle.size * 12, 0, Math.PI * 2);
         ctx.fill();
       });
 
+      lastScrollRef.current = scrollProgress;
       setIsReady(true);
     };
 
@@ -117,9 +134,16 @@ export const VideoScrollTransition = () => {
     render();
     window.addEventListener('resize', resize);
 
+    // Pause animation when tab is hidden
+    const handleVisibility = () => {
+      isVisibleRef.current = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       cancelAnimationFrame(animationRef.current);
       window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, [scrollProgress]);
 

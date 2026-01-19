@@ -135,154 +135,172 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
     }
   ];
 
+  // Handle overlay click to close sidebar on mobile
+  const handleOverlayClick = () => {
+    if (window.innerWidth <= 480 && !isCollapsed) {
+      setIsCollapsed(true);
+    }
+  };
+
   return (
-    <nav className={`main-navigation ${isCollapsed ? 'collapsed' : ''}`}>
-      <div className="nav-brand">
-        <button
-          type="button"
-          className="nav-collapse-toggle"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          title={isCollapsed ? 'Show menu' : 'Hide menu'}
-        >
-          {isCollapsed ? <FiMenu size={20} /> : <FiX size={20} />}
-        </button>
-        <div className="brand-logo">
-          <svg viewBox="0 0 120 120" className="logo-svg">
-            <defs>
-              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#6a11cb', stopOpacity: 1 }} />
-                <stop offset="50%" style={{ stopColor: '#2575fc', stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: '#00d4ff', stopOpacity: 1 }} />
-              </linearGradient>
-              <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 0.3 }} />
-                <stop offset="100%" style={{ stopColor: '#ffffff', stopOpacity: 0 }} />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <filter id="shadow">
-                <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3" />
-              </filter>
-            </defs>
-
-            {/* Outer ring with glow */}
-            <circle cx="60" cy="60" r="55" fill="none" stroke="url(#logoGradient)" strokeWidth="3" opacity="0.4" />
-
-            {/* Main shield background */}
-            <path d="M 60 10 L 95 30 L 95 65 Q 95 95 60 110 Q 25 95 25 65 L 25 30 Z"
-              fill="url(#logoGradient)"
-              filter="url(#shadow)" />
-
-            {/* Shield shine effect */}
-            <path d="M 60 10 L 95 30 L 95 65 Q 95 95 60 110 Q 25 95 25 65 L 25 30 Z"
-              fill="url(#shieldGradient)"
-              opacity="0.6" />
-
-            {/* Inner decorative elements */}
-            <circle cx="60" cy="55" r="28" fill="rgba(255,255,255,0.15)" />
-
-            {/* Security lock icon */}
-            <rect x="52" y="52" width="16" height="18" rx="2"
-              fill="white" opacity="0.95" />
-            <path d="M 55 52 L 55 48 Q 55 44 60 44 Q 65 44 65 48 L 65 52"
-              stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.95" />
-            <circle cx="60" cy="61" r="2.5" fill="#6a11cb" />
-            <line x1="60" y1="63.5" x2="60" y2="67" stroke="#6a11cb" strokeWidth="1.5" strokeLinecap="round" />
-
-            {/* Orbiting dots for tech feel */}
-            <circle cx="35" cy="50" r="3" fill="#00d4ff" filter="url(#glow)" opacity="0.8" />
-            <circle cx="85" cy="50" r="3" fill="#00d4ff" filter="url(#glow)" opacity="0.8" />
-            <circle cx="60" cy="25" r="3" fill="#ffffff" filter="url(#glow)" opacity="0.9" />
-
-            {/* Bottom text with modern font */}
-            <text x="60" y="100" fontSize="10" fontWeight="bold" fill="white" textAnchor="middle"
-              fontFamily="'Segoe UI', Arial, sans-serif" letterSpacing="2">
-              FINFRAUDX
-            </text>
-            <line x1="35" y1="103" x2="85" y2="103" stroke="white" strokeWidth="1" opacity="0.5" />
-          </svg>
-        </div>
-        {!isCollapsed && (
-          <div className="brand-text">
-            <h2>🛡️ FinFraudX</h2>
-            <p>AI Fraud Detection</p>
-          </div>
-        )}
-      </div>
-
-      <div className="nav-items">
-        {navItems.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`nav-item glass ${location.pathname === item.path ? 'active' : ''}`}
-            style={{
-              '--item-color': item.color,
-              '--item-gradient': item.gradient,
-              borderLeftColor: location.pathname === item.path ? item.color : 'transparent'
-            }}
-            title={item.label}
-            onClick={() => {
-              // Auto-close sidebar on mobile when nav item is clicked
-              if (window.innerWidth <= 480) {
-                setIsCollapsed(true);
-              }
-            }}
+    <>
+      {/* Mobile overlay - closes sidebar when clicked */}
+      {!isCollapsed && (
+        <div
+          className="mobile-nav-overlay"
+          onClick={handleOverlayClick}
+          onTouchStart={handleOverlayClick}
+          aria-hidden="true"
+        />
+      )}
+      <nav className={`main-navigation ${isCollapsed ? 'collapsed' : ''}`}>
+        <div className="nav-brand">
+          <button
+            type="button"
+            className="nav-collapse-toggle"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            title={isCollapsed ? 'Show menu' : 'Hide menu'}
           >
-            <span className="nav-liquid" aria-hidden="true">
-              <span className="nav-liquid-overlay"></span>
-              <span className="nav-liquid-core">{item.symbol}</span>
-            </span>
-            <span className="nav-icon">{item.icon}</span>
-            {!isCollapsed && <span className="nav-label">{item.label}</span>}
-          </Link>
-        ))}
-      </div>
+            {isCollapsed ? <FiMenu size={20} /> : <FiX size={20} />}
+          </button>
+          <div className="brand-logo">
+            <svg viewBox="0 0 120 120" className="logo-svg">
+              <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: '#6a11cb', stopOpacity: 1 }} />
+                  <stop offset="50%" style={{ stopColor: '#2575fc', stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: '#00d4ff', stopOpacity: 1 }} />
+                </linearGradient>
+                <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 0.3 }} />
+                  <stop offset="100%" style={{ stopColor: '#ffffff', stopOpacity: 0 }} />
+                </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="shadow">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3" />
+                </filter>
+              </defs>
 
-      <div className="nav-footer">
-        <div className="user-info">
-          <div className="user-avatar">
-            {userProfile?.avatar ? (
-              <img src={userProfile.avatar} alt="Profile" className="avatar-img" />
-            ) : (
-              '👤'
-            )}
+              {/* Outer ring with glow */}
+              <circle cx="60" cy="60" r="55" fill="none" stroke="url(#logoGradient)" strokeWidth="3" opacity="0.4" />
+
+              {/* Main shield background */}
+              <path d="M 60 10 L 95 30 L 95 65 Q 95 95 60 110 Q 25 95 25 65 L 25 30 Z"
+                fill="url(#logoGradient)"
+                filter="url(#shadow)" />
+
+              {/* Shield shine effect */}
+              <path d="M 60 10 L 95 30 L 95 65 Q 95 95 60 110 Q 25 95 25 65 L 25 30 Z"
+                fill="url(#shieldGradient)"
+                opacity="0.6" />
+
+              {/* Inner decorative elements */}
+              <circle cx="60" cy="55" r="28" fill="rgba(255,255,255,0.15)" />
+
+              {/* Security lock icon */}
+              <rect x="52" y="52" width="16" height="18" rx="2"
+                fill="white" opacity="0.95" />
+              <path d="M 55 52 L 55 48 Q 55 44 60 44 Q 65 44 65 48 L 65 52"
+                stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.95" />
+              <circle cx="60" cy="61" r="2.5" fill="#6a11cb" />
+              <line x1="60" y1="63.5" x2="60" y2="67" stroke="#6a11cb" strokeWidth="1.5" strokeLinecap="round" />
+
+              {/* Orbiting dots for tech feel */}
+              <circle cx="35" cy="50" r="3" fill="#00d4ff" filter="url(#glow)" opacity="0.8" />
+              <circle cx="85" cy="50" r="3" fill="#00d4ff" filter="url(#glow)" opacity="0.8" />
+              <circle cx="60" cy="25" r="3" fill="#ffffff" filter="url(#glow)" opacity="0.9" />
+
+              {/* Bottom text with modern font */}
+              <text x="60" y="100" fontSize="10" fontWeight="bold" fill="white" textAnchor="middle"
+                fontFamily="'Segoe UI', Arial, sans-serif" letterSpacing="2">
+                FINFRAUDX
+              </text>
+              <line x1="35" y1="103" x2="85" y2="103" stroke="white" strokeWidth="1" opacity="0.5" />
+            </svg>
           </div>
           {!isCollapsed && (
-            <div className="user-details">
-              <strong>{userProfile?.name || user?.full_name || user?.username || 'Admin User'}</strong>
-              <span>{userProfile?.role || 'Security Analyst'}</span>
+            <div className="brand-text">
+              <h2>🛡️ FinFraudX</h2>
+              <p>AI Fraud Detection</p>
             </div>
           )}
         </div>
-        <div className="nav-footer-actions">
-          <button
-            type="button"
-            className="theme-toggle"
-            onClick={toggleTheme}
-            title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            <div className={`toggle-switch ${isDarkMode ? 'dark' : 'light'}`}>
-              <div className="toggle-slider">
-                {isDarkMode ? <FiMoon size={14} /> : <FiSun size={14} />}
-              </div>
-            </div>
-          </button>
-          <button
-            className="logout-button"
-            onClick={logout}
-            title="Logout"
-          >
-            <FiLogOut />
-            {!isCollapsed && <span>Logout</span>}
-          </button>
+
+        <div className="nav-items">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`nav-item glass ${location.pathname === item.path ? 'active' : ''}`}
+              style={{
+                '--item-color': item.color,
+                '--item-gradient': item.gradient,
+                borderLeftColor: location.pathname === item.path ? item.color : 'transparent'
+              }}
+              title={item.label}
+              onClick={() => {
+                // Auto-close sidebar on mobile when nav item is clicked
+                if (window.innerWidth <= 480) {
+                  setIsCollapsed(true);
+                }
+              }}
+            >
+              <span className="nav-liquid" aria-hidden="true">
+                <span className="nav-liquid-overlay"></span>
+                <span className="nav-liquid-core">{item.symbol}</span>
+              </span>
+              <span className="nav-icon">{item.icon}</span>
+              {!isCollapsed && <span className="nav-label">{item.label}</span>}
+            </Link>
+          ))}
         </div>
-      </div>
-    </nav>
+
+        <div className="nav-footer">
+          <div className="user-info">
+            <div className="user-avatar">
+              {userProfile?.avatar ? (
+                <img src={userProfile.avatar} alt="Profile" className="avatar-img" />
+              ) : (
+                '👤'
+              )}
+            </div>
+            {!isCollapsed && (
+              <div className="user-details">
+                <strong>{userProfile?.name || user?.full_name || user?.username || 'Admin User'}</strong>
+                <span>{userProfile?.role || 'Security Analyst'}</span>
+              </div>
+            )}
+          </div>
+          <div className="nav-footer-actions">
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggleTheme}
+              title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              <div className={`toggle-switch ${isDarkMode ? 'dark' : 'light'}`}>
+                <div className="toggle-slider">
+                  {isDarkMode ? <FiMoon size={14} /> : <FiSun size={14} />}
+                </div>
+              </div>
+            </button>
+            <button
+              className="logout-button"
+              onClick={logout}
+              title="Logout"
+            >
+              <FiLogOut />
+              {!isCollapsed && <span>Logout</span>}
+            </button>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 };

@@ -6,6 +6,7 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 ENV/
 build/
 develop-eggs/
@@ -23,6 +24,11 @@ wheels/
 .installed.cfg
 *.egg
 
+# Backend specific
+backend/.venv/
+backend/__pycache__/
+backend/uploads/*.csv
+
 # Models and data
 models/
 uploads/
@@ -36,13 +42,19 @@ uploads/
 *.swp
 *.swo
 *~
+
+# Environment files
 .env
+.env.local
+.env.production
 
 # Node/React
 node_modules/
+frontend/node_modules/
 npm-debug.log
 yarn-error.log
 build/
+frontend/build/
 dist/
 .cache/
 
@@ -50,3 +62,16 @@ dist/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Logs
+*.log
+logs/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Large files
+*.csv
+*.zip
+*.tar.gz

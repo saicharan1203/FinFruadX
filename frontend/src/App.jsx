@@ -151,6 +151,9 @@ function AppContent() {
   // Enable 120fps scroll optimizations
   useScrollPerformance();
 
+  // Get current location for route change detection
+  const location = useLocation();
+
   // Handle window resize to auto-collapse sidebar on mobile
   useEffect(() => {
     const handleResize = () => {
@@ -162,6 +165,45 @@ function AppContent() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Close sidebar on route change (mobile only)
+  useEffect(() => {
+    if (window.innerWidth <= 480) {
+      setIsNavCollapsed(true);
+    }
+  }, [location.pathname]);
+
+  // Handle click outside sidebar to close it (mobile only)
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Only handle on mobile
+      if (window.innerWidth > 480) return;
+
+      // If sidebar is collapsed, don't do anything
+      if (isNavCollapsed) return;
+
+      const sidebar = document.querySelector('.main-navigation');
+      const toggleButton = document.querySelector('.nav-collapse-toggle');
+
+      // Check if click is outside sidebar and not on toggle button
+      if (sidebar && !sidebar.contains(event.target) &&
+        toggleButton && !toggleButton.contains(event.target)) {
+        setIsNavCollapsed(true);
+      }
+    };
+
+    // Add listener with a small delay to prevent immediate closing
+    const timeoutId = setTimeout(() => {
+      document.addEventListener('click', handleClickOutside, true);
+      document.addEventListener('touchstart', handleClickOutside, true);
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener('click', handleClickOutside, true);
+      document.removeEventListener('touchstart', handleClickOutside, true);
+    };
+  }, [isNavCollapsed]);
 
   useEffect(() => {
     document.body.classList.remove('dark-theme');
