@@ -19,6 +19,7 @@ import { DataExplorerPage } from './pages/DataExplorerPage';
 import { LoginPage } from './pages/LoginPage';
 import { AlertSystem } from './components/AlertSystem';
 import './styles/dashboard.css';
+import './styles/smooth-scroll.css';
 
 // ScrollToTop component - resets scroll position on route change
 const ScrollToTop = () => {
@@ -51,6 +52,71 @@ const ScrollToTop = () => {
   return null;
 };
 
+// 120fps Scroll Performance Hook - pauses animations during scroll
+const useScrollPerformance = () => {
+  useEffect(() => {
+    let scrollTimeout;
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        // Use requestAnimationFrame for 120fps sync
+        requestAnimationFrame(() => {
+          document.body.classList.add('is-scrolling');
+          ticking = false;
+        });
+        ticking = true;
+      }
+
+      // Clear previous timeout
+      clearTimeout(scrollTimeout);
+
+      // Remove class after scroll ends (debounced)
+      scrollTimeout = setTimeout(() => {
+        document.body.classList.remove('is-scrolling');
+      }, 100);
+    };
+
+    // Prevent scroll propagation from sidebar to main content
+    const preventScrollPropagation = (e) => {
+      const sidebar = e.target.closest('.main-navigation');
+      if (sidebar) {
+        // Check if sidebar is at scroll boundary
+        const { scrollTop, scrollHeight, clientHeight } = sidebar;
+        const isAtTop = scrollTop === 0;
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+
+        // Prevent scroll from propagating to main content
+        if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    // Use passive listener for maximum scroll performance on main content
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+      mainContent.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    // Prevent scroll propagation from sidebar
+    const sidebar = document.querySelector('.main-navigation');
+    if (sidebar) {
+      sidebar.addEventListener('wheel', preventScrollPropagation, { passive: false });
+    }
+
+    return () => {
+      if (mainContent) {
+        mainContent.removeEventListener('scroll', handleScroll);
+      }
+      if (sidebar) {
+        sidebar.removeEventListener('wheel', preventScrollPropagation);
+      }
+      clearTimeout(scrollTimeout);
+    };
+  }, []);
+};
+
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -77,7 +143,25 @@ function AppContent() {
   const { isAuthenticated, login } = useAuth();
   const [fileInfo, setFileInfo] = useState(null);
   const [predictions, setPredictions] = useState(null);
-  const [isNavCollapsed, setIsNavCollapsed] = useState(false);
+  // Start with sidebar collapsed on mobile devices
+  const [isNavCollapsed, setIsNavCollapsed] = useState(() => {
+    return window.innerWidth <= 480;
+  });
+
+  // Enable 120fps scroll optimizations
+  useScrollPerformance();
+
+  // Handle window resize to auto-collapse sidebar on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 480) {
+        setIsNavCollapsed(true);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     document.body.classList.remove('dark-theme');

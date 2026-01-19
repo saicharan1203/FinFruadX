@@ -227,6 +227,12 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
               borderLeftColor: location.pathname === item.path ? item.color : 'transparent'
             }}
             title={item.label}
+            onClick={() => {
+              // Auto-close sidebar on mobile when nav item is clicked
+              if (window.innerWidth <= 480) {
+                setIsCollapsed(true);
+              }
+            }}
           >
             <span className="nav-liquid" aria-hidden="true">
               <span className="nav-liquid-overlay"></span>
