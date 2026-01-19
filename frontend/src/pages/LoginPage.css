@@ -582,7 +582,8 @@ body.dark-theme .submit-button,
   transition: all 0.3s ease;
   /* ✅ TRUE GLASSMORPHISM - transparent input */
   background: rgba(255, 255, 255, 0.08);
-  color: #ffffff !important;
+  /* Dark text for visibility on light backgrounds */
+  color: #1a1a2e !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -592,7 +593,7 @@ body.dark-theme .submit-button,
   border-color: rgba(180, 150, 255, 0.5);
   box-shadow: 0 0 15px rgba(180, 150, 255, 0.15);
   background: rgba(255, 255, 255, 0.12);
-  color: #ffffff !important;
+  color: #1a1a2e !important;
 }
 
 .form-group input:hover {
@@ -601,7 +602,7 @@ body.dark-theme .submit-button,
 }
 
 .form-group input::placeholder {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(100, 100, 120, 0.8) !important;
   font-weight: 400;
 }
 
