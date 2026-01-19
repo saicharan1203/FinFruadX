@@ -1,0 +1,314 @@
+/* ============================================
+   🚀 120FPS ULTRA-SMOOTH SCROLLING OPTIMIZATIONS
+   ============================================ */
+
+/* ✅ ROOT LEVEL - Enable 120Hz refresh rate support */
+html {
+  scroll-behavior: smooth;
+  /* Enable smooth scrolling with native browser support */
+  -webkit-overflow-scrolling: touch;
+  /* iOS momentum scrolling */
+  overscroll-behavior: contain;
+  /* Prevent scroll chaining */
+}
+
+/* ✅ BODY - GPU Compositing Layer */
+body {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  /* Prevent bounce on overscroll */
+  touch-action: pan-y;
+  /* Optimize touch scrolling */
+}
+
+/* ============================================
+   GPU ACCELERATION FOR ALL SCROLLABLE CONTAINERS
+   ============================================ */
+
+/* Force GPU compositing for smooth 120fps scrolling */
+.main-content,
+.dashboard,
+.page-container {
+  /* GPU acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+
+  /* Hint browser about upcoming changes */
+  will-change: scroll-position;
+
+  /* Optimize scrolling */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   SIDEBAR SCROLL ISOLATION - Prevent simultaneous scroll
+   ============================================ */
+
+/* Sidebar has its own isolated scroll context */
+.main-navigation {
+  /* Isolate scroll from main content */
+  overscroll-behavior: contain;
+  isolation: isolate;
+  /* GPU acceleration for sidebar */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Main content scroll is independent */
+.main-content {
+  /* Prevent scroll chaining to sidebar */
+  overscroll-behavior: contain;
+  isolation: isolate;
+  /* Full height scroll container */
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* App layout prevents body scroll */
+.app-layout {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ============================================
+   CONTENT CONTAINMENT - Prevent Layout Thrashing
+   ============================================ */
+
+/* Isolate layout calculations for cards */
+.insight-card,
+.glance-card,
+.case-card,
+.metric-card,
+.stat-card,
+.chart-container,
+.preview-card,
+.action-card,
+.glass-card,
+.risk-bar-card,
+.timeline-body,
+.login-entry {
+  contain: layout style paint;
+  /* Full containment for maximum performance */
+  content-visibility: auto;
+  /* Render only when visible */
+  contain-intrinsic-size: auto 200px;
+  /* Placeholder size for off-screen content */
+}
+
+/* ============================================
+   OPTIMIZED TRANSITIONS - 120fps Compatible
+   ============================================ */
+
+/* Use only GPU-accelerated properties for transitions */
+.btn,
+.nav-item,
+.metric-card,
+.insight-card,
+.glance-card,
+.preview-card,
+.action-card,
+.pill-button,
+.nav-collapse-toggle,
+.generate-sample-btn,
+.btn-generate-report,
+.reports-primary-btn {
+  /* Only animate transform and opacity - GPU accelerated */
+  transition:
+    transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+
+  /* Force GPU layer */
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* ============================================
+   SCROLL SNAP FOR BUTTERY SMOOTH NAVIGATION
+   ============================================ */
+
+/* Optional: Enable scroll snap for section-based scrolling */
+.page-container {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 20px;
+}
+
+.page-container>section,
+.page-container>.action-card,
+.page-container>.insights-panel,
+.page-container>.results-container {
+  scroll-snap-align: start;
+  scroll-margin-top: 20px;
+}
+
+/* ============================================
+   PASSIVE SCROLL LISTENERS - Maximum Performance
+   ============================================ */
+
+/* Ensure all scroll containers use passive listeners */
+* {
+  /* Disable scroll anchoring that can cause jank */
+  overflow-anchor: none;
+}
+
+/* Re-enable for main content */
+.main-content {
+  overflow-anchor: auto;
+}
+
+/* ============================================
+   REDUCE MOTION FOR ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   HIGH REFRESH RATE DISPLAY OPTIMIZATIONS
+   ============================================ */
+
+@media (min-resolution: 2dppx) {
+
+  /* High DPI displays - optimize rendering */
+  .main-content,
+  .dashboard,
+  .page-container {
+    image-rendering: -webkit-optimize-contrast;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+
+/* ============================================
+   SCROLLBAR STYLING - Smooth & Minimal
+   ============================================ */
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(106, 17, 203, 0.4), rgba(37, 117, 252, 0.4));
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(106, 17, 203, 0.6), rgba(37, 117, 252, 0.6));
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(106, 17, 203, 0.4) rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   DISABLE HEAVY ANIMATIONS DURING SCROLL
+   ============================================ */
+
+/* Pause animations while scrolling for maximum smoothness */
+.is-scrolling .trailer-animation,
+.is-scrolling [class*="animation"],
+.is-scrolling .app-layout::before {
+  animation-play-state: paused !important;
+}
+
+/* ============================================
+   OPTIMIZED HOVER STATES - No Layout Shift
+   ============================================ */
+
+/* Use transform instead of margin/padding for hover effects */
+.metric-card:hover,
+.insight-card:hover,
+.glance-card:hover,
+.preview-card:hover,
+.action-card:hover {
+  transform: translateY(-2px) translateZ(0);
+}
+
+.nav-item:hover {
+  transform: translateX(4px) translateZ(0);
+}
+
+/* ============================================
+   INTERSECTION OBSERVER HINTS
+   ============================================ */
+
+/* Content visibility for off-screen elements */
+.insights-columns,
+.analytics-columns,
+.metrics-grid,
+.preview-cards,
+.risk-bars,
+.category-stats {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
+}
+
+/* ============================================
+   LAYER PROMOTION FOR FIXED ELEMENTS
+   ============================================ */
+
+/* Promote fixed/sticky elements to their own layer */
+.sidebar,
+.nav-header,
+.alert-chip,
+.status-banner {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* ============================================
+   FONT RENDERING OPTIMIZATION
+   ============================================ */
+
+body {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   TABLE SCROLL OPTIMIZATION
+   ============================================ */
+
+.insight-table table,
+.results-table table {
+  table-layout: fixed;
+  /* Faster table rendering */
+  border-collapse: separate;
+  /* Better for GPU */
+  transform: translateZ(0);
+}
+
+/* Virtual scrolling container optimization */
+.virtual-scroll-container {
+  contain: strict;
+  will-change: scroll-position;
+  transform: translateZ(0);
+  -webkit-overflow-scrolling: touch;
+}
