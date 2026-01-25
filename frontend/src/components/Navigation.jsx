@@ -10,6 +10,7 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
   const { user, logout } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
   const [userProfile, setUserProfile] = useState(null);
+  const [isMobileNav, setIsMobileNav] = useState(false);
 
   useEffect(() => {
     // Load user profile from localStorage
@@ -135,30 +136,68 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
     }
   ];
 
-  // Handle overlay click to close sidebar on mobile
-  const handleOverlayClick = () => {
-    if (window.innerWidth <= 480 && !isCollapsed) {
-      setIsCollapsed(true);
-    }
+  const toggleNavigation = () => {
+    setIsCollapsed((prev) => !prev);
   };
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      if (typeof window === 'undefined') return false;
+      return window.innerWidth <= 768;
+    };
+
+    const handleResize = () => {
+      setIsMobileNav(checkIfMobile());
+    };
+
+    setIsMobileNav(checkIfMobile());
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobileNav) {
+      document.body.classList.toggle('nav-open', !isCollapsed);
+    } else {
+      document.body.classList.remove('nav-open');
+    }
+
+    return () => {
+      document.body.classList.remove('nav-open');
+    };
+  }, [isMobileNav, isCollapsed]);
 
   return (
     <>
-      {/* Mobile overlay - closes sidebar when clicked */}
-      {!isCollapsed && (
-        <div
-          className="mobile-nav-overlay"
-          onClick={handleOverlayClick}
-          onTouchStart={handleOverlayClick}
-          aria-hidden="true"
-        />
+      {isMobileNav && (
+        <>
+          <button
+            type="button"
+            className={`mobile-nav-trigger ${!isCollapsed ? 'active' : ''}`}
+            onClick={toggleNavigation}
+            aria-label={isCollapsed ? 'Open navigation menu' : 'Close navigation menu'}
+          >
+            {isCollapsed ? <FiMenu size={20} /> : <FiX size={20} />}
+          </button>
+          {!isCollapsed && (
+            <div
+              className="mobile-nav-overlay"
+              onClick={() => setIsCollapsed(true)}
+              onTouchStart={() => setIsCollapsed(true)}
+              role="presentation"
+            />
+          )}
+        </>
       )}
       <nav className={`main-navigation ${isCollapsed ? 'collapsed' : ''}`}>
         <div className="nav-brand">
           <button
             type="button"
             className="nav-collapse-toggle"
-            onClick={() => setIsCollapsed(!isCollapsed)}
+            onClick={toggleNavigation}
             title={isCollapsed ? 'Show menu' : 'Hide menu'}
           >
             {isCollapsed ? <FiMenu size={20} /> : <FiX size={20} />}
@@ -245,8 +284,7 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
               }}
               title={item.label}
               onClick={() => {
-                // Auto-close sidebar on mobile when nav item is clicked
-                if (window.innerWidth <= 480) {
+                if (isMobileNav) {
                   setIsCollapsed(true);
                 }
               }}

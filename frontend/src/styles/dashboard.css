@@ -21470,6 +21470,12 @@ body {
   overflow-x: hidden;
 }
 
+body.nav-open {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -21488,12 +21494,48 @@ body {
    MOBILE NAVIGATION ENHANCEMENTS
    ============================================= */
 
-/* Hide mobile overlay on larger screens */
-.mobile-nav-overlay {
+/* Hide mobile-specific controls on larger screens */
+.mobile-nav-overlay,
+.mobile-nav-trigger {
   display: none;
 }
 
+.mobile-nav-trigger {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05));
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(26, 10, 46, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10001;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.mobile-nav-trigger:active {
+  transform: scale(0.96);
+}
+
+.mobile-nav-trigger.active {
+  background: linear-gradient(135deg, rgba(106, 17, 203, 0.95), rgba(37, 117, 252, 0.95));
+  box-shadow: 0 12px 32px rgba(37, 117, 252, 0.45);
+}
+
 @media (max-width: 480px) {
+
+  .mobile-nav-trigger {
+    display: flex;
+  }
 
   /* Mobile overlay for closing sidebar when clicking outside */
   .mobile-nav-overlay {
