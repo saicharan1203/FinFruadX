@@ -22155,3 +22155,1015 @@ body {
     animation: none;
   }
 }
+
+/* =============================================
+   COMPREHENSIVE MOBILE ALIGNMENT FIXES
+   Added for improved mobile view after deployment
+   ============================================= */
+
+/* === MOBILE VIEW FIXES (max-width: 480px) === */
+@media (max-width: 480px) {
+
+  /* --- Global Container Fixes --- */
+  .dashboard,
+  .page-container {
+    padding: 12px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  /* --- Section Header Alignment --- */
+  .section-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+  }
+
+  .section-header>div {
+    width: 100% !important;
+  }
+
+  .section-header h2 {
+    font-size: 1.1rem !important;
+    margin: 0 0 4px 0 !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+  }
+
+  .section-header p {
+    font-size: 0.85rem !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+  }
+
+  .section-header .btn {
+    width: 100% !important;
+    margin-top: 8px !important;
+    justify-content: center !important;
+  }
+
+  /* --- Case Builder Header Fix --- */
+  .case-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .case-header>div:first-child {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .case-header .case-icon-pill {
+    flex-shrink: 0 !important;
+  }
+
+  .case-header .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* --- Case Icon Pill --- */
+  .case-icon-pill {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .case-icon-pill svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* --- Case Layout (Form + List) --- */
+  .case-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+  }
+
+  /* --- Case Form Alignment --- */
+  .case-form {
+    width: 100% !important;
+    padding: 14px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .case-form h3 {
+    font-size: 1rem !important;
+    margin-bottom: 14px !important;
+    text-align: left !important;
+  }
+
+  /* --- Sample Case Card Alignment --- */
+  .sample-case-card {
+    padding: 12px !important;
+    border-radius: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .sample-card-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  .sample-card-content>div:first-child {
+    width: 100% !important;
+  }
+
+  .sample-eyebrow {
+    font-size: 0.65rem !important;
+    margin-bottom: 4px !important;
+    display: block !important;
+  }
+
+  .sample-case-card h4 {
+    font-size: 0.95rem !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.3 !important;
+  }
+
+  .sample-case-card p {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    margin: 0 0 10px 0 !important;
+  }
+
+  .sample-meta {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    align-items: flex-start !important;
+  }
+
+  .sample-meta-chip {
+    display: inline-flex !important;
+    padding: 5px 10px !important;
+    font-size: 0.75rem !important;
+    border-radius: 6px !important;
+    white-space: nowrap !important;
+  }
+
+  .sample-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+
+  .sample-actions small {
+    text-align: center !important;
+    font-size: 0.7rem !important;
+  }
+
+  .generate-sample-btn {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    font-size: 0.9rem !important;
+    justify-content: center !important;
+  }
+
+  /* --- Sample Preview Panel --- */
+  .sample-preview-panel {
+    padding: 12px !important;
+    margin-top: 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .sample-preview-pill {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 10px !important;
+    text-align: center !important;
+  }
+
+  .sample-preview-details {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+  }
+
+  .sample-detail-label {
+    font-size: 0.7rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .sample-detail-value {
+    font-size: 0.85rem !important;
+  }
+
+  /* --- Form Field Grids --- */
+  .case-field-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    width: 100% !important;
+    margin-bottom: 14px !important;
+  }
+
+  .case-field-grid.compact {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- Input Groups Alignment --- */
+  .input-group {
+    width: 100% !important;
+    margin-bottom: 14px !important;
+  }
+
+  .input-group label {
+    display: block !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 6px !important;
+    font-weight: 600 !important;
+    text-align: left !important;
+  }
+
+  .input-group input,
+  .input-group select,
+  .input-group textarea {
+    width: 100% !important;
+    padding: 10px 12px !important;
+    font-size: 16px !important;
+    /* Prevents iOS zoom */
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  .input-group.accent,
+  .input-group.accent-lite {
+    padding: 0 !important;
+  }
+
+  /* --- Quick Add Section --- */
+  .quick-add {
+    padding: 12px !important;
+    margin-top: 16px !important;
+    border-radius: 10px !important;
+  }
+
+  .quick-add-heading {
+    margin-bottom: 12px !important;
+  }
+
+  .quick-add-heading h4 {
+    font-size: 0.95rem !important;
+    margin: 0 0 4px 0 !important;
+  }
+
+  .quick-add-heading p {
+    font-size: 0.8rem !important;
+    margin: 0 !important;
+  }
+
+  .quick-add-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .quick-add-pill {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+
+  .quick-pill-text {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .quick-pill-id {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+  }
+
+  .quick-pill-arrow {
+    display: none !important;
+  }
+
+  .quick-pill-risk {
+    font-size: 0.75rem !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    padding: 3px 8px !important;
+    border-radius: 20px !important;
+  }
+
+  /* --- Save Case Button --- */
+  .save-case-btn {
+    width: 100% !important;
+    padding: 14px !important;
+    font-size: 1rem !important;
+    border-radius: 10px !important;
+    margin-top: 10px !important;
+  }
+
+  /* --- Case List Alignment --- */
+  .case-list {
+    width: 100% !important;
+    padding: 14px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .case-list-header {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    margin-bottom: 14px !important;
+  }
+
+  .case-list-header h3 {
+    font-size: 1rem !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .case-save-shortcut {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+  }
+
+  /* --- Case Grid --- */
+  .case-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* --- Case Card Alignment --- */
+  .case-card {
+    padding: 12px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .case-card-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .case-pill-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .case-status,
+  .case-risk {
+    padding: 4px 10px !important;
+    font-size: 0.7rem !important;
+    border-radius: 20px !important;
+  }
+
+  .case-transaction-label {
+    font-size: 0.85rem !important;
+    margin-top: 4px !important;
+  }
+
+  .case-transaction-label strong {
+    font-weight: 700 !important;
+  }
+
+  /* --- Case Meta Grid --- */
+  .case-meta-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .case-meta-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+  }
+
+  .meta-label {
+    font-size: 0.65rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    opacity: 0.7 !important;
+  }
+
+  .meta-value {
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    word-break: break-word !important;
+  }
+
+  /* --- Case Tags --- */
+  .case-tags {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 10px !important;
+  }
+
+  .case-tag-chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  .case-tag-chips span {
+    padding: 3px 8px !important;
+    font-size: 0.65rem !important;
+    border-radius: 4px !important;
+  }
+
+  /* --- Case Description --- */
+  .case-description {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* --- Case Card Footer --- */
+  .case-card-footer {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .case-card-footer .btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 10px 14px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* --- Empty State Alignment --- */
+  .empty-state-activity {
+    padding: 24px 16px !important;
+    text-align: center !important;
+    border-radius: 12px !important;
+  }
+
+  .empty-icon {
+    font-size: 2.5rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .empty-state-activity h3 {
+    font-size: 1rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .empty-state-activity p {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* --- Error Message --- */
+  .case-error {
+    padding: 10px 12px !important;
+    font-size: 0.85rem !important;
+    border-radius: 8px !important;
+    margin-bottom: 14px !important;
+    text-align: center !important;
+  }
+
+  /* --- Button Alignment Fixes --- */
+  .btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    min-height: 44px !important;
+  }
+
+  .btn svg {
+    flex-shrink: 0 !important;
+  }
+
+  .btn-sm {
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+    min-height: 36px !important;
+  }
+
+  /* --- Navigation Fixes --- */
+  .nav-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 14px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .brand-logo {
+    width: 42px !important;
+    height: 42px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .brand-text {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .brand-text h2 {
+    font-size: 1rem !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .brand-text p {
+    font-size: 0.7rem !important;
+    margin: 2px 0 0 0 !important;
+    opacity: 0.8 !important;
+  }
+
+  .nav-items {
+    padding: 8px !important;
+  }
+
+  .nav-item.glass {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .nav-icon {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .nav-label {
+    flex: 1 !important;
+    font-size: 0.9rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* --- Nav Footer --- */
+  .nav-footer {
+    padding: 12px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .user-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .user-avatar {
+    width: 38px !important;
+    height: 38px !important;
+    flex-shrink: 0 !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.2rem !important;
+  }
+
+  .user-details {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .user-details strong {
+    display: block !important;
+    font-size: 0.85rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .user-details span {
+    font-size: 0.7rem !important;
+    opacity: 0.7 !important;
+  }
+
+  .nav-footer-actions {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .theme-toggle {
+    flex: 1 !important;
+    min-width: 44px !important;
+  }
+
+  .logout-button {
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+  }
+
+  /* --- Upload Section Mobile Fixes --- */
+  .upload-section {
+    padding: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .upload-card {
+    padding: 16px !important;
+    border-radius: 14px !important;
+    text-align: center !important;
+  }
+
+  .upload-card h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .upload-card p {
+    font-size: 0.85rem !important;
+    margin-bottom: 16px !important;
+  }
+
+  .upload-icon {
+    font-size: 2.5rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .file-input-wrapper {
+    padding: 20px 14px !important;
+    border-radius: 10px !important;
+  }
+
+  .file-label {
+    padding: 12px 16px !important;
+    font-size: 0.9rem !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .button-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+  }
+
+  .button-group .btn {
+    width: 100% !important;
+  }
+
+  /* --- Analytics Page Mobile --- */
+  .analytics-glance {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .glance-card {
+    padding: 14px !important;
+    border-radius: 12px !important;
+  }
+
+  .glance-card span {
+    font-size: 0.7rem !important;
+    letter-spacing: 1px !important;
+  }
+
+  .glance-card strong {
+    font-size: 1.5rem !important;
+    margin: 6px 0 !important;
+  }
+
+  .glance-card small {
+    font-size: 0.75rem !important;
+  }
+
+  /* --- Insights Panel Mobile --- */
+  .insights-panel {
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .insights-header {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .insights-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .insight-card {
+    padding: 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .insight-label {
+    font-size: 0.65rem !important;
+  }
+
+  .insight-card strong {
+    font-size: 1.1rem !important;
+  }
+
+  /* --- Insights Columns Mobile --- */
+  .insights-columns {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .insight-table {
+    padding: 12px !important;
+    border-radius: 12px !important;
+  }
+
+  .insight-table-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  /* --- Calculator Layout Mobile --- */
+  .calculator-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .calculator-inputs,
+  .calculator-results {
+    padding: 14px !important;
+    border-radius: 14px !important;
+  }
+
+  .score-visual {
+    align-items: center !important;
+  }
+
+  .score-gauge {
+    width: 160px !important;
+    height: 160px !important;
+  }
+
+  .score-inner {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .score-number {
+    font-size: 1.6rem !important;
+  }
+
+  .score-max {
+    font-size: 0.7rem !important;
+  }
+
+  /* --- Risk Score Details Mobile --- */
+  .risk-score-details {
+    padding: 14px !important;
+    border-radius: 12px !important;
+  }
+
+  .risk-stat-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .risk-stat {
+    padding: 10px !important;
+    border-radius: 10px !important;
+  }
+
+  .factor-list {
+    gap: 12px !important;
+  }
+
+  /* --- Recommendations Mobile --- */
+  .recommendations-box {
+    padding: 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .recommendations-box li {
+    font-size: 0.85rem !important;
+    padding: 6px 0 !important;
+  }
+
+  /* --- Reports Page Mobile --- */
+  .reports-hero {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 16px !important;
+    gap: 12px !important;
+  }
+
+  .reports-hero-icon {
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0 auto 8px !important;
+  }
+
+  .reports-primary-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .reports-quick-stats {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .preview-cards {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .preview-card {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 16px !important;
+  }
+
+  /* --- Geo Fraud Map Mobile --- */
+  .geo-fraud-map-container {
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  .world-map-container {
+    min-height: 180px !important;
+  }
+
+  .map-stats-bar {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .stat-item {
+    width: 100% !important;
+    justify-content: space-between !important;
+    padding: 10px 12px !important;
+  }
+
+  .region-cards-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* --- Radar Container Mobile --- */
+  .radar-container {
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  .radar-canvas {
+    max-height: 180px !important;
+  }
+
+  .radar-stats {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .radar-stat {
+    width: 100% !important;
+  }
+
+  /* --- Text Truncation & Overflow --- */
+  .case-transaction-label strong,
+  .meta-value,
+  .nav-label,
+  .brand-text h2,
+  .user-details strong {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* --- Better Touch Targets --- */
+  .case-card,
+  .quick-add-pill,
+  .nav-item.glass,
+  .logout-button,
+  .theme-toggle {
+    min-height: 44px !important;
+  }
+
+  /* --- Prevent Horizontal Scroll --- */
+  * {
+    max-width: 100vw !important;
+  }
+
+  table {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    display: block !important;
+  }
+}
+
+/* === TABLET ALIGNMENT FIXES (481px - 768px) === */
+@media (min-width: 481px) and (max-width: 768px) {
+
+  .section-header {
+    flex-direction: row !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+
+  .section-header>div:first-child {
+    flex: 1 !important;
+    min-width: 200px !important;
+  }
+
+  .case-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .case-field-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  .case-meta-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .case-card-footer {
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+  }
+
+  .analytics-glance {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .insights-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .quick-add-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}

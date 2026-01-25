@@ -2017,3 +2017,388 @@ body.dark-theme .submit-button,
     height: 38px;
   }
 }
+
+/* =============================================
+   ENHANCED MOBILE ALIGNMENT FIXES FOR LOGIN PAGE
+   ============================================= */
+
+@media (max-width: 480px) {
+
+  /* Container fixes */
+  .login-container {
+    padding: 20px 12px 30px;
+    min-height: 100vh;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .login-content {
+    width: 100% !important;
+    padding: 10px !important;
+    gap: 24px !important;
+  }
+
+  /* Hero section mobile */
+  .login-hero {
+    text-align: center !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .hero-badge {
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .badge-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .login-hero h1 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    margin: 12px 0 !important;
+    padding: 0 5px !important;
+  }
+
+  .login-hero p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 20px !important;
+    padding: 0 5px !important;
+  }
+
+  .hero-ctas {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+  }
+
+  .hero-pill {
+    width: 100% !important;
+    padding: 14px 20px !important;
+    font-size: 14px !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* Login card mobile */
+  .login-card {
+    width: 100% !important;
+    padding: 24px 18px !important;
+    border-radius: 18px !important;
+    margin: 0 !important;
+  }
+
+  .login-header {
+    margin-bottom: 24px !important;
+  }
+
+  .logo-container {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .logo-icon {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .logo-icon svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .logo-container h1 {
+    font-size: 22px !important;
+  }
+
+  .login-subtitle {
+    font-size: 14px !important;
+    margin-top: 8px !important;
+  }
+
+  /* Login tabs mobile */
+  .login-tabs {
+    flex-direction: row !important;
+    padding: 4px !important;
+    border-radius: 12px !important;
+    margin-bottom: 24px !important;
+    gap: 6px !important;
+  }
+
+  .tab {
+    flex: 1 !important;
+    padding: 12px 14px !important;
+    font-size: 13px !important;
+    border-radius: 10px !important;
+    text-align: center !important;
+  }
+
+  /* Form mobile */
+  .login-form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .form-group {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  .form-group label {
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+    text-align: left !important;
+  }
+
+  .form-group input {
+    width: 100% !important;
+    padding: 14px 16px !important;
+    font-size: 16px !important;
+    /* Prevents iOS zoom */
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .error-message {
+    padding: 12px 14px !important;
+    font-size: 13px !important;
+    border-radius: 10px !important;
+    text-align: left !important;
+  }
+
+  .error-message svg {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .submit-button {
+    width: 100% !important;
+    padding: 16px !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+    margin-top: 8px !important;
+  }
+
+  /* Google login mobile */
+  .social-login-divider {
+    margin: 20px 0 !important;
+    font-size: 12px !important;
+  }
+
+  .google-login-wrapper {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* Welcome message mobile */
+  .welcome-message {
+    padding: 30px 24px !important;
+    border-radius: 16px !important;
+    width: calc(100% - 40px) !important;
+    max-width: 320px !important;
+  }
+
+  .welcome-message h2 {
+    font-size: 24px !important;
+  }
+
+  .welcome-message p {
+    font-size: 14px !important;
+  }
+
+  /* Use cases modal mobile */
+  .usecases-overlay {
+    padding: 10px !important;
+  }
+
+  .usecases-modal {
+    width: 100% !important;
+    max-height: 95vh !important;
+    border-radius: 16px !important;
+  }
+
+  .usecases-header {
+    padding: 24px 16px 16px !important;
+    text-align: center !important;
+  }
+
+  .usecases-header h2 {
+    font-size: 22px !important;
+    margin: 12px 0 6px !important;
+  }
+
+  .usecases-header p {
+    font-size: 13px !important;
+    padding: 0 10px !important;
+  }
+
+  .usecases-badge {
+    font-size: 11px !important;
+    padding: 6px 14px !important;
+  }
+
+  .usecases-categories {
+    padding: 0 12px 14px !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .category-tab {
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    flex: 0 1 auto !important;
+  }
+
+  .cat-icon {
+    font-size: 14px !important;
+  }
+
+  .cat-title {
+    font-size: 11px !important;
+  }
+
+  .usecases-content {
+    padding: 8px 12px 16px !important;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .feature-card {
+    padding: 14px !important;
+    border-radius: 12px !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 12px !important;
+  }
+
+  .feature-icon-wrap {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+    margin: 0 auto !important;
+  }
+
+  .feature-icon {
+    font-size: 22px !important;
+  }
+
+  .feature-info {
+    text-align: center !important;
+  }
+
+  .feature-info h3 {
+    font-size: 15px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .feature-info p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .feature-tags {
+    justify-content: center !important;
+    gap: 4px !important;
+  }
+
+  .feature-tag {
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+  }
+
+  .usecases-footer {
+    padding: 16px 12px !important;
+  }
+
+  .stats-row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    justify-items: center !important;
+  }
+
+  .stat-item {
+    text-align: center !important;
+  }
+
+  .stat-value {
+    font-size: 20px !important;
+  }
+
+  .stat-label {
+    font-size: 10px !important;
+  }
+
+  .usecases-close {
+    top: 10px !important;
+    right: 10px !important;
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .usecases-close svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .login-hero h1 {
+    font-size: 20px !important;
+  }
+
+  .login-hero p {
+    font-size: 13px !important;
+  }
+
+  .login-card {
+    padding: 20px 14px !important;
+  }
+
+  .logo-container h1 {
+    font-size: 20px !important;
+  }
+
+  .form-group input {
+    padding: 12px 14px !important;
+  }
+
+  .submit-button {
+    padding: 14px !important;
+  }
+
+  .hero-pill {
+    padding: 12px 16px !important;
+    font-size: 13px !important;
+  }
+
+  .category-tab {
+    padding: 6px 10px !important;
+  }
+
+  .cat-title {
+    display: none !important;
+  }
+
+  .cat-icon {
+    font-size: 18px !important;
+  }
+}
