@@ -55,9 +55,15 @@ body {
   /* Isolate scroll from main content */
   overscroll-behavior: contain;
   isolation: isolate;
-  /* GPU acceleration for sidebar */
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  /* GPU acceleration for sidebar - only on larger screens */
+}
+
+/* GPU acceleration for sidebar on larger screens only */
+@media (min-width: 481px) {
+  .main-navigation {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }
 
 /* Main content scroll is independent */
