@@ -24484,51 +24484,49 @@ body:not(.dark-theme) .mobile-nav-trigger.active {
     border-radius: 4px !important;
   }
 
-  /* === ALL TEXT - PREVENT OVERFLOW === */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  span,
-  div,
-  label {
+  /* === TEXT CONTAINERS - PREVENT OVERFLOW === */
+  .section-header h1,
+  .section-header h2,
+  .section-header h3,
+  .section-header p,
+  .action-card h3,
+  .action-card p,
+  .preview-card h3,
+  .preview-card p,
+  .insight-card h3,
+  .insight-card p {
     max-width: 100% !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
   }
 
   /* === FLEX CONTAINERS - FIX SHRINKING === */
-  [class*="flex"],
-  [class*="row"],
-  [class*="col"] {
+  .analytics-glance>div,
+  .glance-card,
+  .stat-card,
+  .metric-card,
+  .entity-item,
+  .login-entry {
     min-width: 0 !important;
-    /* Allows flex children to shrink */
   }
 
-  /* === GRID CONTAINERS === */
-  [class*="grid"] {
-    max-width: 100% !important;
-    width: 100% !important;
+  /* === PREVENT ALERT/NOTIFICATION OVERFLOW === */
+  .fraud-alert,
+  .alert-popup,
+  .notification-popup,
+  .rule-trigger-alert {
+    position: fixed !important;
+    right: 10px !important;
+    left: auto !important;
+    max-width: calc(100vw - 20px) !important;
+    width: auto !important;
+    z-index: 9999 !important;
+    overflow: hidden !important;
   }
 
-  /* === ABSOLUTE FIX FOR ANY OVERFLOW === */
-  * {
-    max-width: 100vw !important;
-  }
-
-  .main-content *,
-  .dashboard *,
-  .page-container * {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Except for SVG elements which need intrinsic sizing */
-  svg,
-  svg * {
-    max-width: none !important;
+  /* Hide any popups/alerts that might overflow on mobile */
+  .floating-alert,
+  .side-alert {
+    display: none !important;
   }
 }

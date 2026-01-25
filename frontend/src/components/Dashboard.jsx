@@ -5,6 +5,8 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { FiActivity, FiAlertTriangle, FiTrendingUp, FiDownload, FiWifi } from 'react-icons/fi';
 import 'react-circular-progressbar/dist/styles.css';
 import '../styles/dashboard.css';
+import DownloadDialog from './DownloadDialog';
+import { exportData } from '../utils/exportUtils';
 
 export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
   const [fraudLabel, setFraudLabel] = useState('is_fraud');
@@ -14,6 +16,8 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
   const [trainLoading, setTrainLoading] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(null);
   const [modelLoading, setModelLoading] = useState(false);
+  const [showDownloadDialog, setShowDownloadDialog] = useState(false);
+  const [downloadDataType, setDownloadDataType] = useState(null);
   const [modelStatus, setModelStatus] = useState({
     state: 'offline',
     message: 'Awaiting your first training run',
@@ -140,6 +144,55 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Prepare data for export
+  const getExportData = () => {
+    if (downloadDataType === 'predictions' && predictions) {
+      // Export top transactions data
+      const topTxns = predictions.insights?.top_transactions || [];
+      return topTxns.map(txn => ({
+        transaction_id: txn.transaction_id,
+        customer_id: txn.customer_id,
+        amount: txn.amount,
+        fraud_probability: (txn.probability * 100).toFixed(2) + '%',
+        risk_level: txn.risk_level || 'Unknown'
+      }));
+    } else if (downloadDataType === 'training' && trainingStats) {
+      // Export training stats
+      return [{
+        samples_trained: trainingStats.samples_trained,
+        fraud_ratio: (trainingStats.fraud_ratio * 100).toFixed(2) + '%',
+        rf_score: (trainingStats.rf_score * 100).toFixed(2) + '%',
+        xgb_score: (trainingStats.xgb_score * 100).toFixed(2) + '%'
+      }];
+    } else if (downloadDataType === 'customers' && predictions?.insights?.hot_customers) {
+      return predictions.insights.hot_customers.map(c => ({
+        customer_id: c.customer_id,
+        high_risk_transactions: c.high_risk_count,
+        avg_probability: (c.avg_probability * 100).toFixed(2) + '%',
+        total_amount: '$' + (c.total_amount || 0).toLocaleString()
+      }));
+    }
+    return [];
+  };
+
+  const handleDownload = async (format) => {
+    const data = getExportData();
+    const titles = {
+      predictions: 'Fraud Detection Results',
+      training: 'Model Training Statistics',
+      customers: 'High Risk Customers Report'
+    };
+    await exportData(format, data, {
+      filename: `finfraudx_${downloadDataType}`,
+      title: titles[downloadDataType] || 'Data Export'
+    });
+  };
+
+  const openDownloadDialog = (dataType) => {
+    setDownloadDataType(dataType);
+    setShowDownloadDialog(true);
   };
 
   return (
@@ -300,8 +353,37 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
             customAlerts={predictions.custom_alerts}
             watchlistHits={predictions.watchlist_hits}
           />
+
+          {/* Download Actions */}
+          <div className="action-card" style={{ marginTop: 20 }}>
+            <h2>📥 Export Data</h2>
+            <p>Download your fraud detection results in PDF or Excel format</p>
+            <div className="button-group" style={{ justifyContent: 'center', marginTop: 15, gap: 12, flexWrap: 'wrap' }}>
+              <button
+                onClick={() => openDownloadDialog('predictions')}
+                className="btn btn-primary"
+              >
+                <FiDownload /> Export Transactions
+              </button>
+              <button
+                onClick={() => openDownloadDialog('customers')}
+                className="btn btn-secondary"
+              >
+                <FiDownload /> Export High Risk Customers
+              </button>
+            </div>
+          </div>
         </>
       )}
+
+      {/* Download Dialog */}
+      <DownloadDialog
+        isOpen={showDownloadDialog}
+        onClose={() => setShowDownloadDialog(false)}
+        onDownload={handleDownload}
+        title="Download Report"
+        description="Select your preferred format to export the data."
+      />
     </div>
   );
 };

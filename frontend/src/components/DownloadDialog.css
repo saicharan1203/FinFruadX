@@ -1,0 +1,425 @@
+/* =============================================
+   DOWNLOAD DIALOG STYLES
+   Premium modal for PDF/Excel export
+   ============================================= */
+
+.download-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.download-dialog {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
+    border-radius: 24px;
+    box-shadow:
+        0 50px 100px -20px rgba(0, 0, 0, 0.25),
+        0 30px 60px -30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    width: min(450px, 95vw);
+    max-height: 90vh;
+    overflow: hidden;
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark mode */
+body.dark-theme .download-dialog {
+    background: linear-gradient(135deg, rgba(30, 25, 50, 0.98) 0%, rgba(20, 18, 35, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Header */
+.download-dialog-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 24px 20px;
+    background: linear-gradient(180deg, rgba(106, 17, 203, 0.08) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .download-dialog-header {
+    background: linear-gradient(180deg, rgba(106, 17, 203, 0.15) 0%, transparent 100%);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.download-dialog-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+}
+
+.download-dialog-title-section {
+    flex: 1;
+}
+
+.download-dialog-title-section h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #1a1a2e;
+}
+
+body.dark-theme .download-dialog-title-section h2 {
+    color: #ffffff;
+}
+
+.download-dialog-title-section p {
+    font-size: 0.875rem;
+    margin: 0;
+    color: #6b7280;
+}
+
+body.dark-theme .download-dialog-title-section p {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.download-dialog-close {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: all 0.2s ease;
+}
+
+.download-dialog-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: rotate(90deg);
+}
+
+body.dark-theme .download-dialog-close {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark-theme .download-dialog-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Format Options */
+.download-format-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+}
+
+.download-format-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    text-align: left;
+}
+
+body.dark-theme .download-format-card {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.download-format-card:hover {
+    background: rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .download-format-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.download-format-card.selected {
+    border-color: var(--format-color);
+    background: linear-gradient(135deg,
+            color-mix(in srgb, var(--format-color), transparent 92%),
+            color-mix(in srgb, var(--format-color), transparent 97%));
+    box-shadow:
+        0 8px 25px color-mix(in srgb, var(--format-color), transparent 70%),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.format-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+body.dark-theme .format-icon {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.download-format-card.selected .format-icon {
+    background: color-mix(in srgb, var(--format-color), transparent 85%);
+}
+
+.format-info {
+    flex: 1;
+}
+
+.format-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: #1a1a2e;
+}
+
+body.dark-theme .format-info h3 {
+    color: #ffffff;
+}
+
+.format-info p {
+    font-size: 0.8rem;
+    margin: 0;
+    color: #6b7280;
+}
+
+body.dark-theme .format-info p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.format-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.08);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+body.dark-theme .format-badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.download-format-card.selected .format-badge {
+    background: var(--format-color);
+    color: white;
+}
+
+.format-check {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--format-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Action Buttons */
+.download-dialog-actions {
+    display: flex;
+    gap: 12px;
+    padding: 20px 24px 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.dark-theme .download-dialog-actions {
+    border-top-color: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.download-cancel-btn {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background: transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.download-cancel-btn:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .download-cancel-btn {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+body.dark-theme .download-cancel-btn:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.download-confirm-btn {
+    flex: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+}
+
+.download-confirm-btn:hover:not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(106, 17, 203, 0.4);
+}
+
+.download-confirm-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.download-confirm-btn.success {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+}
+
+.download-confirm-btn .spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .download-dialog {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 85vh;
+        margin-top: auto;
+    }
+
+    .download-dialog-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .download-dialog-header {
+        padding: 20px 16px 16px;
+    }
+
+    .download-dialog-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .download-dialog-title-section h2 {
+        font-size: 1.1rem;
+    }
+
+    .download-format-options {
+        padding: 16px;
+    }
+
+    .download-format-card {
+        padding: 14px 16px;
+    }
+
+    .format-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+    }
+
+    .format-info h3 {
+        font-size: 0.95rem;
+    }
+
+    .download-dialog-actions {
+        flex-direction: column;
+        padding: 16px;
+    }
+
+    .download-cancel-btn,
+    .download-confirm-btn {
+        flex: none;
+        width: 100%;
+    }
+}
