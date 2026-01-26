@@ -194,14 +194,17 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
       )}
       <nav className={`main-navigation ${isCollapsed ? 'collapsed' : ''}`}>
         <div className="nav-brand">
-          <button
-            type="button"
-            className="nav-collapse-toggle"
-            onClick={toggleNavigation}
-            title={isCollapsed ? 'Show menu' : 'Hide menu'}
-          >
-            {isCollapsed ? <FiMenu size={20} /> : <FiX size={20} />}
-          </button>
+          {/* Only show this toggle button on desktop/tablet, not on mobile */}
+          {!isMobileNav && (
+            <button
+              type="button"
+              className="nav-collapse-toggle"
+              onClick={toggleNavigation}
+              title={isCollapsed ? 'Show menu' : 'Hide menu'}
+            >
+              {isCollapsed ? <FiMenu size={20} /> : <FiX size={20} />}
+            </button>
+          )}
           <div className="brand-logo">
             <svg viewBox="0 0 120 120" className="logo-svg">
               <defs>
