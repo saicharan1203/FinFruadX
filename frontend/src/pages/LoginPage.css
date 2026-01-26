@@ -176,6 +176,58 @@
   padding: 40px 0;
 }
 
+/* Auth cards wrapper - holds Login and Sign Up side by side */
+.auth-cards-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* When one card is expanded, the other collapses */
+.auth-cards-wrapper .login-card.collapsed {
+  width: 160px;
+  min-width: 160px;
+}
+
+.auth-cards-wrapper .login-card.expanded {
+  width: 350px;
+  min-width: 350px;
+}
+
+/* Adjust collapsed button for smaller size */
+.auth-cards-wrapper .login-card.collapsed .login-compact-btn {
+  padding: 18px 20px;
+  gap: 10px;
+}
+
+.auth-cards-wrapper .login-card.collapsed .login-text {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.auth-cards-wrapper .login-card.collapsed .heart-icon {
+  font-size: 14px;
+}
+
+/* Responsive: Stack vertically on smaller screens */
+@media (max-width: 480px) {
+  .auth-cards-wrapper {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .auth-cards-wrapper .login-card.collapsed,
+  .auth-cards-wrapper .login-card.expanded {
+    width: 100%;
+    min-width: auto;
+    max-width: 320px;
+  }
+}
+
 .login-hero {
   /* Light text for dark theme */
   color: rgba(255, 255, 255, 0.95);
@@ -282,31 +334,330 @@
   z-index: 1;
 
   /* PERFORMANCE OPTIMIZED - Solid background instead of blur */
-  background: rgba(30, 25, 50, 0.95);
+  background: rgba(20, 18, 35, 0.98);
 
-  border-radius: 28px;
+  border-radius: 20px;
   padding: 48px;
   width: 100%;
   max-width: 480px;
 
+  /* Remove default border - we use pseudo-elements for animated border */
+  border: none;
+
   /* Glass shadow */
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-
-  /* Light purple tint border */
-  border: 1px solid rgba(200, 180, 255, 0.2);
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(0, 0, 0, 0.3);
 
   animation: slideUp 0.6s ease-out;
+  overflow: visible;
+}
+
+/* Animated glowing border container */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 22px;
+  background: linear-gradient(135deg,
+      #667eea 0%,
+      #764ba2 25%,
+      transparent 50%,
+      #a78bfa 75%,
+      #c084fc 100%);
+  background-size: 400% 400%;
+  animation: borderGradientFlow 4s ease infinite;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* Animated glow effect */
+.login-card::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 22px;
+  background: linear-gradient(135deg,
+      rgba(102, 126, 234, 0.4) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(192, 132, 252, 0.4) 100%);
+  filter: blur(15px);
+  z-index: -2;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes borderGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(15px);
+  }
+
+  50% {
+    opacity: 0.9;
+    filter: blur(20px);
+  }
+}
+
+/* Inner dark background to cover the gradient border */
+.login-card>* {
+  position: relative;
+  z-index: 2;
 }
 
 /* PERFORMANCE OPTIMIZED - No blur */
 body.dark-theme .login-card,
 .login-card {
-  background: rgba(30, 25, 50, 0.95) !important;
+  background: rgba(15, 15, 25, 0.98) !important;
   /* backdrop-filter removed for performance */
-  border: 1px solid rgba(200, 180, 255, 0.2) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  border: none !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ============================================
+   EXPANDABLE LOGIN CARD - Hover to Reveal
+   ============================================ */
+
+/* Collapsed state - compact LOGIN button */
+.login-card.collapsed {
+  width: 280px;
+  height: 80px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+  will-change: width, height, padding, transform;
+}
+
+/* Expanded state - full form */
+.login-card.expanded {
+  width: 380px;
+  height: auto;
+  min-height: 380px;
+  padding: 35px 30px;
+  cursor: default;
+  transition: all 1s ease-in-out;
+  will-change: width, height, padding, transform;
+}
+
+/* Compact LOGIN button container */
+.login-compact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, rgba(26, 10, 46, 0.95) 0%, rgba(45, 27, 78, 0.9) 100%);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 10px;
+  transition: all 0.7s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 30px);
+  will-change: opacity, transform;
+}
+
+.login-compact-btn.hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.95);
+  pointer-events: none;
+}
+
+/* Heart icons */
+.heart-icon {
+  font-size: 18px;
+  color: #c084fc;
+  text-shadow:
+    0 0 10px #a78bfa,
+    0 0 20px #c084fc,
+    0 0 30px rgba(167, 139, 250, 0.6);
+  animation: heartPulse 2s ease-in-out infinite;
+}
+
+.heart-icon.left {
+  animation-delay: 0s;
+}
+
+.heart-icon.right {
+  animation-delay: 1s;
+}
+
+@keyframes heartPulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* LOGIN text styling */
+.login-text {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #c084fc;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 10px rgba(192, 132, 252, 0.5),
+    0 0 20px rgba(167, 139, 250, 0.3);
+}
+
+/* Expanded content container */
+.login-expanded-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(15px) scale(0.99);
+  transition: all 0.8s ease-in-out;
+  transition-delay: 0.3s;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.login-expanded-content.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+  transition-delay: 0.25s;
+}
+
+/* Expanded title */
+.expanded-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 25px;
+}
+
+.expanded-title .login-text {
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+/* Form styling in expanded state */
+.login-card.expanded .login-form {
+  gap: 16px;
+}
+
+.login-card.expanded .form-group {
+  animation: none;
+}
+
+.login-card.expanded .form-group input {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-card.expanded .form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.5) !important;
+  font-weight: 400;
+}
+
+.login-card.expanded .form-group input:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.25);
+  background: rgba(167, 139, 250, 0.08) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Submit button in expanded state */
+.login-card.expanded .submit-button {
+  background: linear-gradient(135deg, #8b5da8 0%, #a78bfa 50%, #c084fc 100%) !important;
+  color: #ffffff !important;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+  margin-top: 8px;
+  box-shadow: 0 4px 20px rgba(139, 93, 168, 0.4);
+  animation: none;
+}
+
+.login-card.expanded .submit-button:hover {
+  box-shadow: 0 6px 30px rgba(167, 139, 250, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Footer in expanded state */
+.login-card.expanded .login-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.login-card.expanded .login-footer p {
+  display: none;
+}
+
+.login-card.expanded .link-button {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.login-card.expanded .link-button:hover {
+  color: #c084fc;
+  text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+}
+
+.login-card.expanded .link-button.signup {
+  color: #c084fc;
+  font-weight: 600;
+}
+
+.login-card.expanded .link-button.signup:hover {
+  text-shadow: 0 0 15px rgba(192, 132, 252, 0.7);
 }
 
 body.dark-theme .login-tabs,

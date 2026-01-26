@@ -463,6 +463,7 @@ export const LoginPage = ({ onLoginSuccess }) => {
     const [showUseCases, setShowUseCases] = useState(false);
     const [showExplore, setShowExplore] = useState(false);
     const [googleLoading, setGoogleLoading] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
     const canvasRef = useRef(null);
     const animationRef = useRef(null);
     const pointerRef = useRef({ x: 0.5, y: 0.5 });
@@ -713,167 +714,195 @@ export const LoginPage = ({ onLoginSuccess }) => {
                     </div>
                 </div>
 
-                <div className="login-card">
-                    <div className="login-header">
-                        <div className="logo-container">
-                            <div className="logo-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
-                                </svg>
-                            </div>
-                            <h1>Fraud Detection</h1>
-                        </div>
-                        <p className="login-subtitle">
-                            {isLogin ? 'Welcome back! Please login to continue.' : 'Create an account to get started.'}
-                        </p>
-                    </div>
-
-                    <div className="login-tabs">
-                        <button
-                            className={`tab ${isLogin ? 'active' : ''}`}
-                            onClick={() => {
-                                setIsLogin(true);
-                                setError('');
-                            }}
-                        >
-                            <span className="tab-text" data-text="Login">
-                                Login
-                            </span>
-                        </button>
-                        <button
-                            className={`tab ${!isLogin ? 'active' : ''}`}
-                            onClick={() => {
-                                setIsLogin(false);
-                                setError('');
-                            }}
-                        >
-                            <span className="tab-text" data-text="Sign Up">
-                                Sign Up
-                            </span>
-                        </button>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="login-form">
-                        {error && (
-                            <div className="error-message">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <line x1="12" y1="8" x2="12" y2="12" />
-                                    <line x1="12" y1="16" x2="12.01" y2="16" />
-                                </svg>
-                                {error}
-                            </div>
-                        )}
-
-                        {!isLogin && (
-                            <div className="form-group">
-                                <label htmlFor="full_name">Full Name</label>
-                                <input
-                                    type="text"
-                                    id="full_name"
-                                    name="full_name"
-                                    value={formData.full_name}
-                                    onChange={handleChange}
-                                    placeholder="Enter your full name"
-                                />
-                            </div>
-                        )}
-
-                        <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleChange}
-                                placeholder="Enter your username"
-                                required
-                            />
+                {/* Auth Cards Container - Login and Sign Up side by side */}
+                <div className="auth-cards-wrapper">
+                    {/* LOGIN Card */}
+                    <div
+                        className={`login-card ${isExpanded && isLogin ? 'expanded' : 'collapsed'}`}
+                        onMouseEnter={() => {
+                            setIsExpanded(true);
+                            setIsLogin(true);
+                        }}
+                        onMouseLeave={() => {
+                            if (!formData.username && !formData.password) {
+                                setIsExpanded(false);
+                            }
+                        }}
+                    >
+                        {/* Compact LOGIN button */}
+                        <div className={`login-compact-btn ${isExpanded && isLogin ? 'hidden' : ''}`}>
+                            <span className="heart-icon left">♡</span>
+                            <span className="login-text">LOGIN</span>
+                            <span className="heart-icon right">♥</span>
                         </div>
 
-                        {!isLogin && (
-                            <div className="form-group">
-                                <label htmlFor="email">Email</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="Enter your email"
-                                    required
-                                />
+                        {/* Expanded Login form */}
+                        <div className={`login-expanded-content ${isExpanded && isLogin ? 'visible' : ''}`}>
+                            <div className="login-header">
+                                <div className="expanded-title">
+                                    <span className="heart-icon left">♡</span>
+                                    <span className="login-text">LOGIN</span>
+                                    <span className="heart-icon right">♥</span>
+                                </div>
                             </div>
-                        )}
 
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                placeholder="Enter your password"
-                                required
-                            />
+                            <form onSubmit={handleSubmit} className="login-form">
+                                {error && isLogin && (
+                                    <div className="error-message">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="12" y1="8" x2="12" y2="12" />
+                                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                                        </svg>
+                                        {error}
+                                    </div>
+                                )}
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        id="login-username"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                        placeholder="Username"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="password"
+                                        id="login-password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        placeholder="Password"
+                                        required
+                                    />
+                                </div>
+
+                                <button type="submit" className="submit-button" disabled={loading || googleLoading}>
+                                    {loading && isLogin ? (
+                                        <>
+                                            <span className="spinner"></span>
+                                            Signing in...
+                                        </>
+                                    ) : (
+                                        'Sign in'
+                                    )}
+                                </button>
+                            </form>
+
+                            <div className="login-footer">
+                                <button className="link-button forgot" onClick={() => { }}>
+                                    Forgot Password
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* SIGN UP Card */}
+                    <div
+                        className={`login-card signup-card ${isExpanded && !isLogin ? 'expanded' : 'collapsed'}`}
+                        onMouseEnter={() => {
+                            setIsExpanded(true);
+                            setIsLogin(false);
+                        }}
+                        onMouseLeave={() => {
+                            if (!formData.username && !formData.password && !formData.email && !formData.full_name) {
+                                setIsExpanded(false);
+                            }
+                        }}
+                    >
+                        {/* Compact SIGN UP button */}
+                        <div className={`login-compact-btn ${isExpanded && !isLogin ? 'hidden' : ''}`}>
+                            <span className="heart-icon left">✦</span>
+                            <span className="login-text">SIGN UP</span>
+                            <span className="heart-icon right">✦</span>
                         </div>
 
-                        <button type="submit" className="submit-button" disabled={loading || googleLoading}>
-                            {loading ? (
-                                <>
-                                    <span className="spinner"></span>
-                                    {isLogin ? 'Logging in...' : 'Creating account...'}
-                                </>
-                            ) : (
-                                isLogin ? 'Login' : 'Create Account'
-                            )}
-                        </button>
-                    </form>
-
-                    {/* OAuth Divider */}
-                    <div className="oauth-divider">
-                        <span className="divider-line"></span>
-                        <span className="divider-text">or continue with</span>
-                        <span className="divider-line"></span>
-                    </div>
-
-                    {/* Google Sign-In Button */}
-                    <div className="google-login-wrapper">
-                        {googleLoading ? (
-                            <div className="google-loading">
-                                <span className="spinner"></span>
-                                <span>Signing in with Google...</span>
+                        {/* Expanded Sign Up form */}
+                        <div className={`login-expanded-content ${isExpanded && !isLogin ? 'visible' : ''}`}>
+                            <div className="login-header">
+                                <div className="expanded-title">
+                                    <span className="heart-icon left">✦</span>
+                                    <span className="login-text">SIGN UP</span>
+                                    <span className="heart-icon right">✦</span>
+                                </div>
                             </div>
-                        ) : (
-                            <GoogleLogin
-                                onSuccess={handleGoogleSuccess}
-                                onError={handleGoogleError}
-                                useOneTap
-                                theme="filled_blue"
-                                size="large"
-                                width="100%"
-                                text="signin_with"
-                                shape="rectangular"
-                            />
-                        )}
-                    </div>
 
-                    <div className="login-footer">
-                        <p>
-                            {isLogin ? "Don't have an account? " : "Already have an account? "}
-                            <button
-                                className="link-button"
-                                onClick={() => {
-                                    setIsLogin(!isLogin);
-                                    setError('');
-                                }}
-                            >
-                                {isLogin ? 'Register here' : 'Login here'}
-                            </button>
-                        </p>
+                            <form onSubmit={handleSubmit} className="login-form">
+                                {error && !isLogin && (
+                                    <div className="error-message">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <line x1="12" y1="8" x2="12" y2="12" />
+                                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                                        </svg>
+                                        {error}
+                                    </div>
+                                )}
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        id="signup-fullname"
+                                        name="full_name"
+                                        value={formData.full_name}
+                                        onChange={handleChange}
+                                        placeholder="Full Name"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        id="signup-username"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                        placeholder="Username"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="email"
+                                        id="signup-email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        placeholder="Email"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        type="password"
+                                        id="signup-password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        placeholder="Password"
+                                        required
+                                    />
+                                </div>
+
+                                <button type="submit" className="submit-button" disabled={loading || googleLoading}>
+                                    {loading && !isLogin ? (
+                                        <>
+                                            <span className="spinner"></span>
+                                            Creating account...
+                                        </>
+                                    ) : (
+                                        'Create Account'
+                                    )}
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
