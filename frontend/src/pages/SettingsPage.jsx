@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { FiUser, FiMail, FiPhone, FiShield, FiBell, FiLock, FiCamera, FiSave, FiClock, FiMapPin } from 'react-icons/fi';
 
 export const SettingsPage = () => {
@@ -107,9 +108,9 @@ export const SettingsPage = () => {
   ];
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <div className="page-header-with-logo">
+    <Box className="page-container">
+      <Box className="page-header">
+        <Box className="page-header-with-logo">
           <svg className="page-logo" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="settingsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -125,23 +126,23 @@ export const SettingsPage = () => {
             <rect x="58" y="37" width="10" height="6" rx="2" fill="url(#settingsGradient)" />
             <rect x="12" y="37" width="10" height="6" rx="2" fill="url(#settingsGradient)" />
           </svg>
-          <div>
+          <Box>
             <h1>⚙️ Settings & Profile</h1>
             <p>Manage your account, preferences, and security settings</p>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       {saved && (
-        <div className="success-banner">
-          <div className="success-icon">✅</div>
+        <Box className="success-banner">
+          <Box className="success-icon">✅</Box>
           <strong>Settings saved successfully!</strong>
           <p>Your changes have been applied.</p>
-        </div>
+        </Box>
       )}
 
-      <div className="settings-layout">
-        <div className="settings-tabs">
+      <Box className="settings-layout">
+        <Box className="settings-tabs">
           <button 
             className={`tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
             onClick={() => setActiveTab('profile')}
@@ -166,22 +167,22 @@ export const SettingsPage = () => {
           >
             <FiShield /> API & Integrations
           </button>
-        </div>
+        </Box>
 
-        <div className="settings-content">
+        <Box className="settings-content">
           {/* Profile Tab */}
           {activeTab === 'profile' && (
-            <div className="settings-section">
+            <Box className="settings-section">
               <h2>👤 Profile Information</h2>
               
-              <div className="profile-photo-section">
-                <div className="photo-preview">
+              <Box className="profile-photo-section">
+                <Box className="photo-preview">
                   {userProfile.avatar ? (
                     <img src={userProfile.avatar} alt="Profile" className="avatar-image" />
                   ) : (
-                    <div className="avatar-placeholder">
+                    <Box className="avatar-placeholder">
                       <FiUser size={60} />
-                    </div>
+                    </Box>
                   )}
                   <button 
                     className="change-photo-btn"
@@ -196,16 +197,16 @@ export const SettingsPage = () => {
                     onChange={handlePhotoUpload}
                     style={{ display: 'none' }}
                   />
-                </div>
-                <div className="photo-info">
+                </Box>
+                <Box className="photo-info">
                   <h3>Profile Picture</h3>
                   <p>Upload a professional photo. Max size: 5MB</p>
                   <p className="text-muted">Supported formats: JPG, PNG, GIF</p>
-                </div>
-              </div>
+                </Box>
+              </Box>
 
-              <div className="form-grid">
-                <div className="form-group">
+              <Box className="form-grid">
+                <Box className="form-group">
                   <label><FiUser /> Full Name</label>
                   <input
                     type="text"
@@ -213,9 +214,9 @@ export const SettingsPage = () => {
                     onChange={(e) => setUserProfile({...userProfile, name: e.target.value})}
                     placeholder="Enter your full name"
                   />
-                </div>
+                </Box>
 
-                <div className="form-group">
+                <Box className="form-group">
                   <label><FiMail /> Email Address</label>
                   <input
                     type="email"
@@ -223,9 +224,9 @@ export const SettingsPage = () => {
                     onChange={(e) => setUserProfile({...userProfile, email: e.target.value})}
                     placeholder="your.email@example.com"
                   />
-                </div>
+                </Box>
 
-                <div className="form-group">
+                <Box className="form-group">
                   <label><FiPhone /> Phone Number</label>
                   <input
                     type="tel"
@@ -233,9 +234,9 @@ export const SettingsPage = () => {
                     onChange={(e) => setUserProfile({...userProfile, phone: e.target.value})}
                     placeholder="Enter phone number"
                   />
-                </div>
+                </Box>
 
-                <div className="form-group">
+                <Box className="form-group">
                   <label><FiShield /> Role</label>
                   <select
                     value={userProfile.role}
@@ -245,9 +246,9 @@ export const SettingsPage = () => {
                       <option key={role} value={role}>{role}</option>
                     ))}
                   </select>
-                </div>
+                </Box>
 
-                <div className="form-group">
+                <Box className="form-group">
                   <label><FiShield /> Department</label>
                   <select
                     value={userProfile.department}
@@ -257,9 +258,9 @@ export const SettingsPage = () => {
                       <option key={dept} value={dept}>{dept}</option>
                     ))}
                   </select>
-                </div>
+                </Box>
 
-                <div className="form-group">
+                <Box className="form-group">
                   <label><FiMapPin /> Location</label>
                   <input
                     type="text"
@@ -267,9 +268,9 @@ export const SettingsPage = () => {
                     onChange={(e) => setUserProfile({...userProfile, location: e.target.value})}
                     placeholder="City, Country"
                   />
-                </div>
+                </Box>
 
-                <div className="form-group">
+                <Box className="form-group">
                   <label><FiClock /> Timezone</label>
                   <select
                     value={userProfile.timezone}
@@ -281,9 +282,9 @@ export const SettingsPage = () => {
                     <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
                     <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
                   </select>
-                </div>
+                </Box>
 
-                <div className="form-group full-width">
+                <Box className="form-group full-width">
                   <label><FiUser /> Bio</label>
                   <textarea
                     value={userProfile.bio}
@@ -291,24 +292,24 @@ export const SettingsPage = () => {
                     placeholder="Tell us about yourself..."
                     rows="4"
                   />
-                </div>
-              </div>
-            </div>
+                </Box>
+              </Box>
+            </Box>
           )}
 
           {/* Preferences Tab */}
           {activeTab === 'preferences' && (
-            <div className="settings-section">
+            <Box className="settings-section">
               <h2>🔔 Notification Preferences</h2>
               
-              <div className="preferences-group">
+              <Box className="preferences-group">
                 <h3>Alert Settings</h3>
-                <div className="toggle-list">
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                <Box className="toggle-list">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>Email Notifications</strong>
                       <p>Receive fraud alerts via email</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -317,13 +318,13 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
+                  </Box>
 
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>SMS Alerts</strong>
                       <p>Get critical alerts via SMS</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -332,13 +333,13 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
+                  </Box>
 
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>Sound Alerts</strong>
                       <p>Play sound for fraud detection</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -347,13 +348,13 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
+                  </Box>
 
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>Critical Only</strong>
                       <p>Only notify for critical alerts</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -362,15 +363,15 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
+                  </Box>
 
-                </div>
-              </div>
+                </Box>
+              </Box>
 
-              <div className="preferences-group">
+              <Box className="preferences-group">
                 <h3>Display Settings</h3>
-                <div className="form-grid">
-                  <div className="form-group">
+                <Box className="form-grid">
+                  <Box className="form-group">
                     <label>Alert Threshold (%)</label>
                     <input
                       type="range"
@@ -380,9 +381,9 @@ export const SettingsPage = () => {
                       onChange={(e) => setPreferences({...preferences, alertThreshold: parseInt(e.target.value)})}
                     />
                     <span className="range-value">{preferences.alertThreshold}%</span>
-                  </div>
+                  </Box>
 
-                  <div className="form-group">
+                  <Box className="form-group">
                     <label>Refresh Interval (seconds)</label>
                     <select
                       value={preferences.refreshInterval}
@@ -393,9 +394,9 @@ export const SettingsPage = () => {
                       <option value="60">1 minute</option>
                       <option value="300">5 minutes</option>
                     </select>
-                  </div>
+                  </Box>
 
-                  <div className="form-group">
+                  <Box className="form-group">
                     <label>Language</label>
                     <select
                       value={preferences.language}
@@ -407,25 +408,25 @@ export const SettingsPage = () => {
                       <option value="es-ES">Spanish</option>
                       <option value="fr-FR">French</option>
                     </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
           )}
 
           {/* Security Tab */}
           {activeTab === 'security' && (
-            <div className="settings-section">
+            <Box className="settings-section">
               <h2>🔒 Security Settings</h2>
               
-              <div className="security-group">
+              <Box className="security-group">
                 <h3>Authentication</h3>
-                <div className="toggle-list">
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                <Box className="toggle-list">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>Two-Factor Authentication</strong>
                       <p>Add an extra layer of security to your account</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -434,13 +435,13 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
+                  </Box>
 
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>Auto Logout</strong>
                       <p>Automatically log out after inactivity</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -449,13 +450,13 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
+                  </Box>
 
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>Login History</strong>
                       <p>Track all login attempts and sessions</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -464,14 +465,14 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
-                </div>
-              </div>
+                  </Box>
+                </Box>
+              </Box>
 
-              <div className="security-group">
+              <Box className="security-group">
                 <h3>Session Management</h3>
-                <div className="form-grid">
-                  <div className="form-group full-width">
+                <Box className="form-grid">
+                  <Box className="form-group full-width">
                     <label>IP Whitelist (comma-separated)</label>
                     <input
                       type="text"
@@ -479,39 +480,39 @@ export const SettingsPage = () => {
                       onChange={(e) => setSecurity({...security, ipWhitelist: e.target.value})}
                       placeholder="192.168.1.1, 10.0.0.1"
                     />
-                  </div>
-                </div>
-              </div>
+                  </Box>
+                </Box>
+              </Box>
 
-              <div className="security-actions">
+              <Box className="security-actions">
                 <button className="btn-danger">🔑 Change Password</button>
                 <button className="btn-secondary">📱 Manage Devices</button>
                 <button className="btn-secondary">📜 View Login History</button>
-              </div>
-            </div>
+              </Box>
+            </Box>
           )}
 
           {/* API & Integrations Tab */}
           {activeTab === 'api' && (
-            <div className="settings-section">
+            <Box className="settings-section">
               <h2>🔌 API & Integrations</h2>
               
-              <div className="api-group">
+              <Box className="api-group">
                 <h3>API Configuration</h3>
-                <div className="form-grid">
-                  <div className="form-group full-width">
+                <Box className="form-grid">
+                  <Box className="form-group full-width">
                     <label>API Key</label>
-                    <div className="input-with-action">
+                    <Box className="input-with-action">
                       <input
                         type="text"
                         value={apiSettings.apiKey}
                         readOnly
                       />
                       <button className="btn-generate">🔄 Regenerate</button>
-                    </div>
-                  </div>
+                    </Box>
+                  </Box>
 
-                  <div className="form-group full-width">
+                  <Box className="form-group full-width">
                     <label>Webhook URL</label>
                     <input
                       type="url"
@@ -519,24 +520,24 @@ export const SettingsPage = () => {
                       onChange={(e) => setApiSettings({...apiSettings, webhookUrl: e.target.value})}
                       placeholder="https://your-domain.com/webhook"
                     />
-                  </div>
+                  </Box>
 
-                  <div className="form-group">
+                  <Box className="form-group">
                     <label>Rate Limit (requests/hour)</label>
                     <input
                       type="number"
                       value={apiSettings.rateLimit}
                       onChange={(e) => setApiSettings({...apiSettings, rateLimit: parseInt(e.target.value)})}
                     />
-                  </div>
-                </div>
+                  </Box>
+                </Box>
 
-                <div className="toggle-list">
-                  <div className="toggle-item">
-                    <div className="toggle-info">
+                <Box className="toggle-list">
+                  <Box className="toggle-item">
+                    <Box className="toggle-info">
                       <strong>Enable Webhooks</strong>
                       <p>Receive real-time fraud alerts via webhooks</p>
-                    </div>
+                    </Box>
                     <label className="toggle-switch">
                       <input
                         type="checkbox"
@@ -545,43 +546,43 @@ export const SettingsPage = () => {
                       />
                       <span className="toggle-slider"></span>
                     </label>
-                  </div>
-                </div>
-              </div>
+                  </Box>
+                </Box>
+              </Box>
 
-              <div className="api-documentation">
+              <Box className="api-documentation">
                 <h3>📚 Quick Links</h3>
-                <div className="link-cards">
+                <Box className="link-cards">
                   <button type="button" className="link-card">
-                    <div className="card-icon">📖</div>
+                    <Box className="card-icon">📖</Box>
                     <strong>API Documentation</strong>
                     <p>View complete API reference</p>
                   </button>
                   <button type="button" className="link-card">
-                    <div className="card-icon">💻</div>
+                    <Box className="card-icon">💻</Box>
                     <strong>Code Examples</strong>
                     <p>Integration code snippets</p>
                   </button>
                   <button type="button" className="link-card">
-                    <div className="card-icon">📊</div>
+                    <Box className="card-icon">📊</Box>
                     <strong>Usage Analytics</strong>
                     <p>Monitor API usage stats</p>
                   </button>
-                </div>
-              </div>
-            </div>
+                </Box>
+              </Box>
+            </Box>
           )}
 
-          <div className="settings-actions">
+          <Box className="settings-actions">
             <button className="btn-save" onClick={handleSave}>
               <FiSave /> Save All Changes
             </button>
             <button className="btn-reset" onClick={() => window.location.reload()}>
               Reset to Defaults
             </button>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };

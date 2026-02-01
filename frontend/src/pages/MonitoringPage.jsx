@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import { RealTimeFraudMonitor } from '../components/RealTimeFraudMonitor';
 import { FraudRadar } from '../components/FraudRadar';
 import { CaseBuilder } from '../components/CaseBuilder';
@@ -6,21 +7,21 @@ import { CaseBuilder } from '../components/CaseBuilder';
 export const MonitoringPage = ({ predictions }) => {
   if (!predictions) {
     return (
-      <div className="page-container">
-        <div className="empty-state-page">
-          <div className="empty-icon">📡</div>
+      <Box className="page-container">
+        <Box className="empty-state-page">
+          <Box className="empty-icon">📡</Box>
           <h2>No Monitoring Data Available</h2>
           <p>Please upload data and run fraud detection from the Dashboard first.</p>
           <a href="/" className="btn-primary">Go to Dashboard</a>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <div className="page-header-with-logo">
+    <Box className="page-container">
+      <Box className="page-header">
+        <Box className="page-header-with-logo">
           <svg className="page-logo" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="monitoringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -36,44 +37,44 @@ export const MonitoringPage = ({ predictions }) => {
             <circle cx="65" cy="35" r="3" fill="url(#monitoringGradient)" />
             <line x1="15" y1="60" x2="75" y2="60" stroke="url(#monitoringGradient)" strokeWidth="2" />
           </svg>
-          <div>
+          <Box>
             <h1>📡 Real-Time Monitoring</h1>
             <p>Live fraud detection alerts and radar visualization</p>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       <RealTimeFraudMonitor predictions={predictions} />
       <FraudRadar predictions={predictions} />
 
       <CaseBuilder predictions={predictions} />
       
-      <div className="monitoring-tips">
+      <Box className="monitoring-tips">
         <h3>💡 Monitoring Best Practices</h3>
-        <div className="tips-grid">
-          <div className="tip-item">
-            <span className="tip-number">1</span>
-            <div>
+        <Box className="tips-grid">
+          <Box className="tip-item">
+            <Box className="tip-number">1</Box>
+            <Box>
               <strong>Enable Sound Alerts</strong>
               <p>Turn on audio notifications for critical fraud detection in real-time</p>
-            </div>
-          </div>
-          <div className="tip-item">
-            <span className="tip-number">2</span>
-            <div>
+            </Box>
+          </Box>
+          <Box className="tip-item">
+            <Box className="tip-number">2</Box>
+            <Box>
               <strong>Watch the Radar</strong>
               <p>Red blips indicate high-risk transactions that require immediate attention</p>
-            </div>
-          </div>
-          <div className="tip-item">
-            <span className="tip-number">3</span>
-            <div>
+            </Box>
+          </Box>
+          <Box className="tip-item">
+            <Box className="tip-number">3</Box>
+            <Box>
               <strong>Act on Alerts</strong>
               <p>Use investigate, block, or dismiss actions to manage detected fraud</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { FiClock, FiUser, FiFilter, FiSearch } from 'react-icons/fi';
 
 export const ActivityLogPage = () => {
@@ -118,50 +119,50 @@ export const ActivityLogPage = () => {
   ];
 
   return (
-    <div className="page-container activity-page">
-      <div className="activity-hero">
-        <div className="hero-badge">🛡️ Bio Shield</div>
-        <div>
+    <Box className="page-container activity-page">
+      <Box className="activity-hero">
+        <Box className="hero-badge">🛡️ Bio Shield</Box>
+        <Box>
           <h1>Activity Log</h1>
           <p>All system activities and analyst actions in one unified stream.</p>
-        </div>
-        <div className="hero-status-grid">
-          <div>
+        </Box>
+        <Box className="hero-status-grid">
+          <Box>
             <span>Presence:</span>
             <strong>Confirmed</strong>
-          </div>
-          <div>
+          </Box>
+          <Box>
             <span>Session Integrity:</span>
             <strong>99.4%</strong>
-          </div>
-        </div>
-        <div className="hero-metrics">
-          <div>
+          </Box>
+        </Box>
+        <Box className="hero-metrics">
+          <Box>
             <span>Typing variance</span>
-            <div className="metric-bar"><span style={{ width: '0%' }} /></div>
-          </div>
-          <div>
+            <Box className="metric-bar"><span style={{ width: '0%' }} /></Box>
+          </Box>
+          <Box>
             <span>Touch rhythm</span>
-            <div className="metric-bar"><span style={{ width: '100%' }} /></div>
-          </div>
-          <div>
+            <Box className="metric-bar"><span style={{ width: '100%' }} /></Box>
+          </Box>
+          <Box>
             <span>Idle pulse</span>
-            <div className="metric-bar"><span style={{ width: '80%' }} /></div>
-          </div>
-        </div>
-      </div>
+            <Box className="metric-bar"><span style={{ width: '80%' }} /></Box>
+          </Box>
+        </Box>
+      </Box>
 
-      <div className="activity-stat-pills">
+      <Box className="activity-stat-pills">
         {stats.map((stat) => (
-          <div key={stat.label} className="stat-pill">
+          <Box key={stat.label} className="stat-pill">
             <strong>{stat.value}</strong>
             <span>{stat.label}</span>
-          </div>
+          </Box>
         ))}
-      </div>
+      </Box>
 
-      <div className="activity-controls">
-        <div className="search-box">
+      <Box className="activity-controls">
+        <Box className="search-box">
           <FiSearch />
           <input
             type="text"
@@ -169,9 +170,9 @@ export const ActivityLogPage = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
+        </Box>
 
-        <div className="filter-group">
+        <Box className="filter-group">
           <FiFilter />
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="all">All Activities</option>
@@ -181,25 +182,25 @@ export const ActivityLogPage = () => {
             <option value="security">Security</option>
             <option value="data">Data Operations</option>
           </select>
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      <div className="activity-timeline">
+      <Box className="activity-timeline">
         {filteredActivities.length > 0 ? (
           filteredActivities.map((activity) => (
-            <div key={activity.id} className={`activity-item severity-${activity.severity}`}>
-              <div className="activity-icon">
+            <Box key={activity.id} className={`activity-item severity-${activity.severity}`}>
+              <Box className="activity-icon">
                 {getActivityIcon(activity.type)}
-              </div>
-              <div className="activity-content">
-                <div className="activity-header">
+              </Box>
+              <Box className="activity-content">
+                <Box className="activity-header">
                   <h3>{activity.action}</h3>
                   <span className={`severity-badge ${activity.severity}`}>
                     {activity.severity}
                   </span>
-                </div>
+                </Box>
                 <p className="activity-details">{activity.details}</p>
-                <div className="activity-meta">
+                <Box className="activity-meta">
                   <span className="meta-item">
                     <FiUser size={14} /> {activity.user}
                   </span>
@@ -209,18 +210,18 @@ export const ActivityLogPage = () => {
                   <span className="meta-item type-badge">
                     {activity.type}
                   </span>
-                </div>
-              </div>
-            </div>
+                </Box>
+              </Box>
+            </Box>
           ))
         ) : (
-          <div className="empty-state-activity">
-            <div className="empty-icon">🔍</div>
+          <Box className="empty-state-activity">
+            <Box className="empty-icon">🔍</Box>
             <h3>No activities found</h3>
             <p>Try adjusting your search or filter criteria</p>
-          </div>
+          </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Box } from '@mui/material';
 import { FiTrendingUp, FiTrendingDown, FiDollarSign, FiUsers, FiShield, FiAlertTriangle } from 'react-icons/fi';
 import '../styles/dashboard.css';
 
@@ -53,92 +54,92 @@ export const ReportMetricsDashboard = ({ predictions }) => {
     }
 
     return (
-        <div className="report-metrics-dashboard">
-            <div className="metrics-header">
+        <Box className="report-metrics-dashboard">
+            <Box className="metrics-header">
                 <h3>📊 Executive Overview</h3>
                 <p>Key performance indicators for the current dataset</p>
-            </div>
+            </Box>
 
-            <div className="metrics-grid-reports">
-                <div className="metric-tile primary">
-                    <div className="metric-tile-icon">
+            <Box className="metrics-grid-reports">
+                <Box className="metric-tile primary">
+                    <Box className="metric-tile-icon">
                         <FiTrendingUp />
-                    </div>
-                    <div className="metric-tile-content">
+                    </Box>
+                    <Box className="metric-tile-content">
                         <span className="metric-tile-value">{metrics.totalTransactions.toLocaleString()}</span>
                         <span className="metric-tile-label">Total Transactions</span>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
 
-                <div className="metric-tile danger">
-                    <div className="metric-tile-icon">
+                <Box className="metric-tile danger">
+                    <Box className="metric-tile-icon">
                         <FiAlertTriangle />
-                    </div>
-                    <div className="metric-tile-content">
+                    </Box>
+                    <Box className="metric-tile-content">
                         <span className="metric-tile-value">{metrics.fraudCases}</span>
                         <span className="metric-tile-label">Fraud Detected</span>
                         <span className="metric-tile-badge">{metrics.fraudRate}%</span>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
 
-                <div className="metric-tile warning">
-                    <div className="metric-tile-icon">
+                <Box className="metric-tile warning">
+                    <Box className="metric-tile-icon">
                         <FiShield />
-                    </div>
-                    <div className="metric-tile-content">
+                    </Box>
+                    <Box className="metric-tile-content">
                         <span className="metric-tile-value">{metrics.highRiskCases}</span>
                         <span className="metric-tile-label">High Risk Cases</span>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
 
-                <div className="metric-tile success">
-                    <div className="metric-tile-icon">
+                <Box className="metric-tile success">
+                    <Box className="metric-tile-icon">
                         <FiDollarSign />
-                    </div>
-                    <div className="metric-tile-content">
+                    </Box>
+                    <Box className="metric-tile-content">
                         <span className="metric-tile-value">₹{(metrics.totalAmount / 1000).toFixed(1)}K</span>
                         <span className="metric-tile-label">Total Volume</span>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
 
-                <div className="metric-tile info">
-                    <div className="metric-tile-icon">
+                <Box className="metric-tile info">
+                    <Box className="metric-tile-icon">
                         <FiDollarSign />
-                    </div>
-                    <div className="metric-tile-content">
+                    </Box>
+                    <Box className="metric-tile-content">
                         <span className="metric-tile-value">₹{(metrics.fraudAmount / 1000).toFixed(1)}K</span>
                         <span className="metric-tile-label">Fraud Amount</span>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
 
-                <div className="metric-tile purple">
-                    <div className="metric-tile-icon">
+                <Box className="metric-tile purple">
+                    <Box className="metric-tile-icon">
                         <FiUsers />
-                    </div>
-                    <div className="metric-tile-content">
+                    </Box>
+                    <Box className="metric-tile-content">
                         <span className="metric-tile-value">{metrics.uniqueCustomers}</span>
                         <span className="metric-tile-label">Unique Customers</span>
-                    </div>
-                </div>
-            </div>
+                    </Box>
+                </Box>
+            </Box>
 
-            <div className="metrics-highlight-row">
-                <div className="highlight-card">
+            <Box className="metrics-highlight-row">
+                <Box className="highlight-card">
                     <span className="highlight-label">Average Risk Score</span>
                     <span className="highlight-value" style={{ color: parseFloat(metrics.avgRisk) > 50 ? '#ef4444' : '#22c55e' }}>
                         {metrics.avgRisk}%
                     </span>
-                </div>
-                <div className="highlight-card">
+                </Box>
+                <Box className="highlight-card">
                     <span className="highlight-label">Top Fraud Category</span>
                     <span className="highlight-value">{metrics.topFraudCategory}</span>
                     <span className="highlight-sub">{metrics.topCategoryRate}% fraud rate</span>
-                </div>
-                <div className="highlight-card">
+                </Box>
+                <Box className="highlight-card">
                     <span className="highlight-label">Merchants Analyzed</span>
                     <span className="highlight-value">{metrics.uniqueMerchants}</span>
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Box>
+        </Box>
     );
 };

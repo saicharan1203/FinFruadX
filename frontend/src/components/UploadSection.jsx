@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
 import axios from 'axios';
 import { FiUploadCloud, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import API_URL from '../apiConfig';
@@ -172,21 +173,21 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
     }
   };
   return (
-    <div className="upload-section" style={{ position: 'relative' }}>
-      <div className="health-status-badge" style={{ position: 'absolute', top: 10, right: 10, display: 'flex', alignItems: 'center', gap: 6, background: 'white', padding: '6px 12px', borderRadius: 16, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', zIndex: 10 }}>
-        <div style={{ width: 8, height: 8, borderRadius: '50%', background: healthStatus === 'online' ? '#2ed573' : '#ff4757' }} />
+    <Box className="upload-section" style={{ position: 'relative' }}>
+      <Box className="health-status-badge" style={{ position: 'absolute', top: 10, right: 10, display: 'flex', alignItems: 'center', gap: 6, background: 'white', padding: '6px 12px', borderRadius: 16, boxShadow: '0 2px 8px rgba(0,0,0,0.1)', zIndex: 10 }}>
+        <Box style={{ width: 8, height: 8, borderRadius: '50%', background: healthStatus === 'online' ? '#2ed573' : '#ff4757' }} />
         <span style={{ fontSize: '0.8em', fontWeight: 600, color: 'var(--dark)' }}>
           {healthStatus === 'online' ? 'Online' : 'Offline'}
         </span>
-      </div>
-      <div className="upload-card">
+      </Box>
+      <Box className="upload-card">
         <FiUploadCloud className="upload-icon" />
         <h2>📤 Upload Transaction Data</h2>
         <p style={{ marginBottom: '20px', color: 'var(--gray)' }}>
           Select a CSV file containing transaction data for fraud detection analysis
         </p>
 
-        <div style={{
+        <Box style={{
           position: 'relative',
           margin: '20px 0',
           padding: '10px',
@@ -194,7 +195,7 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
           borderRadius: '10px',
           backgroundColor: 'rgba(106, 17, 203, 0.05)'
         }}>
-          <div style={{
+          <Box style={{
             position: 'absolute',
             top: '-12px',
             left: '20px',
@@ -206,8 +207,8 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
             fontWeight: 'bold'
           }}>
             STEP 1
-          </div>
-          <div className={`file-input-wrapper ${dragActive ? 'drag-active' : ''}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
+          </Box>
+          <Box className={`file-input-wrapper ${dragActive ? 'drag-active' : ''}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
             <input
               type="file"
               accept=".csv,text/csv"
@@ -219,10 +220,10 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
             <label htmlFor="file-input" className="file-label file-label-highlight">
               {file ? `📄 ${file.name}` : '📁 Choose CSV File'}
             </label>
-          </div>
-        </div>
+          </Box>
+        </Box>
 
-        <div style={{
+        <Box style={{
           position: 'relative',
           margin: '30px 0 20px 0',
           padding: '10px',
@@ -230,7 +231,7 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
           borderRadius: '10px',
           backgroundColor: 'rgba(37, 117, 252, 0.05)'
         }}>
-          <div style={{
+          <Box style={{
             position: 'absolute',
             top: '-12px',
             left: '20px',
@@ -242,8 +243,8 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
             fontWeight: 'bold'
           }}>
             STEP 2
-          </div>
-          <div className="button-group">
+          </Box>
+          <Box className="button-group">
             <button
               onClick={validateAndUpload}
               disabled={loading || !file}
@@ -272,18 +273,18 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
             >
               ♻️ Resume Last Dataset
             </button>
-          </div>
-        </div>
+          </Box>
+        </Box>
 
         {message && (
-          <div className={`message message-${message.type}`}>
+          <Box className={`message message-${message.type}`}>
             {message.type === 'success' ? <FiCheckCircle /> : <FiAlertCircle />}
             {message.text}
-          </div>
+          </Box>
         )}
 
         {fileInfo && (
-          <div className="file-info">
+          <Box className="file-info">
             <h3>📊 File Information</h3>
             <p><strong>Rows:</strong> {fileInfo.rows}</p>
             <p><strong>Columns:</strong> {fileInfo.columns?.join(', ') || 'N/A'}</p>
@@ -293,9 +294,9 @@ export const UploadSection = ({ onUploadSuccess, onGenerateSample }) => {
                 <pre>{JSON.stringify(fileInfo.sample, null, 2)}</pre>
               </details>
             )}
-          </div>
+          </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

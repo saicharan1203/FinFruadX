@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Box } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { FiAlertCircle, FiCheckCircle, FiInfo } from 'react-icons/fi';
 import '../styles/dashboard.css';
@@ -222,55 +223,55 @@ export const FairnessChecker = ({ predictions }) => {
   const fairnessInfo = getFairnessLabel(fairnessMetrics.fairnessScore);
 
   return (
-    <div className="fairness-container">
-      <div className="section-header" style={{ marginBottom: 30 }}>
+    <Box className="fairness-container">
+      <Box className="section-header" style={{ marginBottom: 30 }}>
         <h2>⚖️ Fairness & Bias Analysis - Ethical AI</h2>
         <p style={{ fontSize: '0.95em', color: 'var(--gray)', marginTop: 10 }}>
           Analyzing model behavior across different groups to ensure fair fraud detection
         </p>
-      </div>
+      </Box>
 
-      <div className="fairness-score-card">
-        <div className="score-display">
-          <div 
+      <Box className="fairness-score-card">
+        <Box className="score-display">
+          <Box 
             className="score-circle" 
             style={{ 
               background: `conic-gradient(${fairnessInfo.color} ${fairnessMetrics.fairnessScore}%, #e0e0e0 0%)`
             }}
           >
-            <div className="score-inner">
+            <Box className="score-inner">
               <span className="score-value">{fairnessMetrics.fairnessScore}</span>
               <span className="score-max">/100</span>
-            </div>
-          </div>
-          <div className="score-info">
+            </Box>
+          </Box>
+          <Box className="score-info">
             <h3 style={{ color: fairnessInfo.color }}>{fairnessInfo.label}</h3>
             <p>Fairness Score</p>
-          </div>
-        </div>
-        <div className="fairness-summary">
-          <div className="summary-item">
+          </Box>
+        </Box>
+        <Box className="fairness-summary">
+          <Box className="summary-item">
             <strong>{fairnessMetrics.totalTransactions}</strong>
             <span>Transactions Analyzed</span>
-          </div>
-          <div className="summary-item">
+          </Box>
+          <Box className="summary-item">
             <strong>{alerts.filter(a => a.severity === 'high').length}</strong>
             <span>High Severity Issues</span>
-          </div>
-          <div className="summary-item">
+          </Box>
+          <Box className="summary-item">
             <strong>{alerts.filter(a => a.severity === 'medium').length}</strong>
             <span>Medium Severity Issues</span>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       {alerts.length > 0 && (
-        <div className="bias-alerts">
+        <Box className="bias-alerts">
           <h3 style={{ marginBottom: 15, display: 'flex', alignItems: 'center', gap: 10 }}>
             <FiAlertCircle /> Bias Detection Results
           </h3>
           {alerts.map((alert, idx) => (
-            <div 
+            <Box 
               key={idx} 
               className={`alert-item alert-${alert.type}`}
               style={{ 
@@ -280,20 +281,20 @@ export const FairnessChecker = ({ predictions }) => {
                 }`
               }}
             >
-              <div className="alert-icon">
+              <Box className="alert-icon">
                 {alert.type === 'success' ? <FiCheckCircle /> : <FiAlertCircle />}
-              </div>
-              <div className="alert-content">
+              </Box>
+              <Box className="alert-content">
                 <strong>{alert.category}</strong>
                 <p>{alert.message}</p>
-              </div>
-            </div>
+              </Box>
+            </Box>
           ))}
-        </div>
+        </Box>
       )}
 
-      <div className="fairness-charts">
-        <div className="chart-box">
+      <Box className="fairness-charts">
+        <Box className="chart-box">
           <h3>Fraud Rate by Merchant Category</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={fairnessMetrics.categoryData.slice(0, 8)}>
@@ -311,9 +312,9 @@ export const FairnessChecker = ({ predictions }) => {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </Box>
 
-        <div className="chart-box">
+        <Box className="chart-box">
           <h3>Fraud Rate by Amount Range</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={fairnessMetrics.amountData}>
@@ -331,9 +332,9 @@ export const FairnessChecker = ({ predictions }) => {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </Box>
 
-        <div className="chart-box">
+        <Box className="chart-box">
           <h3>Fraud Rate by Location</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={fairnessMetrics.locationData}>
@@ -351,9 +352,9 @@ export const FairnessChecker = ({ predictions }) => {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </Box>
 
-        <div className="chart-box">
+        <Box className="chart-box">
           <h3>Fraud Rate by Time of Day</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={fairnessMetrics.timeData}>
@@ -371,16 +372,16 @@ export const FairnessChecker = ({ predictions }) => {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      <div className="fairness-info-box">
+      <Box className="fairness-info-box">
         <FiInfo size={18} />
         <p>
           <strong>How to interpret:</strong> A fair model should show similar fraud rates across different groups. 
           Large disparities may indicate bias. Aim for a fairness score above 75 for production use.
         </p>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

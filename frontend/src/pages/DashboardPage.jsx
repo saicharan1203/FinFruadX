@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import { UploadSection } from '../components/UploadSection';
 import { Dashboard } from '../components/Dashboard';
 import { AdvancedAnalytics } from '../components/AdvancedAnalytics';
@@ -7,9 +8,9 @@ import { LiveDashboard } from '../components/LiveDashboard';
 
 export const DashboardPage = ({ fileInfo, predictions, setFileInfo, setPredictions }) => {
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <div className="page-header-with-logo">
+    <Box className="page-container">
+      <Box className="page-header">
+        <Box className="page-header-with-logo">
           <svg className="page-logo" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="dashboardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -23,12 +24,12 @@ export const DashboardPage = ({ fileInfo, predictions, setFileInfo, setPredictio
             <rect x="40" y="25" width="12" height="30" fill="white" opacity="0.9" />
             <rect x="55" y="35" width="5" height="20" fill="white" opacity="0.9" />
           </svg>
-          <div>
+          <Box>
             <h1>📊 Main Dashboard</h1>
             <p>Upload data and train your fraud detection model</p>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       {!fileInfo ? (
         <UploadSection
@@ -55,6 +56,6 @@ export const DashboardPage = ({ fileInfo, predictions, setFileInfo, setPredictio
           )}
         </>
       )}
-    </div>
+    </Box>
   );
 };

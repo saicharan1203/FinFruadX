@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { FiTrendingUp, FiTrendingDown, FiActivity, FiDollarSign, FiUsers, FiAlertTriangle } from 'react-icons/fi';
 
 export const LiveDashboard = ({ predictions }) => {
@@ -56,13 +57,13 @@ export const LiveDashboard = ({ predictions }) => {
   }
 
   return (
-    <div className="live-dashboard-container">
-      <div className="section-header">
+    <Box className="live-dashboard-container">
+      <Box className="section-header">
         <h2>📊 Live Dashboard Overview</h2>
         <p>Real-time statistics and insights</p>
-      </div>
+      </Box>
 
-      <div className="stats-grid-live">
+      <Box className="stats-grid-live">
         {[{
           label: 'Total Transactions',
           value: stats.totalTransactions.toLocaleString(),
@@ -88,78 +89,78 @@ export const LiveDashboard = ({ predictions }) => {
           icon: <FiUsers size={28} />,
           helper: 'Priority'
         }].map(card => (
-          <div key={card.label} className={`stat-card-live ${card.tone}`}>
-            <div className="stat-icon-wrapper">{card.icon}</div>
-            <div className="stat-content-live">
+          <Box key={card.label} className={`stat-card-live ${card.tone}`}>
+            <Box className="stat-icon-wrapper">{card.icon}</Box>
+            <Box className="stat-content-live">
               <p className="stat-label">{card.label}</p>
               <h3>{card.value}</h3>
-              <div className={`stat-trend ${card.tone}`}>
+              <Box className={`stat-trend ${card.tone}`}>
                 {card.tone === 'warning' ? <FiTrendingDown size={16} /> : <FiTrendingUp size={16} />}
                 <span>{card.helper}</span>
-              </div>
-            </div>
-          </div>
+              </Box>
+            </Box>
+          </Box>
         ))}
-      </div>
+      </Box>
 
-      <div className="dashboard-metrics">
-        <div className="metric-card">
+      <Box className="dashboard-metrics">
+        <Box className="metric-card">
           <h3>Fraud Detection Rate</h3>
-          <div className="metric-bar-container">
-            <div 
+          <Box className="metric-bar-container">
+            <Box 
               className="metric-bar fraud-rate" 
               style={{ width: `${fraudRate}%` }}
             >
               <span>{fraudRate}%</span>
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
 
-        <div className="metric-card">
+        <Box className="metric-card">
           <h3>Average Fraud Probability</h3>
-          <div className="metric-bar-container">
-            <div 
+          <Box className="metric-bar-container">
+            <Box 
               className="metric-bar avg-prob" 
               style={{ width: `${stats.avgFraudProb}%` }}
             >
               <span>{stats.avgFraudProb.toFixed(1)}%</span>
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
 
-        <div className="metric-card">
+        <Box className="metric-card">
           <h3>Fraud Amount vs Total</h3>
-          <div className="metric-bar-container">
-            <div 
+          <Box className="metric-bar-container">
+            <Box 
               className="metric-bar fraud-amount" 
               style={{ width: `${(stats.fraudAmount / stats.totalAmount * 100)}%` }}
             >
               <span>₹{(stats.fraudAmount / 1000).toFixed(1)}K</span>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
 
       {recentAlerts.length > 0 && (
-        <div className="recent-alerts-section">
+        <Box className="recent-alerts-section">
           <h3>🚨 Recent High-Risk Alerts</h3>
-          <div className="alerts-compact-list">
+          <Box className="alerts-compact-list">
             {recentAlerts.map(alert => (
-              <div key={alert.id} className="alert-compact-item">
-                <div className="alert-compact-icon">⚠️</div>
-                <div className="alert-compact-details">
+              <Box key={alert.id} className="alert-compact-item">
+                <Box className="alert-compact-icon">⚠️</Box>
+                <Box className="alert-compact-details">
                   <strong>₹{alert.amount.toFixed(2)}</strong>
                   <span>Customer: {alert.customer}</span>
-                </div>
-                <div className="alert-compact-prob">
-                  <div className="prob-badge">{alert.probability.toFixed(1)}%</div>
+                </Box>
+                <Box className="alert-compact-prob">
+                  <Box className="prob-badge">{alert.probability.toFixed(1)}%</Box>
                   <span className="alert-time">{alert.time}</span>
-                </div>
-              </div>
+                </Box>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };

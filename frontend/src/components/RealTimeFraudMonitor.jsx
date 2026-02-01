@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { FiAlertTriangle, FiActivity, FiVolume2, FiVolumeX } from 'react-icons/fi';
 
 export const RealTimeFraudMonitor = ({ predictions }) => {
@@ -83,30 +84,30 @@ export const RealTimeFraudMonitor = ({ predictions }) => {
 
   if (!predictions || alerts.length === 0) {
     return (
-      <div className="monitor-container">
-        <div className="section-header">
+      <Box className="monitor-container">
+        <Box className="section-header">
           <FiActivity size={28} style={{ color: 'var(--success)' }} />
           <h2>🚨 Real-Time Fraud Monitor</h2>
           <p>Live monitoring and instant alerts for suspicious activities</p>
-        </div>
-        <div className="no-alerts">
-          <div className="check-icon">✅</div>
+        </Box>
+        <Box className="no-alerts">
+          <Box className="check-icon">✅</Box>
           <h3>All Clear</h3>
           <p>No critical fraud alerts detected. System is monitoring...</p>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
   return (
-    <div className="monitor-container">
-      <div className="section-header">
+    <Box className="monitor-container">
+      <Box className="section-header">
         <FiActivity size={28} style={{ color: 'var(--danger)' }} />
         <h2>🚨 Real-Time Fraud Monitor</h2>
         <p>Live monitoring with {alerts.length} active alerts</p>
-      </div>
+      </Box>
 
-      <div className="monitor-controls">
+      <Box className="monitor-controls">
         <button 
           className="sound-toggle"
           onClick={() => setSoundEnabled(!soundEnabled)}
@@ -114,75 +115,75 @@ export const RealTimeFraudMonitor = ({ predictions }) => {
           {soundEnabled ? <FiVolume2 size={20} /> : <FiVolumeX size={20} />}
           {soundEnabled ? 'Sound On' : 'Sound Off'}
         </button>
-      </div>
+      </Box>
 
-      <div className="alert-stats-grid">
-        <div className="alert-stat critical-stat">
-          <div className="stat-icon">🔴</div>
-          <div className="stat-info">
+      <Box className="alert-stats-grid">
+        <Box className="alert-stat critical-stat">
+          <Box className="stat-icon">🔴</Box>
+          <Box className="stat-info">
             <strong>{stats.critical}</strong>
             <span>Critical Alerts</span>
-          </div>
-        </div>
-        <div className="alert-stat high-stat">
-          <div className="stat-icon">🟠</div>
-          <div className="stat-info">
+          </Box>
+        </Box>
+        <Box className="alert-stat high-stat">
+          <Box className="stat-icon">🟠</Box>
+          <Box className="stat-info">
             <strong>{stats.high}</strong>
             <span>High Risk Alerts</span>
-          </div>
-        </div>
-        <div className="alert-stat amount-stat">
-          <div className="stat-icon">💰</div>
-          <div className="stat-info">
+          </Box>
+        </Box>
+        <Box className="alert-stat amount-stat">
+          <Box className="stat-icon">💰</Box>
+          <Box className="stat-info">
             <strong>₹{stats.avgAmount.toFixed(2)}</strong>
             <span>Avg Critical Amount</span>
-          </div>
-        </div>
+          </Box>
+        </Box>
         {stats.lastAlert && (
-          <div className="alert-stat time-stat">
-            <div className="stat-icon">⏰</div>
-            <div className="stat-info">
+          <Box className="alert-stat time-stat">
+            <Box className="stat-icon">⏰</Box>
+            <Box className="stat-info">
               <strong>{stats.lastAlert.timestamp}</strong>
               <span>Last Alert</span>
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
-      </div>
+      </Box>
 
-      <div className="alerts-feed">
+      <Box className="alerts-feed">
         <h3>📡 Live Alert Feed</h3>
-        <div className="alerts-list">
+        <Box className="alerts-list">
           {alerts.map((alert, index) => (
-            <div 
+            <Box 
               key={alert.id} 
               className={`alert-item-live alert-${alert.type}`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="alert-indicator">
+              <Box className="alert-indicator">
                 <FiAlertTriangle size={24} />
-              </div>
-              <div className="alert-content-live">
-                <div className="alert-header-live">
+              </Box>
+              <Box className="alert-content-live">
+                <Box className="alert-header-live">
                   <span className="alert-badge">{alert.type.toUpperCase()}</span>
                   <span className="alert-time">{alert.timestamp}</span>
-                </div>
-                <div className="alert-details-live">
+                </Box>
+                <Box className="alert-details-live">
                   <p><strong>Customer:</strong> {alert.customer}</p>
                   <p><strong>Merchant:</strong> {alert.merchant}</p>
                   <p><strong>Category:</strong> {alert.category}</p>
                   <p><strong>Amount:</strong> ₹{alert.amount.toFixed(2)}</p>
                   <p><strong>Fraud Probability:</strong> {(alert.probability * 100).toFixed(1)}%</p>
-                </div>
-                <div className="alert-actions">
+                </Box>
+                <Box className="alert-actions">
                   <button className="btn-investigate">🔍 Investigate</button>
                   <button className="btn-block">⛔ Block</button>
                   <button className="btn-dismiss">✓ Dismiss</button>
-                </div>
-              </div>
-            </div>
+                </Box>
+              </Box>
+            </Box>
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };

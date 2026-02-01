@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
 import axios from 'axios';
 import { FiBarChart2, FiCpu, FiDatabase, FiDownload, FiRefreshCcw, FiClock } from 'react-icons/fi';
 
@@ -94,156 +95,156 @@ export const ModelPerformancePage = ({ predictions }) => {
 
   if (loading) {
     return (
-      <div className="page-container">
-        <div className="loading-spinner">
-          <div className="spinner"></div>
+      <Box className="page-container">
+        <Box className="loading-spinner">
+          <Box className="spinner"></Box>
           <p>Loading model information...</p>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
   return (
-    <div className="page-container">
-      <div className="page-header">
+    <Box className="page-container">
+      <Box className="page-header">
         <h1>🤖 Model Performance</h1>
         <p>View and analyze fraud detection model performance metrics</p>
-      </div>
+      </Box>
 
       {modelInfo && (
-        <div className="card">
+        <Box className="card">
           <h2><FiCpu /> Model Information</h2>
-          <div className="model-info-grid">
-            <div className="info-item">
+          <Box className="model-info-grid">
+            <Box className="info-item">
               <label>Model Status:</label>
               <span className={modelInfo.trained ? 'status-active' : 'status-inactive'}>
                 {modelInfo.trained ? 'Trained' : 'Not Trained'}
               </span>
-            </div>
-            <div className="info-item">
+            </Box>
+            <Box className="info-item">
               <label>Model Type:</label>
               <span>{modelInfo.model_type || 'Ensemble (Random Forest + XGBoost + Isolation Forest)'}</span>
-            </div>
-            <div className="info-item">
+            </Box>
+            <Box className="info-item">
               <label>Features:</label>
               <span>{modelInfo.num_features || 0} features</span>
-            </div>
+            </Box>
             {modelInfo.features && (
-              <div className="info-item full-width">
+              <Box className="info-item full-width">
                 <label>Feature Names:</label>
-                <div className="feature-tags">
+                <Box className="feature-tags">
                   {modelInfo.features.map((feature, index) => (
                     <span key={index} className="tag">{feature}</span>
                   ))}
-                </div>
-              </div>
+                </Box>
+              </Box>
             )}
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
 
       {predictions?.statistics && (
         <>
-          <div className="card">
-            <div className="card-header">
+          <Box className="card">
+            <Box className="card-header">
               <h2><FiBarChart2 /> Performance Metrics</h2>
               <button onClick={exportModelStats} className="btn btn-secondary btn-sm">
                 <FiDownload /> Export Stats
               </button>
-            </div>
+            </Box>
             
-            <div className="metrics-grid">
-              <div className="metric-box">
+            <Box className="metrics-grid">
+              <Box className="metric-box">
                 <h3>Total Transactions</h3>
                 <p className="metric-value">{predictions.statistics.total_transactions.toLocaleString()}</p>
-              </div>
+              </Box>
               
-              <div className="metric-box">
+              <Box className="metric-box">
                 <h3>Fraud Detection Rate</h3>
                 <p className="metric-value">{predictions.statistics.fraud_percentage}%</p>
                 <p className="metric-subtext">{predictions.statistics.fraudulent_detected} detected</p>
-              </div>
+              </Box>
               
-              <div className="metric-box">
+              <Box className="metric-box">
                 <h3>Anomaly Detection</h3>
                 <p className="metric-value">{predictions.statistics.anomalies_detected}</p>
                 <p className="metric-subtext">Unusual patterns</p>
-              </div>
+              </Box>
               
-              <div className="metric-box">
+              <Box className="metric-box">
                 <h3>Avg Confidence</h3>
                 <p className="metric-value">{predictions.statistics.avg_confidence}%</p>
-              </div>
-            </div>
-          </div>
+              </Box>
+            </Box>
+          </Box>
 
           {predictions.statistics.feature_importance && (
-            <div className="card">
+            <Box className="card">
               <h2>🧠 Feature Importance</h2>
               <p>Most influential features in fraud detection</p>
               
-              <div className="feature-importance-chart">
+              <Box className="feature-importance-chart">
                 {Object.entries(predictions.statistics.feature_importance)
                   .sort((a, b) => b[1] - a[1])
                   .slice(0, 10)
                   .map(([feature, importance], index) => (
-                    <div key={feature} className="feature-bar">
-                      <div className="feature-info">
+                    <Box key={feature} className="feature-bar">
+                      <Box className="feature-info">
                         <span className="feature-rank">#{index + 1}</span>
                         <span className="feature-name">{feature}</span>
-                      </div>
-                      <div className="importance-bar">
-                        <div 
+                      </Box>
+                      <Box className="importance-bar">
+                        <Box 
                           className="importance-fill"
                           style={{ width: `${importance * 100}%` }}
-                        ></div>
-                      </div>
+                        ></Box>
+                      </Box>
                       <span className="importance-value">{(importance * 100).toFixed(1)}%</span>
-                    </div>
+                    </Box>
                   ))}
-              </div>
-            </div>
+              </Box>
+            </Box>
           )}
 
           {predictions.statistics.by_risk_level && (
-            <div className="card">
+            <Box className="card">
               <h2>📊 Risk Level Distribution</h2>
-              <div className="risk-distribution-chart">
+              <Box className="risk-distribution-chart">
                 {Object.entries(predictions.statistics.by_risk_level)
                   .map(([level, count]) => {
                     const percentage = (count / predictions.statistics.total_transactions) * 100;
                     return (
-                      <div key={level} className="risk-level-bar">
-                        <div className="risk-label">
+                      <Box key={level} className="risk-level-bar">
+                        <Box className="risk-label">
                           <span className={`risk-badge risk-${level.toLowerCase()}`}>{level}</span>
-                        </div>
-                        <div className="risk-bar-container">
-                          <div 
+                        </Box>
+                        <Box className="risk-bar-container">
+                          <Box 
                             className={`risk-bar risk-${level.toLowerCase()}`}
                             style={{ width: `${percentage}%` }}
-                          ></div>
-                        </div>
-                        <div className="risk-stats">
+                          ></Box>
+                        </Box>
+                        <Box className="risk-stats">
                           <span className="risk-count">{count}</span>
                           <span className="risk-percent">{percentage.toFixed(1)}%</span>
-                        </div>
-                      </div>
+                        </Box>
+                      </Box>
                     );
                   })}
-              </div>
-            </div>
+              </Box>
+            </Box>
           )}
 
-          <div className="training-health-card">
-            <div className="training-health-header">
-              <div className="training-health-title">
-                <div className="training-avatar">🩺</div>
-                <div>
+          <Box className="training-health-card">
+            <Box className="training-health-header">
+              <Box className="training-health-title">
+                <Box className="training-avatar">🩺</Box>
+                <Box>
                   <h2>Training Health Timeline</h2>
                   <p>Keep tabs on recency, drift, and model confidence.</p>
-                </div>
-              </div>
-              <div className="training-health-controls">
+                </Box>
+              </Box>
+              <Box className="training-health-controls">
                 <button
                   className={`pill-button ${historyLoading ? 'pill-disabled' : ''}`}
                   onClick={fetchTrainingHistory}
@@ -266,22 +267,22 @@ export const ModelPerformancePage = ({ predictions }) => {
                     </span>
                   );
                 })()}
-              </div>
-            </div>
+              </Box>
+            </Box>
 
             {historyLoading ? (
-              <div className="loading-spinner small">
-                <div className="spinner"></div>
+              <Box className="loading-spinner small">
+                <Box className="spinner"></Box>
                 <p>Loading training history...</p>
-              </div>
+              </Box>
             ) : trainingHistory.length === 0 ? (
-              <div className="empty-state-activity">
-                <div className="empty-icon">🧪</div>
+              <Box className="empty-state-activity">
+                <Box className="empty-icon">🧪</Box>
                 <h3>No training runs logged yet</h3>
                 <p>Train the model to start tracking drift and accuracy.</p>
-              </div>
+              </Box>
             ) : (
-              <div className="training-timeline">
+              <Box className="training-timeline">
                 {trainingHistory.slice(0, 6).map(run => {
                   const featurePills = run.feature_importance
                     ? Object.entries(run.feature_importance)
@@ -290,52 +291,52 @@ export const ModelPerformancePage = ({ predictions }) => {
                         .map(([feature]) => feature)
                     : [];
                   return (
-                    <div className="timeline-entry" key={run.id}>
-                      <div className="timeline-marker">
+                    <Box className="timeline-entry" key={run.id}>
+                      <Box className="timeline-marker">
                         <FiClock />
-                      </div>
-                      <div className="timeline-body">
-                        <div className="timeline-header">
+                      </Box>
+                      <Box className="timeline-body">
+                        <Box className="timeline-header">
                           <p>{new Date(run.timestamp).toLocaleString()}</p>
                           <span>{run.samples_trained?.toLocaleString?.() || run.samples_trained} samples</span>
-                        </div>
-                        <div className="timeline-metrics">
-                          <div>
+                        </Box>
+                        <Box className="timeline-metrics">
+                          <Box>
                             <label>Fraud ratio</label>
                             <strong>{(run.fraud_ratio * 100).toFixed(2)}%</strong>
-                          </div>
-                          <div>
+                          </Box>
+                          <Box>
                             <label>RF score</label>
                             <strong>{(run.rf_score * 100).toFixed(1)}%</strong>
-                          </div>
-                          <div>
+                          </Box>
+                          <Box>
                             <label>XGB score</label>
                             <strong>{(run.xgb_score * 100).toFixed(1)}%</strong>
-                          </div>
-                        </div>
+                          </Box>
+                        </Box>
                         {featurePills.length > 0 && (
-                          <div className="timeline-features">
+                          <Box className="timeline-features">
                             <span>Top features</span>
-                            <div className="feature-pill-group">
+                            <Box className="feature-pill-group">
                               {featurePills.map(feature => (
                                 <span key={`${run.id}-${feature}`} className="feature-pill">{feature}</span>
                               ))}
-                            </div>
-                          </div>
+                            </Box>
+                          </Box>
                         )}
-                      </div>
-                    </div>
+                      </Box>
+                    </Box>
                   );
                 })}
-              </div>
+              </Box>
             )}
-          </div>
+          </Box>
         </>
       )}
 
-      <div className="card">
+      <Box className="card">
         <h2><FiDatabase /> Model Versions</h2>
-        <div className="model-versions-table">
+        <Box className="model-versions-table">
           <table>
             <thead>
               <tr>
@@ -364,12 +365,12 @@ export const ModelPerformancePage = ({ predictions }) => {
             </tbody>
           </table>
           {versionStatus && (
-            <div className={`version-status status-${versionStatus.state}`}>
+            <Box className={`version-status status-${versionStatus.state}`}>
               {versionStatus.message}
-            </div>
+            </Box>
           )}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@mui/material';
 import { FiClock, FiDownload, FiTrash2, FiEye } from 'react-icons/fi';
 import '../styles/dashboard.css';
 
@@ -57,38 +58,38 @@ export const ReportHistory = ({ onViewReport }) => {
     };
 
     return (
-        <div className="report-history">
-            <div className="history-header">
-                <div className="history-title">
+        <Box className="report-history">
+            <Box className="history-header">
+                <Box className="history-title">
                     <FiClock />
                     <h3>Recent Reports</h3>
-                </div>
+                </Box>
                 <span className="history-count">{reports.length} reports</span>
-            </div>
+            </Box>
 
-            <div className="history-list">
+            <Box className="history-list">
                 {reports.length === 0 ? (
-                    <div className="history-empty">
+                    <Box className="history-empty">
                         <span>📭</span>
                         <p>No reports generated yet</p>
-                    </div>
+                    </Box>
                 ) : (
                     reports.map(report => (
-                        <div key={report.id} className="history-item">
-                            <div className="history-item-icon">{getTypeIcon(report.type)}</div>
-                            <div className="history-item-info">
+                        <Box key={report.id} className="history-item">
+                            <Box className="history-item-icon">{getTypeIcon(report.type)}</Box>
+                            <Box className="history-item-info">
                                 <span className="history-item-name">{report.name}</span>
                                 <span className="history-item-meta">
                                     {report.date} at {report.time} • {report.records.toLocaleString()} records
                                 </span>
-                            </div>
+                            </Box>
                             <span
                                 className="history-item-badge"
                                 style={{ backgroundColor: getTypeBadgeColor(report.type) }}
                             >
                                 {report.type}
                             </span>
-                            <div className="history-item-actions">
+                            <Box className="history-item-actions">
                                 <button className="action-btn view" title="View">
                                     <FiEye />
                                 </button>
@@ -102,11 +103,11 @@ export const ReportHistory = ({ onViewReport }) => {
                                 >
                                     <FiTrash2 />
                                 </button>
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
                     ))
                 )}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };

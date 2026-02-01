@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Box } from '@mui/material';
 import axios from 'axios';
 import { FiFolderPlus, FiRefreshCcw, FiTrash2, FiTag, FiEdit2, FiZap } from 'react-icons/fi';
 import { useTheme } from '../contexts/ThemeContext';
@@ -250,9 +251,9 @@ export const CaseBuilder = ({ predictions }) => {
   };
 
   return (
-    <div className="case-builder">
-      <div className="section-header case-header">
-        <div className="case-icon-pill">
+    <Box className="case-builder">
+      <Box className="section-header case-header">
+        <Box className="case-icon-pill">
           <span className="case-icon-glow"></span>
           <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true">
             <defs>
@@ -264,7 +265,7 @@ export const CaseBuilder = ({ predictions }) => {
             <path d="M8 15a4 4 0 0 1 4-4h8l3 4h13a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V15z" fill="url(#caseIconGradient)" stroke="rgba(255,255,255,0.6)" strokeWidth="2" />
             <path d="M18 27l4 4 8-9" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </div>
+        </Box>
         <div>
           <h2>🗂️ Case Builder</h2>
           <p>Pin suspicious transactions, add analyst notes, and track resolution.</p>
@@ -272,11 +273,11 @@ export const CaseBuilder = ({ predictions }) => {
         <button className="btn btn-sm btn-secondary" onClick={fetchCases} disabled={loading}>
           <FiRefreshCcw /> {loading ? 'Refreshing...' : 'Refresh'}
         </button>
-      </div>
+      </Box>
 
       {error && <div className="case-error">{error}</div>}
 
-      <div className="case-layout">
+      <Box className="case-layout">
         <form className="case-form" onSubmit={handleSubmit}>
           <h3>Create / Update Case</h3>
 
@@ -452,7 +453,7 @@ export const CaseBuilder = ({ predictions }) => {
           </button>
         </form>
 
-        <div
+        <Box
           className="case-list"
           style={{
             background: isDarkMode
@@ -463,12 +464,12 @@ export const CaseBuilder = ({ predictions }) => {
               : '1px solid rgba(0, 0, 0, 0.08)'
           }}
         >
-          <div className="case-list-header">
+          <Box className="case-list-header">
             <h3 style={{ color: isDarkMode ? '#ffffff' : '#1f2430' }}>Active Cases ({cases.length})</h3>
             <button type="button" className="case-save-shortcut" onClick={handleScrollToForm}>
               Save Case
             </button>
-          </div>
+          </Box>
           {cases.length === 0 ? (
             <div
               className="empty-state-activity"
@@ -483,7 +484,7 @@ export const CaseBuilder = ({ predictions }) => {
               <p style={{ color: isDarkMode ? 'rgba(255,255,255,0.6)' : '#7a869a' }}>Select a suspicious transaction to start an investigation.</p>
             </div>
           ) : (
-            <div className="case-grid">
+            <Box className="case-grid">
               {cases.map(item => (
                 <div
                   key={item.id}
@@ -568,10 +569,10 @@ export const CaseBuilder = ({ predictions }) => {
                   </div>
                 </div>
               ))}
-            </div>
+            </Box>
           )}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };

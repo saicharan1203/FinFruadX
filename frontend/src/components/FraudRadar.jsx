@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Box } from '@mui/material';
 import { FiRadio, FiTarget } from 'react-icons/fi';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -134,7 +135,7 @@ export const FraudRadar = ({ predictions }) => {
   }
 
   return (
-    <div
+    <Box
       className="radar-container"
       style={{
         background: isDarkMode
@@ -247,6 +248,6 @@ export const FraudRadar = ({ predictions }) => {
           normal activity. Distance from center represents fraud probability.
         </p>
       </div>
-    </div>
+    </Box>
   );
 };

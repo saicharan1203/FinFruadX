@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Box } from '@mui/material';
 import {
   BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
@@ -56,11 +57,11 @@ export const PatternVisualization = ({ predictions }) => {
   const COLORS = ['#2ed573', '#ffa502', '#ff6348', '#ff4757'];
 
   return (
-    <div className="visualization-section">
+    <Box className="visualization-section">
       <h2>📊 Fraud Pattern Analysis</h2>
 
-      <div className="charts-grid">
-        <div className="chart-container">
+      <Box className="charts-grid">
+        <Box className="chart-container">
           <h3>📂 Fraud Rate by Category</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={riskByCategory}>
@@ -75,9 +76,9 @@ export const PatternVisualization = ({ predictions }) => {
               />
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </Box>
 
-        <div className="chart-container">
+        <Box className="chart-container">
           <h3>💰 Transaction Amount Distribution</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -98,9 +99,9 @@ export const PatternVisualization = ({ predictions }) => {
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
-        </div>
+        </Box>
 
-        <div className="chart-container">
+        <Box className="chart-container">
           <h3>📈 Risk Score Distribution</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={riskScoreDistribution}>
@@ -115,8 +116,8 @@ export const PatternVisualization = ({ predictions }) => {
               />
             </BarChart>
           </ResponsiveContainer>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };

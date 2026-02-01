@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Box } from '@mui/material';
 import { FiFileText, FiDownload, FiCalendar, FiCheckCircle } from 'react-icons/fi';
 import { ReportMetricsDashboard } from '../components/ReportMetricsDashboard';
 import { ReportHistory } from '../components/ReportHistory';
@@ -329,45 +330,45 @@ export const ReportsPage = ({ predictions }) => {
 
   if (!predictionsArray) {
     return (
-      <div className="page-container">
-        <div className="empty-state-page">
-          <div className="empty-icon">📄</div>
+      <Box className="page-container">
+        <Box className="empty-state-page">
+          <Box className="empty-icon">📄</Box>
           <h2>No Data for Reports</h2>
           <p>Please run fraud detection from the Dashboard first.</p>
           <a href="/" className="btn-primary">Go to Dashboard</a>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
   return (
-    <div className="page-container reports-page-container">
-      <div className="reports-hero">
-        <div className="reports-hero-icon">
+    <Box className="page-container reports-page-container">
+      <Box className="reports-hero">
+        <Box className="reports-hero-icon">
           <span>📄</span>
-        </div>
-        <div>
+        </Box>
+        <Box>
           <p className="hero-eyebrow">Reports & Export</p>
           <h1>Generate comprehensive fraud detection reports</h1>
           <p>Transform prediction outputs into presentation-ready summaries and raw exports.</p>
-        </div>
+        </Box>
         {downloadSuccess && (
-          <div className="hero-toast">
+          <Box className="hero-toast">
             <FiCheckCircle /> <span>Report downloaded successfully</span>
-          </div>
+          </Box>
         )}
-      </div>
+      </Box>
 
-      <div className="reports-toolbar">
-        <div className="pill-control">
+      <Box className="reports-toolbar">
+        <Box className="pill-control">
           <label><FiFileText /> Report Type</label>
           <select value={reportType} onChange={(e) => setReportType(e.target.value)}>
             <option value="summary">Summary Report</option>
             <option value="detailed">Detailed Report</option>
             <option value="csv">CSV Export</option>
           </select>
-        </div>
-        <div className="pill-control">
+        </Box>
+        <Box className="pill-control">
           <label><FiCalendar /> Date Range</label>
           <select value={dateRange} onChange={(e) => setDateRange(e.target.value)}>
             <option value="today">Today</option>
@@ -376,7 +377,7 @@ export const ReportsPage = ({ predictions }) => {
             <option value="quarter">Last 90 Days</option>
             <option value="year">Last Year</option>
           </select>
-        </div>
+        </Box>
         <button
           className={`reports-primary-btn ${generating ? 'is-loading' : ''}`}
           onClick={generateReport}
@@ -384,13 +385,13 @@ export const ReportsPage = ({ predictions }) => {
         >
           {generating ? 'Generating…' : (<><FiDownload /> Generate & Download</>)}
         </button>
-      </div>
+      </Box>
 
-      <div className="report-preview-section">
-        <div className="preview-cards">
-          <div className="preview-card">
-            <div className="preview-icon">📈</div>
-            <div>
+      <Box className="report-preview-section">
+        <Box className="preview-cards">
+          <Box className="preview-card">
+            <Box className="preview-icon">📈</Box>
+            <Box>
               <h4>Summary Report</h4>
               <p>Overview of fraud detection metrics, rates, and financial impact.</p>
               <ul>
@@ -399,12 +400,12 @@ export const ReportsPage = ({ predictions }) => {
                 <li>Financial impact summary</li>
                 <li>Risk level breakdown</li>
               </ul>
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div className="preview-card">
-            <div className="preview-icon">🧾</div>
-            <div>
+          <Box className="preview-card">
+            <Box className="preview-icon">🧾</Box>
+            <Box>
               <h4>Detailed Report</h4>
               <p>Top fraud transactions with customer and merchant narratives.</p>
               <ul>
@@ -412,12 +413,12 @@ export const ReportsPage = ({ predictions }) => {
                 <li>Case storytelling</li>
                 <li>Investigation-ready summaries</li>
               </ul>
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div className="preview-card">
-            <div className="preview-icon">💾</div>
-            <div>
+          <Box className="preview-card">
+            <Box className="preview-icon">💾</Box>
+            <Box>
               <h4>CSV Export</h4>
               <p>Raw data extract for BI tools and further modeling.</p>
               <ul>
@@ -425,30 +426,30 @@ export const ReportsPage = ({ predictions }) => {
                 <li>UTF-8 Excel friendly</li>
                 <li>Easy import into data lakes</li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
 
       {predictionsArray && Array.isArray(predictionsArray) && predictionsArray.length > 0 && (
-        <div className="reports-quick-stats">
-          <div className="quick-stat">
+        <Box className="reports-quick-stats">
+          <Box className="quick-stat">
             <p>Total Records</p>
             <strong>{predictionsArray.length.toLocaleString()}</strong>
-          </div>
-          <div className="quick-stat anomaly">
+          </Box>
+          <Box className="quick-stat anomaly">
             <p>Fraud Cases</p>
             <strong>{predictionsArray.filter(p => (p.fraud_probability || 0) > 0.5).length}</strong>
-          </div>
-          <div className="quick-stat value">
+          </Box>
+          <Box className="quick-stat value">
             <p>Total Value</p>
             <strong>₹{(predictionsArray.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0) / 1000).toFixed(1)}K</strong>
-          </div>
-          <div className="quick-stat rate">
+          </Box>
+          <Box className="quick-stat rate">
             <p>Fraud Rate</p>
             <strong>{((predictionsArray.filter(p => (p.fraud_probability || 0) > 0.5).length / predictionsArray.length) * 100).toFixed(1)}%</strong>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
 
       {/* Executive Metrics Dashboard */}
@@ -459,6 +460,6 @@ export const ReportsPage = ({ predictions }) => {
 
       {/* Report History */}
       <ReportHistory />
-    </div>
+    </Box>
   );
 };

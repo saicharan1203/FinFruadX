@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { FiHome, FiActivity, FiShield, FiBarChart2, FiSettings, FiZap, FiList, FiSearch, FiCpu, FiMenu, FiX, FiLogOut, FiMoon, FiSun } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext';
@@ -192,8 +193,8 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
           )}
         </>
       )}
-      <nav className={`main-navigation ${isCollapsed ? 'collapsed' : ''}`}>
-        <div className="nav-brand">
+      <Box component="nav" className={`main-navigation ${isCollapsed ? 'collapsed' : ''}`}>
+        <Box className="nav-brand">
           {/* Only show this toggle button on desktop/tablet, not on mobile */}
           {!isMobileNav && (
             <button
@@ -205,7 +206,7 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
               {isCollapsed ? <FiMenu size={20} /> : <FiX size={20} />}
             </button>
           )}
-          <div className="brand-logo">
+          <Box className="brand-logo">
             <svg viewBox="0 0 120 120" className="logo-svg">
               <defs>
                 <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -265,16 +266,16 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
               </text>
               <line x1="35" y1="103" x2="85" y2="103" stroke="white" strokeWidth="1" opacity="0.5" />
             </svg>
-          </div>
+          </Box>
           {!isCollapsed && (
-            <div className="brand-text">
+            <Box className="brand-text">
               <h2>🛡️ FinFraudX</h2>
               <p>AI Fraud Detection</p>
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
 
-        <div className="nav-items">
+        <Box className="nav-items">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -300,25 +301,25 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
               {!isCollapsed && <span className="nav-label">{item.label}</span>}
             </Link>
           ))}
-        </div>
+        </Box>
 
-        <div className="nav-footer">
-          <div className="user-info">
-            <div className="user-avatar">
+        <Box className="nav-footer">
+          <Box className="user-info">
+            <Box className="user-avatar">
               {userProfile?.avatar ? (
                 <img src={userProfile.avatar} alt="Profile" className="avatar-img" />
               ) : (
                 '👤'
               )}
-            </div>
+            </Box>
             {!isCollapsed && (
-              <div className="user-details">
+              <Box className="user-details">
                 <strong>{userProfile?.name || user?.full_name || user?.username || 'Admin User'}</strong>
                 <span>{userProfile?.role || 'Security Analyst'}</span>
-              </div>
+              </Box>
             )}
-          </div>
-          <div className="nav-footer-actions">
+          </Box>
+          <Box className="nav-footer-actions">
             <button
               type="button"
               className="theme-toggle"
@@ -339,9 +340,9 @@ export const Navigation = ({ isCollapsed, setIsCollapsed }) => {
               <FiLogOut />
               {!isCollapsed && <span>Logout</span>}
             </button>
-          </div>
-        </div>
-      </nav>
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 };

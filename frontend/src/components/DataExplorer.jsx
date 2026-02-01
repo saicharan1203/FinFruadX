@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Box } from '@mui/material';
 // import axios from 'axios';
 import { FiSearch, FiDownload } from 'react-icons/fi';
 
@@ -122,7 +123,7 @@ export const DataExplorer = ({ predictions }) => {
   const transactionTypes = [...new Set(predictions?.results?.map(item => item.transaction_type))];
 
   return (
-    <div className="data-explorer">
+    <Box className="data-explorer">
       <div className="explorer-header">
         <h2><FiSearch /> Data Explorer</h2>
         <p>Search, filter, and analyze transaction data</p>
@@ -293,6 +294,6 @@ export const DataExplorer = ({ predictions }) => {
           </button>
         </div>
       )}
-    </div>
+    </Box>
   );
 };

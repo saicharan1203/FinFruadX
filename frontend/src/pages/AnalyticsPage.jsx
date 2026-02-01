@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Box } from '@mui/material';
 import { FairnessChecker } from '../components/FairnessChecker';
 import { ModelDecisionComparison } from '../components/ModelDecisionComparison';
 import { FraudTimeline } from '../components/FraudTimeline';
@@ -88,21 +89,21 @@ export const AnalyticsPage = ({ predictions }) => {
 
   if (!hasPredictions) {
     return (
-      <div className="page-container">
-        <div className="empty-state-page">
-          <div className="empty-icon">📊</div>
+      <Box className="page-container">
+        <Box className="empty-state-page">
+          <Box className="empty-icon">📊</Box>
           <h2>No Analytics Data Available</h2>
           <p>Please upload data and run fraud detection from the Dashboard first.</p>
           <a href="/" className="btn-primary">Go to Dashboard</a>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
   return (
-    <div className="page-container analytics-page">
-      <div className="page-header">
-        <div className="page-header-with-logo">
+    <Box className="page-container analytics-page">
+      <Box className="page-header">
+        <Box className="page-header-with-logo">
           <svg className="page-logo" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="analyticsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -119,15 +120,15 @@ export const AnalyticsPage = ({ predictions }) => {
             <circle cx="55" cy="40" r="4" fill="url(#analyticsGradient)" />
             <circle cx="65" cy="25" r="4" fill="url(#analyticsGradient)" />
           </svg>
-          <div>
+          <Box>
             <h1>📊 Advanced Analytics</h1>
             <p>Deep dive into model performance and risk analysis</p>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       {totalTransactions > 0 && (
-        <div className="analytics-glance">
+        <Box className="analytics-glance">
           {summaryCards.map(card => (
             <div key={card.label} className="glance-card">
               <span>{card.label}</span>
@@ -135,32 +136,32 @@ export const AnalyticsPage = ({ predictions }) => {
               <small>{card.sub}</small>
             </div>
           ))}
-        </div>
+        </Box>
       )}
 
       <RiskScoreCalculator predictions={predictions} />
       <AdvancedAnalytics predictions={predictions} />
 
-      <div className="analytics-columns">
-        <div className="analytics-column analytics-column--wide">
-          <div ref={decisionSectionRef} className="analytics-panel analytics-panel--decisions">
+      <Box className="analytics-columns">
+        <Box className="analytics-column analytics-column--wide">
+          <Box ref={decisionSectionRef} className="analytics-panel analytics-panel--decisions">
             <ModelDecisionComparison predictions={predictions} />
-          </div>
-        </div>
-        <div className="analytics-column analytics-column--timeline">
-          <div
+          </Box>
+        </Box>
+        <Box className="analytics-column analytics-column--timeline">
+          <Box
             className="analytics-panel analytics-panel--timeline"
             style={decisionHeight ? { maxHeight: `${decisionHeight}px` } : undefined}
           >
             <FraudTimeline predictions={results} />
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       <FairnessChecker predictions={predictions} />
 
       {/* Trend Forecasting */}
       <TrendForecasting predictions={predictions} />
-    </div>
+    </Box>
   );
 };

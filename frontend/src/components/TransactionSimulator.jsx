@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@mui/material';
 import { FiRefreshCw, FiZap } from 'react-icons/fi';
 
 export const TransactionSimulator = () => {
@@ -108,7 +109,7 @@ export const TransactionSimulator = () => {
   };
 
   return (
-    <div className="simulator-container">
+    <Box className="simulator-container">
       <div className="simulator-grid">
         <div className="scenario-selector">
           <div className="scenario-selector-header">
@@ -221,6 +222,6 @@ export const TransactionSimulator = () => {
           )}
         </div>
       </div>
-    </div>
+    </Box>
   );
 };

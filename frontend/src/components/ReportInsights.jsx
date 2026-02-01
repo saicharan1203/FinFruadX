@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Box } from '@mui/material';
 import { FiArrowUp, FiArrowDown, FiMinus } from 'react-icons/fi';
 import '../styles/dashboard.css';
 
@@ -107,31 +108,31 @@ export const ReportInsights = ({ predictions }) => {
     };
 
     return (
-        <div className="report-insights">
-            <div className="insights-header">
+        <Box className="report-insights">
+            <Box className="insights-header">
                 <h3>💡 Key Insights</h3>
                 <p>AI-generated observations from your data</p>
-            </div>
+            </Box>
 
-            <div className="insights-list">
+            <Box className="insights-list">
                 {insights.map((insight, idx) => (
-                    <div
+                    <Box
                         key={idx}
                         className="insight-card-report"
                         style={{ borderLeftColor: getTypeColor(insight.type) }}
                     >
-                        <div className="insight-icon">{insight.icon}</div>
-                        <div className="insight-content">
+                        <Box className="insight-icon">{insight.icon}</Box>
+                        <Box className="insight-content">
                             <h4>{insight.title}</h4>
                             <p>{insight.description}</p>
                             <span className="insight-action">
                                 <FiArrowUp style={{ transform: 'rotate(45deg)' }} />
                                 {insight.action}
                             </span>
-                        </div>
-                    </div>
+                        </Box>
+                    </Box>
                 ))}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
