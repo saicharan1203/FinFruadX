@@ -668,12 +668,14 @@ body.dark-theme .login-tabs,
 body.dark-theme .form-group input,
 .form-group input {
   background: rgba(255, 255, 255, 0.08) !important;
-  color: #1a1a2e !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
 body.dark-theme .submit-button,
 .submit-button {
-  background: linear-gradient(135deg, rgba(160, 140, 220, 0.5) 0%, rgba(200, 160, 255, 0.4) 100%) !important;
+  background: linear-gradient(135deg, rgba(160, 140, 220, 0.7) 0%, rgba(200, 160, 255, 0.6) 100%) !important;
+  color: #ffffff !important;
 }
 
 @keyframes slideUp {
@@ -934,21 +936,24 @@ body.dark-theme .submit-button,
   transition: all 0.3s ease;
   /* ✅ TRUE GLASSMORPHISM - transparent input */
   background: rgba(255, 255, 255, 0.08);
-  /* Dark text for visibility on light backgrounds */
-  color: #1a1a2e !important;
+  /* White text for visibility on dark glass backgrounds */
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Login form specific - highest specificity for dark text */
+/* Login form specific - highest specificity for white text on dark glass */
 .login-form .form-group input,
 .login-card .form-group input,
 .login-container .form-group input,
 .login-form input[type="text"],
 .login-form input[type="password"],
 .login-form input[type="email"] {
-  color: #1a1a2e !important;
-  -webkit-text-fill-color: #1a1a2e !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
 }
 
 .form-group input:focus {
@@ -956,8 +961,8 @@ body.dark-theme .submit-button,
   border-color: rgba(180, 150, 255, 0.5);
   box-shadow: 0 0 15px rgba(180, 150, 255, 0.15);
   background: rgba(255, 255, 255, 0.12);
-  color: #1a1a2e !important;
-  -webkit-text-fill-color: #1a1a2e !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
 .form-group input:hover {
@@ -966,24 +971,24 @@ body.dark-theme .submit-button,
 }
 
 .form-group input::placeholder {
-  color: rgba(100, 100, 120, 0.8) !important;
-  -webkit-text-fill-color: rgba(100, 100, 120, 0.8) !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.45) !important;
   font-weight: 400;
 }
 
-/* Force dark text on autofill (Chrome, Safari, Edge) */
+/* Force white text on autofill (Chrome, Safari, Edge) */
 .form-group input:-webkit-autofill,
 .form-group input:-webkit-autofill:hover,
 .form-group input:-webkit-autofill:focus,
 .form-group input:-webkit-autofill:active,
 .login-form input:-webkit-autofill,
 .login-card input:-webkit-autofill {
-  -webkit-text-fill-color: #1a1a2e !important;
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset !important;
-  box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(40, 30, 60, 0.95) inset !important;
+  box-shadow: 0 0 0px 1000px rgba(40, 30, 60, 0.95) inset !important;
   transition: background-color 5000s ease-in-out 0s;
-  color: #1a1a2e !important;
-  caret-color: #1a1a2e !important;
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
 }
 
 .error-message {

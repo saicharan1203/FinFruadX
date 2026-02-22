@@ -18,6 +18,7 @@ import { FraudPatternsPage } from './pages/FraudPatternsPage';
 import { DataExplorerPage } from './pages/DataExplorerPage';
 import { LoginPage } from './pages/LoginPage';
 import { AlertSystem } from './components/AlertSystem';
+import { AIAssistant } from './components/AIAssistant';
 import './styles/dashboard.css';
 import './styles/smooth-scroll.css';
 
@@ -254,6 +255,8 @@ function AppContent() {
           <Route path="/login" element={<Navigate to="/" />} />
         </Routes>
       </main>
+      {/* AI Assistant rendered outside main-content to avoid transform breaking position:fixed */}
+      <AIAssistant predictions={predictions} fileInfo={fileInfo} />
     </div>
   );
 }

@@ -1079,6 +1079,292 @@ def google_auth():
         print(f"Google auth error: {e}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
+# ============================================
+# AI Assistant Endpoint (Google Gemini)
+# ============================================
+
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
+
+FRAUD_ASSISTANT_SYSTEM_PROMPT = """You are an expert AI Fraud Investigation Assistant for FinFraudX, an AI-powered financial fraud detection platform.
+
+Your capabilities include:
+1. **Fraud Analysis**: Explaining fraud patterns, risk scores, and anomaly detection results
+2. **Investigation Guidance**: Providing step-by-step investigation procedures for suspicious transactions
+3. **Model Insights**: Explaining how the ensemble ML model (Random Forest + XGBoost + Isolation Forest) works
+4. **Risk Assessment**: Helping analysts understand risk levels (Critical, High, Medium, Low)
+5. **Best Practices**: Sharing fraud prevention and detection best practices
+6. **Regulatory Knowledge**: Awareness of compliance standards (PCI DSS, AML, KYC)
+7. **Pattern Recognition**: Identifying common fraud patterns like card testing, account takeover, and synthetic identity fraud
+
+Guidelines:
+- Be concise but thorough. Use bullet points and structured formatting.
+- Use **bold** for key terms and `code` for technical terms.
+- If analyzing specific transaction data provided in context, reference specific numbers and patterns.
+- Always recommend verification steps - never make definitive fraud determinations alone.
+- Suggest escalation paths when appropriate.
+- Use professional but approachable language suitable for security analysts.
+- Format responses with markdown (headers, bullets, bold, code blocks) for readability.
+"""
+
+@app.route('/api/ai-assistant', methods=['POST'])
+def ai_assistant():
+    """AI-powered fraud investigation assistant using Google Gemini"""
+    try:
+        data = request.get_json()
+        if not data or 'message' not in data:
+            return jsonify({'success': False, 'error': 'Message is required'}), 400
+
+        user_message = data['message']
+        context = data.get('context', '')
+        history = data.get('history', [])
+
+        # Build the conversation for Gemini
+        contents = []
+
+        # Add system instruction as the first user turn context
+        system_context = FRAUD_ASSISTANT_SYSTEM_PROMPT
+        if context:
+            system_context += f"\n\n--- Current Platform Data ---\n{context}\n---"
+
+        # Add conversation history
+        for msg in history[-6:]:
+            role = 'user' if msg.get('role') == 'user' else 'model'
+            contents.append({
+                'role': role,
+                'parts': [{'text': msg.get('content', '')}]
+            })
+
+        # Add the current user message
+        contents.append({
+            'role': 'user',
+            'parts': [{'text': user_message}]
+        })
+
+        # Ensure conversation starts with user role
+        if contents and contents[0]['role'] != 'user':
+            contents.insert(0, {
+                'role': 'user',
+                'parts': [{'text': 'Hello, I need help with fraud investigation.'}]
+            })
+
+        # Ensure alternating roles (Gemini requires this)
+        cleaned_contents = []
+        last_role = None
+        for content in contents:
+            if content['role'] == last_role:
+                # Merge with previous message
+                cleaned_contents[-1]['parts'].extend(content['parts'])
+            else:
+                cleaned_contents.append(content)
+                last_role = content['role']
+
+        # Check for API key
+        api_key = GEMINI_API_KEY
+        if not api_key:
+            # Fallback: provide intelligent responses without API
+            fallback_response = generate_fallback_response(user_message)
+            return jsonify({
+                'success': True,
+                'response': fallback_response,
+                'source': 'fallback'
+            })
+
+        # Call Gemini API
+        gemini_url = f"{GEMINI_API_URL}?key={api_key}"
+        payload = {
+            'contents': cleaned_contents,
+            'systemInstruction': {
+                'parts': [{'text': system_context}]
+            },
+            'generationConfig': {
+                'temperature': 0.7,
+                'topP': 0.9,
+                'topK': 40,
+                'maxOutputTokens': 1024,
+            },
+            'safetySettings': [
+                {'category': 'HARM_CATEGORY_HARASSMENT', 'threshold': 'BLOCK_NONE'},
+                {'category': 'HARM_CATEGORY_HATE_SPEECH', 'threshold': 'BLOCK_NONE'},
+                {'category': 'HARM_CATEGORY_SEXUALLY_EXPLICIT', 'threshold': 'BLOCK_NONE'},
+                {'category': 'HARM_CATEGORY_DANGEROUS_CONTENT', 'threshold': 'BLOCK_NONE'},
+            ]
+        }
+
+        response = requests.post(gemini_url, json=payload, timeout=30)
+
+        if response.status_code == 200:
+            result = response.json()
+            candidates = result.get('candidates', [])
+            if candidates:
+                ai_text = candidates[0].get('content', {}).get('parts', [{}])[0].get('text', '')
+                if ai_text:
+                    return jsonify({
+                        'success': True,
+                        'response': ai_text,
+                        'source': 'gemini'
+                    })
+
+            return jsonify({
+                'success': True,
+                'response': 'I received your question but couldn\'t generate a detailed response. Could you rephrase it?',
+                'source': 'gemini_empty'
+            })
+        else:
+            print(f"Gemini API error: {response.status_code} - {response.text}")
+            fallback_response = generate_fallback_response(user_message)
+            return jsonify({
+                'success': True,
+                'response': fallback_response,
+                'source': 'fallback'
+            })
+
+    except requests.exceptions.Timeout:
+        return jsonify({
+            'success': True,
+            'response': '⏱️ The AI service timed out. Please try again with a shorter question.',
+            'source': 'timeout'
+        })
+    except Exception as e:
+        print(f"AI Assistant error: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+def generate_fallback_response(message):
+    """Generate intelligent fallback responses when Gemini API is unavailable"""
+    message_lower = message.lower()
+
+    if any(word in message_lower for word in ['risk score', 'risk level', 'scoring']):
+        return """## Understanding Risk Scores in FinFraudX
+
+Risk scores are calculated using our **ensemble ML model** combining three algorithms:
+
+- **Random Forest**: Provides stable base predictions
+- **XGBoost**: Captures complex non-linear patterns  
+- **Isolation Forest**: Detects anomalous transactions
+
+### Risk Levels:
+1. **🔴 Critical** (85-100%): Immediate investigation required
+2. **🟠 High** (65-84%): Priority review within 24 hours
+3. **🟡 Medium** (40-64%): Standard review queue
+4. **🟢 Low** (0-39%): Routine monitoring
+
+**Key factors** affecting scores include: transaction amount, merchant category, time patterns, customer behavior history, and geographic anomalies.
+
+💡 *Tip: Use the Risk Score Calculator for detailed breakdowns of individual transactions.*"""
+
+    elif any(word in message_lower for word in ['pattern', 'suspicious', 'common fraud']):
+        return """## Common Fraud Patterns to Watch
+
+### 🔍 Transaction-Level Patterns:
+- **Card Testing**: Multiple small transactions ($1-5) in quick succession
+- **Velocity Attacks**: High transaction frequency from single account
+- **Amount Anomalies**: Transactions significantly above customer average
+- **Round Amount Fraud**: Exact round numbers (e.g., $500, $1000)
+
+### 👤 Account-Level Patterns:
+- **Account Takeover**: Sudden change in spending patterns
+- **Synthetic Identity**: New accounts with perfect credit but no history
+- **Mule Accounts**: Rapid deposit-withdrawal cycles
+
+### 🌍 Geographic Patterns:
+- **Impossible Travel**: Transactions from distant locations in short time
+- **High-Risk Regions**: Clusters of fraud from specific locations
+- **Cross-Border Anomalies**: Unusual international transaction patterns
+
+💡 *Use the Fraud Patterns page for real-time pattern visualization.*"""
+
+    elif any(word in message_lower for word in ['investigation', 'investigate', 'steps', 'procedure']):
+        return """## Investigation Workflow for Flagged Transactions
+
+### Step 1: Initial Assessment
+- Review the **risk score** and **confidence level**
+- Check the **transaction timeline** for velocity patterns
+- Note the **merchant category** and **transaction amount**
+
+### Step 2: Customer Analysis
+- Review customer's **transaction history** (30/60/90 days)
+- Check for **account changes** (address, phone, email)
+- Verify **authentication logs** for the session
+
+### Step 3: Cross-Reference
+- Compare with **known fraud patterns** in your database
+- Check **watchlist** matches (customers & merchants)
+- Review **geographic consistency** with customer profile
+
+### Step 4: Evidence Collection
+- Document findings using the **Case Builder**
+- Attach relevant transaction records
+- Tag the case with appropriate **risk categories**
+
+### Step 5: Decision & Action
+- **Confirm Fraud**: Escalate to Law Enforcement / Block Account
+- **False Positive**: Update model feedback / Whitelist
+- **Needs More Info**: Set to "Investigating" status
+
+💡 *Use the Case Builder to document your investigation findings.*"""
+
+    elif any(word in message_lower for word in ['model', 'accuracy', 'improve', 'performance']):
+        return """## Improving Model Performance
+
+### Key Strategies:
+
+**1. Data Quality**
+- Ensure **balanced datasets** (oversample minority class if needed)
+- Clean **missing values** and **outliers** before training
+- Include **diverse fraud scenarios** in training data
+
+**2. Feature Engineering**
+- Add **time-based features** (hour, day of week, holidays)
+- Create **velocity features** (transactions per hour/day)
+- Include **aggregated features** (avg amount per customer)
+
+**3. Model Tuning**
+- Adjust **ensemble weights** between RF, XGBoost, and IF
+- Use **cross-validation** to prevent overfitting
+- Monitor **precision vs recall** tradeoff
+
+**4. Continuous Improvement**
+- **Retrain regularly** with new labeled data
+- Feed **false positive/negative** corrections back
+- Track **model drift** over time
+
+📊 *Check the Model Performance page for current accuracy metrics.*"""
+
+    elif any(word in message_lower for word in ['hello', 'hi', 'hey', 'help']):
+        return """👋 Hello! I'm your **AI Fraud Investigation Assistant**.
+
+I can help you with:
+- 🛡️ **Risk Score Analysis** - Understanding what risk levels mean
+- 🔍 **Fraud Patterns** - Common patterns and red flags
+- 📋 **Investigation Steps** - How to investigate flagged transactions
+- 🤖 **Model Insights** - How the ML models work and how to improve them
+- 📊 **Data Analysis** - Understanding your current analysis results
+
+Just ask me anything related to fraud detection and investigation!
+
+💡 *For best results, configure the Gemini API key in your environment variables for AI-powered responses.*"""
+
+    else:
+        return f"""I appreciate your question! Here's what I can help with in FinFraudX:
+
+### 🛡️ Available Topics:
+- **"Explain risk scores"** - How fraud risk scoring works
+- **"Common fraud patterns"** - Suspicious patterns to watch for
+- **"Investigation steps"** - Step-by-step investigation guide
+- **"Improve model accuracy"** - Tips for better detection
+
+### 📊 Current System Capabilities:
+- **Ensemble ML Model** (Random Forest + XGBoost + Isolation Forest)
+- **Real-time Transaction Monitoring**
+- **Automated Alert System** with customizable thresholds
+- **Case Management** for investigation tracking
+
+💡 *For intelligent AI-powered responses, set your `GEMINI_API_KEY` environment variable. Get a free API key at [Google AI Studio](https://aistudio.google.com).*
+
+Try asking specific questions about fraud detection, and I'll do my best to help!"""
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
