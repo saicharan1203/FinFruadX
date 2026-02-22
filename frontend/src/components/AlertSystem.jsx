@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Box } from '@mui/material';
 import axios from 'axios';
 
 import { FiBell, FiX, FiAlertTriangle, FiCheckCircle, FiInfo, FiSettings, FiShield } from 'react-icons/fi';
@@ -195,17 +196,18 @@ export const AlertSystem = ({ predictions }) => {
 
   if (!isVisible) {
     return (
-      <div className="alert-hidden-toggle">
+      <Box className="alert-hidden-toggle">
         <button onClick={() => setIsVisible(true)}>
           🔔 Show Alerts
         </button>
-      </div>
+      </Box>
     );
   }
 
   return (
     <>
-      <div className="alert-system">
+      <Box className="alert-system">
+
         <button
           className={`alert-button ${unreadCount > 0 ? 'has-unread' : ''} ${isShaking ? 'shake' : ''}`}
           onClick={() => setShowAlerts(!showAlerts)}
@@ -217,10 +219,11 @@ export const AlertSystem = ({ predictions }) => {
         </button>
 
         {showAlerts && (
-          <div className={`alert-panel ${isShaking ? 'shake' : ''}`}>
-            <div className="alert-header">
+          <Box className={`alert-panel ${isShaking ? 'shake' : ''}`}>
+            <Box className="alert-header">
               <h3><FiBell /> Fraud Alerts</h3>
-              <div className="alert-actions">
+              <Box className="alert-actions">
+
                 <button
                   className="btn btn-sm btn-secondary"
                   onClick={() => setRulesPanelOpen(!rulesPanelOpen)}
@@ -264,51 +267,51 @@ export const AlertSystem = ({ predictions }) => {
                 >
                   <FiX />
                 </button>
-              </div>
-            </div>
+              </Box>
+            </Box>
 
-            <div className="alert-list">
+            <Box className="alert-list">
               {alerts.length === 0 ? (
-                <div className="no-alerts">
+                <Box className="no-alerts">
                   <FiCheckCircle size={48} />
                   <p>No fraud alerts at this time</p>
                   <small>System monitoring transactions for suspicious activity</small>
-                </div>
+                </Box>
               ) : (
                 alerts.map(alert => (
-                  <div
+                  <Box
                     key={alert.id}
                     className={`alert-item ${alert.type} ${alert.read ? 'read' : 'unread'}`}
                     onClick={() => markAsRead(alert.id)}
                   >
-                    <div className="alert-icon">
+                    <Box className="alert-icon">
                       {alert.type === 'critical' ? (
                         <FiAlertTriangle className="critical-icon" />
                       ) : (
                         <FiInfo className="warning-icon" />
                       )}
-                    </div>
-                    <div className="alert-content">
+                    </Box>
+                    <Box className="alert-content">
                       <div className="alert-title">{alert.title}</div>
                       <div className="alert-message">{alert.message}</div>
                       <div className="alert-time">{alert.timestamp}</div>
-                    </div>
+                    </Box>
                     {!alert.read && (
-                      <div className="unread-indicator"></div>
+                      <Box className="unread-indicator"></Box>
                     )}
-                  </div>
+                  </Box>
                 ))
               )}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
 
         {Array.isArray(predictions?.watchlist_hits) && predictions.watchlist_hits.length > 0 && (
-          <div className="alert-watchlist">
+          <Box className="alert-watchlist">
             <h4><FiShield /> Watchlist Hits</h4>
-            <div className="watchlist-grid">
+            <Box className="watchlist-grid">
               {predictions.watchlist_hits.slice(0, 4).map((hit, index) => (
-                <div key={`${hit.customer_id}-${index}`} className="watchlist-card">
+                <Box key={`${hit.customer_id}-${index}`} className="watchlist-card">
                   <div className="watchlist-label">Customer</div>
                   <strong>{hit.customer_id || 'N/A'}</strong>
                   <div className="watchlist-meta">
@@ -316,22 +319,22 @@ export const AlertSystem = ({ predictions }) => {
                     <span>Risk: {hit.risk_level}</span>
                   </div>
                   <div className="watchlist-amount">${parseFloat(hit.amount || 0).toFixed(2)}</div>
-                </div>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
-      </div>
+      </Box>
 
       {rulesPanelOpen && (
-        <div className="alert-rules-panel">
-          <div className="rules-header">
+        <Box className="alert-rules-panel">
+          <Box className="rules-header">
             <h3><FiSettings /> Alert Rules</h3>
             <button className="close-button" onClick={() => setRulesPanelOpen(false)}>
               <FiX />
             </button>
-          </div>
-          <div className="rules-section">
+          </Box>
+          <Box className="rules-section">
             <label>Critical Probability Threshold</label>
             <input
               type="number"
@@ -339,8 +342,8 @@ export const AlertSystem = ({ predictions }) => {
               value={ruleForm.thresholds.critical_probability}
               onChange={(e) => handleRuleInput('thresholds', 'critical_probability', e.target.value)}
             />
-          </div>
-          <div className="rules-section">
+          </Box>
+          <Box className="rules-section">
             <label>High Probability Threshold</label>
             <input
               type="number"
@@ -348,55 +351,55 @@ export const AlertSystem = ({ predictions }) => {
               value={ruleForm.thresholds.high_probability}
               onChange={(e) => handleRuleInput('thresholds', 'high_probability', e.target.value)}
             />
-          </div>
-          <div className="rules-section">
+          </Box>
+          <Box className="rules-section">
             <label>Amount Limit (USD)</label>
             <input
               type="number"
               value={ruleForm.thresholds.amount_limit}
               onChange={(e) => handleRuleInput('thresholds', 'amount_limit', e.target.value)}
             />
-          </div>
-          <div className="rules-section">
+          </Box>
+          <Box className="rules-section">
             <label>Watchlist Customers (comma separated)</label>
             <textarea
               rows={2}
               value={ruleForm.watchlist.customers}
               onChange={(e) => handleRuleInput('watchlist', 'customers', e.target.value)}
             />
-          </div>
-          <div className="rules-section">
+          </Box>
+          <Box className="rules-section">
             <label>Watchlist Merchants (comma separated)</label>
             <textarea
               rows={2}
               value={ruleForm.watchlist.merchants}
               onChange={(e) => handleRuleInput('watchlist', 'merchants', e.target.value)}
             />
-          </div>
-          <div className="rules-section">
+          </Box>
+          <Box className="rules-section">
             <label>Notes</label>
             <textarea
               rows={3}
               value={ruleForm.notes}
               onChange={(e) => setRuleForm(prev => ({ ...prev, notes: e.target.value }))}
             />
-          </div>
+          </Box>
           <button className="btn btn-primary" onClick={saveRules} disabled={rulesSaving}>
             {rulesSaving ? 'Saving...' : 'Save Rules'}
           </button>
           {ruleSaveStatus && (
-            <div className={`rule-status ${ruleSaveStatus.type}`}>
+            <Box className={`rule-status ${ruleSaveStatus.type}`}>
               {ruleSaveStatus.message}
-            </div>
+            </Box>
           )}
           {rules && (
-            <div className="rules-summary">
+            <Box className="rules-summary">
               <p><strong>Current Critical Threshold:</strong> {rules.thresholds?.critical_probability ?? '--'}</p>
               <p><strong>High Threshold:</strong> {rules.thresholds?.high_probability ?? '--'}</p>
               <p><strong>Amount Limit:</strong> ${rules.thresholds?.amount_limit?.toLocaleString?.() || rules.thresholds?.amount_limit || 0}</p>
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
       )}
     </>
   );

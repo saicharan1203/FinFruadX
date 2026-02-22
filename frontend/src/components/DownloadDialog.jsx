@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@mui/material';
 import { FiDownload, FiFileText, FiX, FiCheck, FiLoader } from 'react-icons/fi';
 import './DownloadDialog.css';
 
@@ -66,24 +67,24 @@ const DownloadDialog = ({
     if (!isOpen) return null;
 
     return (
-        <div className="download-dialog-overlay" onClick={handleClose}>
-            <div className="download-dialog" onClick={(e) => e.stopPropagation()}>
+        <Box className="download-dialog-overlay" onClick={handleClose}>
+            <Box className="download-dialog" onClick={(e) => e.stopPropagation()}>
                 {/* Header */}
-                <div className="download-dialog-header">
-                    <div className="download-dialog-icon">
+                <Box className="download-dialog-header">
+                    <Box className="download-dialog-icon">
                         <FiDownload size={24} />
-                    </div>
-                    <div className="download-dialog-title-section">
+                    </Box>
+                    <Box className="download-dialog-title-section">
                         <h2>{title}</h2>
                         <p>{description}</p>
-                    </div>
+                    </Box>
                     <button className="download-dialog-close" onClick={handleClose}>
                         <FiX size={20} />
                     </button>
-                </div>
+                </Box>
 
                 {/* Format Options */}
-                <div className="download-format-options">
+                <Box className="download-format-options">
                     {formats.map((format) => (
                         <button
                             key={format.id}
@@ -104,10 +105,10 @@ const DownloadDialog = ({
                             )}
                         </button>
                     ))}
-                </div>
+                </Box>
 
                 {/* Action Buttons */}
-                <div className="download-dialog-actions">
+                <Box className="download-dialog-actions">
                     <button className="download-cancel-btn" onClick={handleClose}>
                         Cancel
                     </button>
@@ -133,9 +134,9 @@ const DownloadDialog = ({
                             </>
                         )}
                     </button>
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Box>
+        </Box>
     );
 };
 

@@ -1,11 +1,12 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import { FraudPatterns } from '../components/FraudPatterns';
 
 export const FraudPatternsPage = ({ predictions }) => {
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <div className="page-header-with-logo">
+    <Box className="page-container">
+      <Box className="page-header">
+        <Box className="page-header-with-logo">
           <svg className="page-logo" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="patternsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -20,14 +21,14 @@ export const FraudPatternsPage = ({ predictions }) => {
             <circle cx="40" cy="35" r="4" fill="url(#patternsGradient)" />
             <circle cx="55" cy="45" r="4" fill="url(#patternsGradient)" />
           </svg>
-          <div>
+          <Box>
             <h1>📈 Fraud Patterns</h1>
             <p>Visualize temporal, category, and risk-level patterns in detected fraud</p>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       <FraudPatterns predictions={predictions} />
-    </div>
+    </Box>
   );
 };

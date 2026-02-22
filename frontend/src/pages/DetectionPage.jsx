@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Box } from '@mui/material';
 import { FraudNetworkGraph } from '../components/FraudNetworkGraph';
 import { FraudStoryline } from '../components/FraudStoryline';
 import { AnomalyDetector } from '../components/AnomalyDetector';
@@ -50,21 +51,21 @@ export const DetectionPage = ({ predictions }) => {
 
   if (!predictions) {
     return (
-      <div className="page-container">
-        <div className="empty-state-page">
-          <div className="empty-icon">🔍</div>
+      <Box className="page-container">
+        <Box className="empty-state-page">
+          <Box className="empty-icon">🔍</Box>
           <h2>No Detection Data Available</h2>
           <p>Please upload data and run fraud detection from the Dashboard first.</p>
           <a href="/" className="btn-primary">Go to Dashboard</a>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
   return (
-    <div className="page-container detection-page">
-      <div className="page-header">
-        <div className="page-header-with-logo">
+    <Box className="page-container detection-page">
+      <Box className="page-header">
+        <Box className="page-header-with-logo">
           <svg className="page-logo" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="detectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -79,58 +80,58 @@ export const DetectionPage = ({ predictions }) => {
             <path d="M 40 15 L 40 25" stroke="url(#detectionGradient)" strokeWidth="3" strokeLinecap="round" />
             <path d="M 65 40 L 55 40" stroke="url(#detectionGradient)" strokeWidth="3" strokeLinecap="round" />
           </svg>
-          <div>
+          <Box>
             <h1>🔍 Fraud Detection</h1>
             <p>Analyze detected fraud patterns and suspicious activities</p>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       {/* Quick Stats Panel */}
-      <div className="detection-quick-stats">
-        <div className="detection-stat">
-          <div className="stat-icon-wrap blue">
+      <Box className="detection-quick-stats">
+        <Box className="detection-stat">
+          <Box className="stat-icon-wrap blue">
             <FiActivity />
-          </div>
-          <div className="stat-info">
+          </Box>
+          <Box className="stat-info">
             <span className="stat-value">{quickStats.total.toLocaleString()}</span>
             <span className="stat-label">Total Transactions</span>
-          </div>
-        </div>
-        <div className="detection-stat">
-          <div className="stat-icon-wrap orange">
+          </Box>
+        </Box>
+        <Box className="detection-stat">
+          <Box className="stat-icon-wrap orange">
             <FiAlertTriangle />
-          </div>
-          <div className="stat-info">
+          </Box>
+          <Box className="stat-info">
             <span className="stat-value">{quickStats.fraud}</span>
             <span className="stat-label">Fraud Detected</span>
-          </div>
-        </div>
-        <div className="detection-stat">
-          <div className="stat-icon-wrap red">
+          </Box>
+        </Box>
+        <Box className="detection-stat">
+          <Box className="stat-icon-wrap red">
             <FiShield />
-          </div>
-          <div className="stat-info">
+          </Box>
+          <Box className="stat-info">
             <span className="stat-value">{quickStats.highRisk}</span>
             <span className="stat-label">High Risk Cases</span>
-          </div>
-        </div>
-        <div className="detection-stat">
-          <div className="stat-icon-wrap purple">
+          </Box>
+        </Box>
+        <Box className="detection-stat">
+          <Box className="stat-icon-wrap purple">
             <FiTrendingUp />
-          </div>
-          <div className="stat-info">
+          </Box>
+          <Box className="stat-info">
             <span className="stat-value">{quickStats.avgProb.toFixed(1)}%</span>
             <span className="stat-label">Avg. Risk Score</span>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
       {/* Risk Meter and Radar Row */}
-      <div className="detection-visual-row">
+      <Box className="detection-visual-row">
         <FraudRiskMeter predictions={predictions} />
         <FraudRadar predictions={predictions?.results || predictions?.predictions || []} />
-      </div>
+      </Box>
 
       {/* Risk Breakdown Charts */}
       <RiskBreakdownChart predictions={predictions} />
@@ -161,6 +162,6 @@ export const DetectionPage = ({ predictions }) => {
 
       {/* Results Table */}
       <ResultsTable predictions={displayPredictions} />
-    </div>
+    </Box>
   );
 };

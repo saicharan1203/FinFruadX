@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@mui/material';
 import { FiActivity, FiSliders, FiTrendingUp, FiShield, FiSmartphone, FiGlobe, FiCpu, FiWifi } from 'react-icons/fi';
 
 export const RiskScoreCalculator = ({ predictions }) => {
@@ -321,7 +322,7 @@ export const RiskScoreCalculator = ({ predictions }) => {
   };
 
   return (
-    <div className="risk-calculator-container">
+    <Box className="risk-calculator-container">
       <div className="section-header">
         <FiActivity size={28} style={{ color: 'var(--primary)' }} />
         <h2>🧮 AI Risk Score Calculator</h2>
@@ -697,6 +698,6 @@ export const RiskScoreCalculator = ({ predictions }) => {
           </div>
         )}
       </div>
-    </div>
+    </Box>
   );
 };

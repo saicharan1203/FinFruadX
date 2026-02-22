@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { ThemeProvider } from './contexts/ThemeContext';
+import { ThemeProvider as AppThemeProvider, useTheme as useAppTheme } from './contexts/ThemeContext';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { VideoScrollTransition } from './components/VideoScrollTransition';
 import { DashboardPage } from './pages/DashboardPage';
@@ -19,6 +19,8 @@ import { DataExplorerPage } from './pages/DataExplorerPage';
 import { LoginPage } from './pages/LoginPage';
 import { AlertSystem } from './components/AlertSystem';
 import { AIAssistant } from './components/AIAssistant';
+import { Box, CssBaseline } from '@mui/material';
+import { createTheme, StyledEngineProvider, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import './styles/dashboard.css';
 import './styles/smooth-scroll.css';
 
@@ -51,6 +53,36 @@ const ScrollToTop = () => {
   }, [pathname]);
 
   return null;
+};
+
+const MuiThemeBridge = ({ children }) => {
+  const { isDarkMode } = useAppTheme();
+  const theme = useMemo(() => (
+    createTheme({
+      palette: {
+        mode: isDarkMode ? 'dark' : 'light',
+        primary: { main: '#6a11cb' },
+        secondary: { main: '#2575fc' },
+        background: {
+          default: isDarkMode ? '#0f1419' : '#f5f7fb',
+          paper: isDarkMode ? '#151a25' : '#ffffff'
+        }
+      },
+      shape: { borderRadius: 14 },
+      typography: {
+        fontFamily: '"Segoe UI", "Inter", sans-serif'
+      }
+    })
+  ), [isDarkMode]);
+
+  return (
+    <StyledEngineProvider injectFirst>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
+    </StyledEngineProvider>
+  );
 };
 
 // 120fps Scroll Performance Hook - pauses animations during scroll
@@ -220,59 +252,61 @@ function AppContent() {
   }
 
   return (
-    <div className="app-layout">
+    <Box className="app-layout">
       {/* VideoScrollTransition disabled for performance - was causing 120 particles to animate every frame */}
       {/* <VideoScrollTransition /> */}
       <Navigation isCollapsed={isNavCollapsed} setIsCollapsed={setIsNavCollapsed} />
-      <main className={`main-content ${isNavCollapsed ? 'expanded' : ''}`}>
+      <Box component="main" className={`main-content ${isNavCollapsed ? 'expanded' : ''}`}>
         <AlertSystem predictions={predictions} />
         <Routes>
           <Route
             path="/"
             element={
               <ProtectedRoute>
-                <div className="page-transition">
+                <Box className="page-transition">
                   <DashboardPage
                     fileInfo={fileInfo}
                     predictions={predictions}
                     setFileInfo={setFileInfo}
                     setPredictions={setPredictions}
                   />
-                </div>
+                </Box>
               </ProtectedRoute>
             }
           />
-          <Route path="/detection" element={<ProtectedRoute><div className="page-transition"><DetectionPage predictions={predictions} /></div></ProtectedRoute>} />
-          <Route path="/analytics" element={<ProtectedRoute><div className="page-transition"><AnalyticsPage predictions={predictions} /></div></ProtectedRoute>} />
-          <Route path="/simulator" element={<ProtectedRoute><div className="page-transition"><SimulatorPage /></div></ProtectedRoute>} />
-          <Route path="/monitoring" element={<ProtectedRoute><div className="page-transition"><MonitoringPage predictions={predictions} /></div></ProtectedRoute>} />
-          <Route path="/reports" element={<ProtectedRoute><div className="page-transition"><ReportsPage predictions={predictions} /></div></ProtectedRoute>} />
-          <Route path="/activity" element={<ProtectedRoute><div className="page-transition"><ActivityLogPage /></div></ProtectedRoute>} />
-          <Route path="/settings" element={<ProtectedRoute><div className="page-transition"><SettingsPage /></div></ProtectedRoute>} />
-          <Route path="/model-performance" element={<ProtectedRoute><div className="page-transition"><ModelPerformancePage predictions={predictions} /></div></ProtectedRoute>} />
-          <Route path="/fraud-patterns" element={<ProtectedRoute><div className="page-transition"><FraudPatternsPage predictions={predictions} /></div></ProtectedRoute>} />
-          <Route path="/data-explorer" element={<ProtectedRoute><div className="page-transition"><DataExplorerPage predictions={predictions} /></div></ProtectedRoute>} />
+          <Route path="/detection" element={<ProtectedRoute><Box className="page-transition"><DetectionPage predictions={predictions} /></Box></ProtectedRoute>} />
+          <Route path="/analytics" element={<ProtectedRoute><Box className="page-transition"><AnalyticsPage predictions={predictions} /></Box></ProtectedRoute>} />
+          <Route path="/simulator" element={<ProtectedRoute><Box className="page-transition"><SimulatorPage /></Box></ProtectedRoute>} />
+          <Route path="/monitoring" element={<ProtectedRoute><Box className="page-transition"><MonitoringPage predictions={predictions} /></Box></ProtectedRoute>} />
+          <Route path="/reports" element={<ProtectedRoute><Box className="page-transition"><ReportsPage predictions={predictions} /></Box></ProtectedRoute>} />
+          <Route path="/activity" element={<ProtectedRoute><Box className="page-transition"><ActivityLogPage /></Box></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><Box className="page-transition"><SettingsPage /></Box></ProtectedRoute>} />
+          <Route path="/model-performance" element={<ProtectedRoute><Box className="page-transition"><ModelPerformancePage predictions={predictions} /></Box></ProtectedRoute>} />
+          <Route path="/fraud-patterns" element={<ProtectedRoute><Box className="page-transition"><FraudPatternsPage predictions={predictions} /></Box></ProtectedRoute>} />
+          <Route path="/data-explorer" element={<ProtectedRoute><Box className="page-transition"><DataExplorerPage predictions={predictions} /></Box></ProtectedRoute>} />
           <Route path="/login" element={<Navigate to="/" />} />
         </Routes>
-      </main>
+      </Box>
       {/* AI Assistant rendered outside main-content to avoid transform breaking position:fixed */}
       <AIAssistant predictions={predictions} fileInfo={fileInfo} />
-    </div>
+    </Box>
   );
 }
 
 function App() {
   return (
-    <ThemeProvider>
-      <Router>
-        <ScrollToTop />
-        <AuthProvider>
-          <NotificationProvider>
-            <AppContent />
-          </NotificationProvider>
-        </AuthProvider>
-      </Router>
-    </ThemeProvider>
+    <AppThemeProvider>
+      <MuiThemeBridge>
+        <Router>
+          <ScrollToTop />
+          <AuthProvider>
+            <NotificationProvider>
+              <AppContent />
+            </NotificationProvider>
+          </AuthProvider>
+        </Router>
+      </MuiThemeBridge>
+    </AppThemeProvider>
   );
 }
 

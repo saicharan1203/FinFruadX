@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@mui/material';
 import axios from 'axios';
 import API_URL from '../apiConfig';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -196,7 +197,7 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
   };
 
   return (
-    <div className="dashboard">
+    <Box className="dashboard">
       <div className="dashboard-header">
         <h1><span className="highlight-title">🎯 FinFraudX Dashboard</span></h1>
         <p><span className="highlight-label">AI-Powered Fraud Detection System</span></p>
@@ -384,7 +385,7 @@ export const Dashboard = ({ fileInfo, onPredictionsComplete }) => {
         title="Download Report"
         description="Select your preferred format to export the data."
       />
-    </div>
+    </Box>
   );
 };
 
