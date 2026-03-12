@@ -224,12 +224,7 @@ export const AlertSystem = ({ predictions }) => {
               <h3><FiBell /> Fraud Alerts</h3>
               <Box className="alert-actions">
 
-                <button
-                  className="btn btn-sm btn-secondary"
-                  onClick={() => setRulesPanelOpen(!rulesPanelOpen)}
-                >
-                  <FiSettings /> Rules
-                </button>
+
                 {notificationPermission !== 'granted' && (
                   <button
                     className="btn btn-sm btn-secondary"

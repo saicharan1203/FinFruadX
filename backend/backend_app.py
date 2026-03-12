@@ -1021,10 +1021,42 @@ def google_auth():
         if not data:
             return jsonify({'success': False, 'error': 'No data provided'}), 400
         
+        # --- New flow: useGoogleLogin sends access_token + user_info ---
+        access_token = data.get('access_token')
+        user_info_payload = data.get('user_info')
+
+        if access_token and user_info_payload:
+            google_id = user_info_payload.get('sub')
+            email = user_info_payload.get('email')
+            name = user_info_payload.get('name', '')
+            picture = user_info_payload.get('picture', '')
+
+            if not email:
+                return jsonify({'success': False, 'error': 'Email not provided by Google'}), 400
+
+            user, error = user_manager.find_or_create_google_user(
+                google_id=google_id,
+                email=email,
+                name=name,
+                picture=picture
+            )
+
+            if error:
+                return jsonify({'success': False, 'error': error}), 400
+
+            jwt_token = create_access_token(identity=user['id'])
+            return jsonify({
+                'success': True,
+                'message': 'Google authentication successful',
+                'user': user,
+                'access_token': jwt_token
+            })
+
+        # --- Legacy flow: GoogleLogin component sends credential (ID token) ---
         credential = data.get('credential')
         
         if not credential:
-            return jsonify({'success': False, 'error': 'Google credential is required'}), 400
+            return jsonify({'success': False, 'error': 'Google credential or access_token is required'}), 400
         
         # Verify the Google ID token
         try:
@@ -1062,13 +1094,13 @@ def google_auth():
                 return jsonify({'success': False, 'error': error}), 400
             
             # Create access token
-            access_token = create_access_token(identity=user['id'])
+            jwt_token = create_access_token(identity=user['id'])
             
             return jsonify({
                 'success': True,
                 'message': 'Google authentication successful',
                 'user': user,
-                'access_token': access_token
+                'access_token': jwt_token
             })
             
         except requests.exceptions.RequestException as e:

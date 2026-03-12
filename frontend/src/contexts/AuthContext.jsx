@@ -23,7 +23,14 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = (userData) => {
+    const login = (userData, token) => {
+        // Persist to localStorage so auth survives page refresh
+        if (token) {
+            localStorage.setItem('token', token);
+        }
+        if (userData) {
+            localStorage.setItem('user', JSON.stringify(userData));
+        }
         setUser(userData);
     };
 
