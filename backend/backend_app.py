@@ -52,6 +52,15 @@ fraud_model = FraudDetectionModel()
 processor = DataProcessor()
 user_manager = UserManager()
 
+# Auto-load models from disk if they exist (so predictions work immediately after restart)
+_model_files = ['rf_model.pkl', 'xgb_model.pkl', 'if_model.pkl', 'scaler.pkl', 'encoders.pkl', 'features.pkl']
+if all(os.path.exists(os.path.join('models', f)) for f in _model_files):
+    try:
+        fraud_model.load('models')
+        print('Pre-trained models loaded successfully from models/')
+    except Exception as _load_err:
+        print(f'Could not auto-load models: {_load_err}')
+
 BASE_CASE_FIELDS = [
     'id', 'transaction_id', 'customer_id', 'merchant_id',
     'amount', 'risk_level', 'status', 'notes', 'tags',

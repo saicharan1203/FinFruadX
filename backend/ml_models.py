@@ -185,7 +185,7 @@ class FraudDetectionModel:
             random_state=42,
             eval_metric='logloss',
             base_score=base_score,
-            verbose=0
+            verbosity=0
         )
         self.xgb_model.fit(X_train, y_train)
         xgb_score = self.xgb_model.score(X_test, y_test) if len(set(y)) > 1 else 0

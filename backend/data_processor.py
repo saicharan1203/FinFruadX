@@ -122,7 +122,7 @@ class DataProcessor:
             ]
             df_amount['amount_band'] = pd.cut(df_amount['amount'], bins=bins, labels=labels)
 
-            band_group = df_amount.groupby('amount_band')['is_fraud_predicted'].agg(['count', 'sum']).reset_index()
+            band_group = df_amount.groupby('amount_band', observed=False)['is_fraud_predicted'].agg(['count', 'sum']).reset_index()
             band_group['fraud_rate'] = band_group.apply(
                 lambda row: round((row['sum'] / row['count']) * 100, 2) if row['count'] > 0 else 0,
                 axis=1
